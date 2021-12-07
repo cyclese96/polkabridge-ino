@@ -15,7 +15,7 @@ router.get("/pool/:id", async (req, res, next) => {
 });
 
 // Public
-// GET All pools 
+// GET All pools
 router.get("/pool", async (req, res, next) => {
   const poolId = req.params.id;
   try {
@@ -38,7 +38,7 @@ router.post("/pool", async (req, res, next) => {
     start_date: new Date(),
     project: "AvatarPool Rare",
     team: "AvatarPool",
-  },
+  };
   try {
     const data = await PoolDao.createPool(poolData);
     return res.status(200).send(data);

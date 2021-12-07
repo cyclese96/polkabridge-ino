@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
     maxWidth: 340,
+    minWidth: 280,
     minHeight: 421,
     borderRadius: 30,
     backgroundColor: "rgba(41, 42, 66, 0.3)",
@@ -97,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PoolCard = () => {
+const PoolCard = ({ poolData }) => {
   const classes = useStyles();
 
   return (
@@ -105,10 +106,7 @@ const PoolCard = () => {
       <Card elevation={10} className={classes.card}>
         <div style={{ width: "100%" }}>
           <div className="text-center my-3">
-            <img
-              className={classes.logo}
-              src="https://launchpad.polkabridge.org/img/tokens/arcade.png"
-            />
+            <img className={classes.logo} src={poolData.image} />
           </div>
           <div
             style={{
@@ -118,7 +116,7 @@ const PoolCard = () => {
               textAlign: "center",
             }}
           >
-            AwardPool Rare
+            {poolData.title}
           </div>
 
           <div className="d-flex justify-content-center align-items-center ">
@@ -131,32 +129,33 @@ const PoolCard = () => {
                 marginRight: 5,
               }}
             ></div>
-            <div className={classes.earn}>5 NFT Packages</div>
+            <div className={classes.earn}>
+              {poolData.totalPackages} NFT {poolData.type}
+            </div>
           </div>
 
           <div className={classes.desktop}>
-            <div className={classes.description}>
-              Collection of 5 High quality AI generated VR Gaming NFT offered by
-              AwardVr Artists and developers.
-            </div>
+            <div className={classes.description}>{poolData.description}</div>
           </div>
           <div className="mt-2"></div>
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Start Date</div>
-            <div className={classes.detailValue}>21 Nov,2021</div>
+            <div className={classes.detailValue}>{poolData.startDate}</div>
           </div>
 
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Total NFTs on sell</div>
-            <div className={classes.detailValue}>400</div>
+            <div className={classes.detailValue}>{poolData.quantity}</div>
           </div>
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Price</div>
-            <div className={classes.detailValue}>13 MATIC</div>
+            <div className={classes.detailValue}>
+              {poolData.price} {poolData.currency}
+            </div>
           </div>
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Network</div>
-            <div className={classes.detailValue}>Polygon</div>
+            <div className={classes.detailValue}>{poolData.network}</div>
           </div>
           <div className="text-center mt-3">
             <Link to="/pool-details">

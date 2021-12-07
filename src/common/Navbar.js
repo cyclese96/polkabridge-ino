@@ -22,6 +22,7 @@ import CategoryIcon from "@material-ui/icons/Category";
 import { EqualizerOutlined } from "@material-ui/icons";
 
 import DotCircle from "./DotCircle";
+import ConnectButton from "./ConnectButton";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -342,6 +343,9 @@ const Navbar = () => {
             >
               Betting <DotCircle />
             </a>
+          </div>
+          <div>
+            <ConnectButton />
           </div>
           <div className={classes.grow} />
         </Toolbar>

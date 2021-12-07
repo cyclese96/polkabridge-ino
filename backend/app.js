@@ -7,16 +7,7 @@ var cors = require("cors");
 var mongoose = require("mongoose");
 var config = require("./configSys");
 
-var itemRouter = require("./routes/itemRouter");
-var userRouter = require("./routes/userRouter");
-var categoryRouter = require("./routes/categoryRouter");
-var characterRouter = require("./routes/characterRouter");
-var flashsaleRouter = require("./routes/flashsaleRouter");
-var bidRouter = require("./routes/bidRouter");
-var useritemRouter = require("./routes/useritemRouter");
-var usercharacterRouter = require("./routes/usercharacterRouter");
-var xpRouter = require("./routes/xpRouter");
-var logRouter = require("./routes/logRouter");
+var poolRouter = require("./routes/poolRouter");
 
 var app = express();
 // view engine setup
@@ -40,16 +31,7 @@ mongoose.connect(config.MONGODB_URL, {
   useCreateIndex: true,
 });
 
-app.use("/", itemRouter);
-app.use("/", userRouter);
-app.use("/", categoryRouter);
-app.use("/", characterRouter);
-app.use("/", flashsaleRouter);
-app.use("/", useritemRouter);
-app.use("/", usercharacterRouter);
-app.use("/", bidRouter);
-app.use("/", xpRouter);
-app.use("/", logRouter);
+app.use("/", poolRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

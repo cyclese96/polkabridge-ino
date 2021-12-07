@@ -4,6 +4,7 @@ import PoolCard from "../components/PoolCard";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { People, Person } from "@material-ui/icons";
+import pools from "../data/poolsData";
 
 const useStyles = makeStyles((theme) => ({
   tabText: {
@@ -143,16 +144,14 @@ const Home = () => {
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Active Pools</h4>
-            <div className="row mt-4">
-              <div className="col-12 col-md-4">
-                <PoolCard />
-              </div>
-              <div className="col-12 col-md-4">
-                <PoolCard />
-              </div>
-              <div className="col-12 col-md-4">
-                <PoolCard />
-              </div>
+            <div className="container row mt-4">
+              {pools.map((singlePool) => {
+                return (
+                  <div className="col-12 col-md-4">
+                    <PoolCard poolData={singlePool} />
+                  </div>
+                );
+              })}
             </div>
           </div>{" "}
         </div>
@@ -162,16 +161,14 @@ const Home = () => {
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Ended Pools</h4>
-            <div className="row mt-4">
-              <div className="col-12 col-md-4">
-                <PoolCard />
-              </div>
-              <div className="col-12 col-md-4">
-                <PoolCard />
-              </div>
-              <div className="col-12 col-md-4">
-                <PoolCard />
-              </div>
+            <div className="container row mt-4">
+              {pools.map((singlePool) => {
+                return (
+                  <div className="col-12 col-md-4">
+                    <PoolCard poolData={singlePool} />
+                  </div>
+                );
+              })}
             </div>
           </div>{" "}
         </div>
