@@ -1,8 +1,9 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
 import { Link } from "react-router-dom";
+import { getPackageDetails, getRemainINOToken } from "../actions/smartActions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -107,6 +108,17 @@ const useStyles = makeStyles((theme) => ({
 const SingleNftCard = () => {
   const classes = useStyles();
 
+  const [remainToken, setRemainToken] = useState(-1);
+  const [packageDetail, setPackageDetail] = useState({});
+
+  useEffect(async () => {
+    let result = await getPackageDetails(1);
+    let resultRemainToken = await getRemainINOToken(1);
+    setPackageDetail(result);
+    setRemainToken(resultRemainToken);
+    console.log(result);
+    console.log(resultRemainToken);
+  }, []);
   return (
     <div>
       <Card elevation={10} className={classes.card}>
@@ -150,15 +162,26 @@ const SingleNftCard = () => {
           <div className={classes.desktop}></div>
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Items remaining</div>
-            <div className={classes.detailValue}>21/100</div>
+            <div className={classes.detailValue}>
+              {remainToken}/
+              {packageDetail.TotalItemCount && packageDetail.TotalItemCount}
+            </div>
           </div>
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Price</div>
-            <div className={classes.detailValue}>0.3 MATIC</div>
+            <div className={classes.detailValue}>
+              {packageDetail.RatePerETH && packageDetail.RatePerETH} Tokens /
+              BNB
+            </div>
           </div>
+
           <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Start Date</div>
-            <div className={classes.detailValue}>21 Nov,2021</div>
+            <div className={classes.detailTitle}>Minimum Purchase</div>
+            <div className={classes.detailValue}>
+              {" "}
+              {packageDetail.MinimumTokenSoldout &&
+                packageDetail.MinimumTokenSoldout}
+            </div>
           </div>
           <div className="mt-3 px-2">
             <div className="d-flex justify-content-center">

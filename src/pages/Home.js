@@ -1,10 +1,11 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PoolCard from "../components/PoolCard";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { People, Person } from "@material-ui/icons";
 import pools from "../data/poolsData";
+import { getPoolDetails, getPoolList } from "../actions/smartActions";
 
 const useStyles = makeStyles((theme) => ({
   tabText: {
@@ -104,15 +105,24 @@ const Home = () => {
   };
   const classes = useStyles(props);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const [poolsDetail, setPoolsDetail] = useState({});
+
+  useEffect(async () => {
+    let poolResult = await getPoolList(1);
+    setPoolsDetail(poolResult);
+    console.log(poolResult);
+  }, []);
+
   return (
     <div
       className="container mt-3"
-      style={{ paddingTop: 60, paddingBottom: 60 }}
+      style={{ paddingTop: 60, paddingBottom: 60, minHeight: "100vh" }}
     >
       <div className={classes.background}>
         <div className={classes.headStyle}>
@@ -157,7 +167,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className={classes.background}>
+      {/* <div className={classes.background}>
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Ended Pools</h4>
@@ -173,6 +183,7 @@ const Home = () => {
           </div>{" "}
         </div>
       </div>
+    */}
     </div>
   );
 };

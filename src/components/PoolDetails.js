@@ -1,9 +1,9 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
-import PoolCard from "./PoolCard";
 import SingleNftCard from "./SingleNftCard";
-import SinglePackageCard from "./SinglePackageCard";
+import { getPoolDetails, getTotalParticipants } from "../actions/smartActions";
+import pools from "../data/poolsData";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -104,11 +104,25 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 15,
     color: "#af8b9c",
   },
+  logo: {
+    height: 150,
+    width: 150,
+  },
 }));
 
-const PoolDetails = () => {
+const PoolDetails = ({ id = 1 }) => {
   const classes = useStyles();
 
+  useEffect(async () => {}, []);
+
+  const [poolDetail, setPoolDetail] = useState({});
+
+  useEffect(async () => {
+    let result = await getPoolDetails(1);
+
+    console.log(result);
+    setPoolDetail(result);
+  }, []);
   return (
     <div
       className="container d-flex justify-content-center mt-5"
@@ -116,11 +130,8 @@ const PoolDetails = () => {
     >
       <Card elevation={10} className={classes.card}>
         <div style={{ width: "100%" }}>
-          <div className="text-center my-3">
-            <img
-              className={classes.logo}
-              src="https://launchpad.polkabridge.org/img/tokens/arcade.png"
-            />
+          <div className="text-center">
+            <img className={classes.logo} src={pools[1].image} />
           </div>
           <div
             style={{
@@ -130,7 +141,7 @@ const PoolDetails = () => {
               textAlign: "center",
             }}
           >
-            AwardPool Rare
+            {pools[1].title}
           </div>
           <div className="d-flex justify-content-center">
             <h4 className={classes.links}>Whitepaper</h4>
@@ -139,10 +150,7 @@ const PoolDetails = () => {
             <h4 className={classes.links}>Telegram</h4>
           </div>
           <div className={classes.box}>
-            <div className={classes.description}>
-              Collection of 5 High quality AI generated VR Gaming NFT offered by
-              AwardVr Artists and developers.
-            </div>
+            <div className={classes.description}>{pools[1].description}</div>
 
             <div>
               <h4
@@ -163,7 +171,8 @@ const PoolDetails = () => {
                     fontSize: 13,
                   }}
                 >
-                  You can participate in Shoefy NFT by paying the amount of NFTs
+                  You can participate in {pools[1].title} NFT by paying the
+                  amount of NFTs
                 </li>
                 <li
                   style={{

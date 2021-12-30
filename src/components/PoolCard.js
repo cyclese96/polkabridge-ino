@@ -158,7 +158,7 @@ const PoolCard = ({ poolData }) => {
             <div className={classes.detailValue}>{poolData.network}</div>
           </div>
           <div className="text-center mt-3">
-            <Link to="/pool-details">
+            <Link to={`/pool-details/${poolData.id}`}>
               <Button variant="contained" className={classes.joinButton}>
                 View
               </Button>
