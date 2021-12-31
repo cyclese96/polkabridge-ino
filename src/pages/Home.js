@@ -114,9 +114,8 @@ const Home = () => {
   const [poolsDetail, setPoolsDetail] = useState({});
 
   useEffect(async () => {
-    let poolResult = await getPoolList(1);
-    setPoolsDetail(poolResult);
-    console.log(poolResult);
+    // let poolResult = await getPoolList(1);
+    // setPoolsDetail(poolResult);
   }, []);
 
   return (
@@ -155,10 +154,10 @@ const Home = () => {
           <div>
             <h4 className={classes.subHeading}>Active Pools</h4>
             <div className="container row mt-4">
-              {pools.map((singlePool) => {
+              {pools.map((singlePool, index) => {
                 return (
                   <div className="col-12 col-md-4">
-                    <PoolCard poolData={singlePool} />
+                    <PoolCard poolData={singlePool} index={index} />
                   </div>
                 );
               })}

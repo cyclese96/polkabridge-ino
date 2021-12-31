@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
 import { Link } from "react-router-dom";
 import { getPackageDetails, getRemainINOToken } from "../actions/smartActions";
+import packages from "../data/packagesData";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -105,15 +105,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SingleNftCard = () => {
+const SingleNftCard = ({ packageId }) => {
   const classes = useStyles();
 
-  const [remainToken, setRemainToken] = useState(-1);
+  const [remainToken, setRemainToken] = useState(null);
   const [packageDetail, setPackageDetail] = useState({});
 
   useEffect(async () => {
     let result = await getPackageDetails(1);
-    let resultRemainToken = await getRemainINOToken(1);
+    let resultRemainToken = await getRemainINOToken(packageId);
     setPackageDetail(result);
     setRemainToken(resultRemainToken);
     console.log(result);
@@ -128,7 +128,7 @@ const SingleNftCard = () => {
               minHeight: 180,
               paddingLeft: 10,
               paddingRight: 10,
-              backgroundImage: `url('https://thumbor.forbes.com/thumbor/711x425/https://specials-images.forbesimg.com/imageserve/613df842ca2a4b60e210d8e4/Avatar-project-metaverse/960x0.jpg?fit=scale')`,
+              backgroundImage: `url(${packages[packageId].image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -143,7 +143,7 @@ const SingleNftCard = () => {
                 fontSize: 18,
               }}
             >
-              Swag Ape in Love NFT
+              {packages[packageId].title}
             </small>
           </div>
           <div className="d-flex justify-content-center align-items-center ">
@@ -163,7 +163,7 @@ const SingleNftCard = () => {
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Items remaining</div>
             <div className={classes.detailValue}>
-              {remainToken}/
+              {remainToken && remainToken}/
               {packageDetail.TotalItemCount && packageDetail.TotalItemCount}
             </div>
           </div>
@@ -190,7 +190,10 @@ const SingleNftCard = () => {
                 height="14px"
                 style={{ marginTop: 2, marginRight: 5 }}
               />
-              <small className={classes.lastPrice}>0.3 Matic + gas Fees</small>
+              <small className={classes.lastPrice}>
+                {packages[packageId].price} {packages[packageId].currency}/ NFT
+                + gas Fees
+              </small>
             </div>
             <div className="text-center mt-3">
               <Link to="/pool-details">

@@ -1,8 +1,8 @@
-import * as React from "react";
-
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
 import { Link } from "react-router-dom";
+import { getPoolDetails, getPoolList } from "../actions/smartActions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -98,9 +98,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PoolCard = ({ poolData }) => {
+const PoolCard = ({ poolData, index }) => {
   const classes = useStyles();
 
+  const [poolsDetail, setPoolsDetail] = useState({});
+
+  useEffect(async () => {
+    let poolResult = await getPoolDetails(index);
+    console.log("poolResult");
+    console.log(poolResult);
+    setPoolsDetail(poolResult);
+  }, []);
   return (
     <div>
       <Card elevation={10} className={classes.card}>
@@ -157,8 +165,16 @@ const PoolCard = ({ poolData }) => {
             <div className={classes.detailTitle}>Network</div>
             <div className={classes.detailValue}>{poolData.network}</div>
           </div>
+          <div className={classes.detailsWrapper}>
+            <div className={classes.detailTitle}>Type</div>
+            <div className={classes.detailValue}>
+              {poolsDetail.Type && poolsDetail.Type === 1
+                ? "Public"
+                : "Private"}
+            </div>
+          </div>
           <div className="text-center mt-3">
-            <Link to={`/pool-details/${poolData.id}`}>
+            <Link to={`/pool-details/${index}`}>
               <Button variant="contained" className={classes.joinButton}>
                 View
               </Button>

@@ -2,20 +2,18 @@ import inoContract from "../utils/inoConnection";
 
 //READ poolInfo
 //RETURNS Obj
-export const getPoolDetails = async (poolId = 1) => {
+export const getPoolDetails = async (poolId) => {
   return await inoContract.methods.getPoolInfo(poolId).call((err, response) => {
-    console.log(response);
     return response;
   });
 };
 
 //READ packageInfo
 //RETURNS Obj
-export const getPackageDetails = async (packageId = 1) => {
+export const getPackageDetails = async (packageId) => {
   return await inoContract.methods
     .getPackageInfo(packageId)
     .call((err, response) => {
-      console.log(response);
       return response;
     });
 };
@@ -26,7 +24,6 @@ export const getRemainINOToken = async (packageId = 1) => {
   return await inoContract.methods
     .getRemainINOToken(packageId)
     .call((err, response) => {
-      console.log(response);
       return response;
     });
 };
@@ -35,7 +32,6 @@ export const getRemainINOToken = async (packageId = 1) => {
 //RETURNS Obj
 export const getPoolList = async (packageId = 1) => {
   return await inoContract.methods.poollist(1, 1).call((err, response) => {
-    console.log(response);
     return response;
   });
 };
@@ -44,7 +40,6 @@ export const getPoolList = async (packageId = 1) => {
 //RETURNS Obj
 export const getURIStringOfPackage = async (packageId = 1) => {
   return await inoContract.methods.uri(1).call((err, response) => {
-    console.log(response);
     return response;
   });
 

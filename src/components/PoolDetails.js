@@ -5,6 +5,8 @@ import SingleNftCard from "./SingleNftCard";
 import { getPoolDetails, getTotalParticipants } from "../actions/smartActions";
 import pools from "../data/poolsData";
 
+import { useParams } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
@@ -110,16 +112,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PoolDetails = ({ id = 1 }) => {
+const PoolDetails = () => {
   const classes = useStyles();
 
-  useEffect(async () => {}, []);
+  const { id } = useParams();
 
   const [poolDetail, setPoolDetail] = useState({});
 
   useEffect(async () => {
-    let result = await getPoolDetails(1);
-
+    let result = await getPoolDetails(id);
     console.log(result);
     setPoolDetail(result);
   }, []);
@@ -131,7 +132,7 @@ const PoolDetails = ({ id = 1 }) => {
       <Card elevation={10} className={classes.card}>
         <div style={{ width: "100%" }}>
           <div className="text-center">
-            <img className={classes.logo} src={pools[1].image} />
+            <img className={classes.logo} src={pools[id].image} />
           </div>
           <div
             style={{
@@ -141,16 +142,24 @@ const PoolDetails = ({ id = 1 }) => {
               textAlign: "center",
             }}
           >
-            {pools[1].title}
+            {pools[id].title}
           </div>
           <div className="d-flex justify-content-center">
-            <h4 className={classes.links}>Whitepaper</h4>
-            <h4 className={classes.links}>Website</h4>
-            <h4 className={classes.links}>Twitter</h4>
-            <h4 className={classes.links}>Telegram</h4>
+            <a href={pools[id].whitepaper} target="_blank">
+              <h4 className={classes.links}>Whitepaper</h4>
+            </a>
+            <a href={pools[id].website} target="_blank">
+              <h4 className={classes.links}>Website</h4>
+            </a>
+            <a href={pools[id].twitter} target="_blank">
+              <h4 className={classes.links}>Twitter</h4>
+            </a>
+            <a href={pools[id].telegram} target="_blank">
+              <h4 className={classes.links}>Telegram</h4>
+            </a>
           </div>
           <div className={classes.box}>
-            <div className={classes.description}>{pools[1].description}</div>
+            <div className={classes.description}>{pools[id].description}</div>
 
             <div>
               <h4
@@ -169,6 +178,7 @@ const PoolDetails = ({ id = 1 }) => {
                     color: "#f9f9f9",
                     marginLeft: 10,
                     fontSize: 13,
+                    lineHeight: 2.5,
                   }}
                 >
                   You can participate in {pools[1].title} NFT by paying the
@@ -179,6 +189,7 @@ const PoolDetails = ({ id = 1 }) => {
                     color: "#f9f9f9",
                     marginLeft: 10,
                     fontSize: 13,
+                    lineHeight: 2.5,
                   }}
                 >
                   Once NFTs listed on offcial platform, you can sell/transfer.
@@ -188,6 +199,7 @@ const PoolDetails = ({ id = 1 }) => {
                     color: "#f9f9f9",
                     marginLeft: 10,
                     fontSize: 13,
+                    lineHeight: 2.5,
                   }}
                 >
                   For more information visit our telegram group.
@@ -208,24 +220,13 @@ const PoolDetails = ({ id = 1 }) => {
               NFT Packages on Sale
             </h4>
             <div className="row  mt-4">
-              <div className="col-12 col-md-4 mb-5">
-                <SingleNftCard />
-              </div>
-              <div className="col-12 col-md-4 mb-5">
-                <SingleNftCard />
-              </div>
-              <div className="col-12 col-md-4 mb-5">
-                <SingleNftCard />
-              </div>
-              <div className="col-12 col-md-4 mb-5">
-                <SingleNftCard />
-              </div>
-              <div className="col-12 col-md-4 mb-5">
-                <SingleNftCard />
-              </div>
-              <div className="col-12 col-md-4 mb-4">
-                <SingleNftCard />
-              </div>
+              {pools[id].packageIds.map((packageId) => {
+                return (
+                  <div className="col-12 col-md-4 mb-5">
+                    <SingleNftCard packageId={packageId} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
