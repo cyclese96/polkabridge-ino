@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
 import { Link } from "react-router-dom";
-import { getPoolDetails, getPoolList } from "../actions/smartActions";
+import {
+  getIsWhitelisted,
+  getPoolDetails,
+  getPoolList,
+} from "../actions/smartActions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -101,86 +105,106 @@ const useStyles = makeStyles((theme) => ({
 const PoolCard = ({ poolData, index }) => {
   const classes = useStyles();
 
-  const [poolsDetail, setPoolsDetail] = useState({});
+  const [poolDetail, setPoolDetail] = useState(null);
+  const [isWhitelist, setIsWhitelist] = useState(false);
 
   useEffect(async () => {
-    let poolResult = await getPoolDetails(index);
+    let poolResult = await getPoolDetails(poolData.id);
+    let whitelistResult = await getIsWhitelisted(poolData.id);
     console.log("poolResult");
     console.log(poolResult);
-    setPoolsDetail(poolResult);
+    setPoolDetail(poolResult);
+    setIsWhitelist(whitelistResult);
   }, []);
   return (
     <div>
       <Card elevation={10} className={classes.card}>
-        <div style={{ width: "100%" }}>
-          <div className="text-center my-3">
-            <img className={classes.logo} src={poolData.image} />
-          </div>
-          <div
-            style={{
-              color: "#f9f9f9",
-              fontWeight: 600,
-              fontSize: 20,
-              textAlign: "center",
-            }}
-          >
-            {poolData.title}
-          </div>
-
-          <div className="d-flex justify-content-center align-items-center ">
+        {poolDetail && (
+          <div style={{ width: "100%" }}>
+            <div className="text-center my-3">
+              <img className={classes.logo} src={poolData.image} />
+            </div>
             <div
               style={{
-                backgroundColor: "#C80C81",
-                borderRadius: "50%",
-                height: "5px",
-                width: "5px",
-                marginRight: 5,
+                color: "#f9f9f9",
+                fontWeight: 600,
+                fontSize: 20,
+                textAlign: "center",
               }}
-            ></div>
-            <div className={classes.earn}>
-              {poolData.totalPackages} NFT {poolData.type}
+            >
+              {poolData.title}
             </div>
-          </div>
 
-          <div className={classes.desktop}>
-            <div className={classes.description}>{poolData.description}</div>
-          </div>
-          <div className="mt-2"></div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Start Date</div>
-            <div className={classes.detailValue}>{poolData.startDate}</div>
-          </div>
+            <div className="d-flex justify-content-center align-items-center ">
+              <div
+                style={{
+                  backgroundColor: "#C80C81",
+                  borderRadius: "50%",
+                  height: "5px",
+                  width: "5px",
+                  marginRight: 5,
+                }}
+              ></div>
+              <div className={classes.earn}>
+                {poolData.totalPackages} NFT {poolData.type}
+              </div>
+            </div>
 
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Total NFTs on sell</div>
-            <div className={classes.detailValue}>{poolData.quantity}</div>
-          </div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Price</div>
-            <div className={classes.detailValue}>
-              {poolData.price} {poolData.currency}
+            <div className={classes.desktop}>
+              <div className={classes.description}>{poolData.description}</div>
+            </div>
+            <div className="mt-2"></div>
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Start Date</div>
+              <div className={classes.detailValue}>{poolData.startDate}</div>
+            </div>
+
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Total NFTs on sell</div>
+              <div className={classes.detailValue}>{poolData.quantity}</div>
+            </div>
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Price</div>
+              <div className={classes.detailValue}>
+                {poolData.price} {poolData.currency}
+              </div>
+            </div>
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Network</div>
+              <div className={classes.detailValue}>{poolData.network}</div>
+            </div>
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Type</div>
+              <div className={classes.detailValue}>
+                {poolDetail.Type === 1 ? "Public" : "Private"}
+              </div>
+            </div>
+            <div className="text-center mt-3">
+              {poolDetail.Type !== "1" && isWhitelist && (
+                <Link to={`/pool-details/${index}`}>
+                  <Button variant="contained" className={classes.joinButton}>
+                    View
+                  </Button>
+                </Link>
+              )}
+              {poolDetail.Type !== "1" && !isWhitelist && (
+                <Link to={`/pool-details/${index}`}>
+                  <Button variant="contained" className={classes.joinButton}>
+                    Not Whitelisted
+                  </Button>
+                </Link>
+              )}
+              {poolDetail.Type === "1" && (
+                <Link to={`/pool-details/${index}`}>
+                  <Button variant="contained" className={classes.joinButton}>
+                    View
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Network</div>
-            <div className={classes.detailValue}>{poolData.network}</div>
-          </div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Type</div>
-            <div className={classes.detailValue}>
-              {poolsDetail.Type && poolsDetail.Type === 1
-                ? "Public"
-                : "Private"}
-            </div>
-          </div>
-          <div className="text-center mt-3">
-            <Link to={`/pool-details/${index}`}>
-              <Button variant="contained" className={classes.joinButton}>
-                View
-              </Button>
-            </Link>
-          </div>
-        </div>
+        )}
+        {!poolDetail && <div>Loading</div>}
       </Card>
     </div>
   );

@@ -1,4 +1,5 @@
 import inoContract from "../utils/inoConnection";
+import { getUserAddress } from "./web3Actions";
 
 //READ poolInfo
 //RETURNS Obj
@@ -34,6 +35,17 @@ export const getPoolList = async (packageId = 1) => {
   return await inoContract.methods.poollist(1, 1).call((err, response) => {
     return response;
   });
+};
+
+//READ getIsWhitelisted
+//RETURNS Obj
+export const getIsWhitelisted = async (packageId) => {
+  let userAddress = await getUserAddress();
+  return await inoContract.methods
+    .IsWhitelist(userAddress, packageId)
+    .call((err, response) => {
+      return response;
+    });
 };
 
 //READ getURIStringOfPackage
