@@ -30,5 +30,48 @@ export const theme = createMuiTheme({
       textDark: "#e5e5e5",
     },
   },
+  typography: {
+    fontFamily: "Karla, Roboto, sans-serif",
+    h1: {
+      fontFamily: "Shrikhand",
+      fontSize: "3.125rem",
+    },
+    h2: {
+      fontFamily: "Shrikhand",
+      fontSize: "2.1875rem",
+    },
+    h3: {
+      fontFamily: "Shrikhand",
+      fontSize: "1.75rem",
+    },
+    h4: {
+      fontFamily: "Karla",
+      fontSize: "1.75rem",
+      fontWeight: "bold",
+    },
+    h5: {
+      fontFamily: "Karla",
+      fontSize: "1.5rem",
+      fontWeight: "bold",
+    },
+    h6: {
+      fontFamily: "Karla",
+      fontSize: "1.375rem",
+      fontWeight: "normal",
+    },
+    subtitle1: {
+      fontFamily: "Karla",
+      fontSize: "1.25rem",
+      fontWeight: "bold",
+    },
+    body1: {
+      fontFamily: "Karla",
+      fontSize: "1.125rem",
+    },
+    body2: {
+      fontFamily: "Karla",
+      fontSize: "1rem",
+    },
+  },
 });
 export default theme;

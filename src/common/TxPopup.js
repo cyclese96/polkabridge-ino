@@ -12,7 +12,7 @@ import { Close } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    width: 600,
+    width: 640,
     height: 360,
     backgroundColor: "#000000",
     borderRadius: 10,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     color: "#f9f9f9",
     textAlign: "center",
-    fontSize: 26,
+    fontSize: 24,
     [theme.breakpoints.down("md")]: {
       fontSize: 20,
     },
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     fontSize: 16,
     fontWeight: 400,
+    marginTop: 10,
     [theme.breakpoints.down("md")]: {
       fontSize: 16,
     },
@@ -76,7 +77,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
       <div className="d-flex justify-content-end">
         <Close
           style={{
-            color: "#D1FF1A",
+            color: "#E0247D",
             marginRight: 20,
             marginTop: 5,
             fontWeight: 800,
@@ -94,7 +95,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
           <div className="col-md-7">
             <div>
               <Typography variant="h2" className={classes.heading}>
-                Toaster is waiting!
+                Waiting for confirmation
               </Typography>
               <Typography variant="h5" className={classes.para}>
                 ~ Confirm the transaction in your wallet ~
@@ -118,7 +119,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
           <div className="col-md-7">
             <div>
               <Typography variant="h2" className={classes.heading}>
-                Oops ! Burnt Bread !
+                Transaction Denied!
               </Typography>
               <Typography variant="h5" className={classes.para}>
                 ~ You denied the transaction ~
@@ -136,7 +137,9 @@ const TxPopup = ({ txCase, resetPopup }) => {
             <div>
               <object
                 type="image/svg+xml"
-                data={"images/toaster.svg"}
+                data={
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Icons8_flat_expired.svg/1024px-Icons8_flat_expired.svg.png"
+                }
                 className={classes.svgImage}
               />
             </div>
@@ -152,7 +155,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
           <div className="col-md-7">
             <div>
               <Typography variant="h2" className={classes.heading}>
-                Toaster is working!
+                Transaction Submitted!
               </Typography>
               <Typography variant="h5" className={classes.para}>
                 ~ Transaction submitted, waiting for confirmation ~
@@ -163,7 +166,9 @@ const TxPopup = ({ txCase, resetPopup }) => {
             <div>
               <object
                 type="image/svg+xml"
-                data={"images/toaster.svg"}
+                data={
+                  "https://icons.veryicon.com/png/o/miscellaneous/batch-editor/success-38.png"
+                }
                 className={classes.svgImage}
               />
             </div>
@@ -179,7 +184,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
           <div className="col-md-7">
             <div>
               <Typography variant="h2" className={classes.heading}>
-                Oops ! Burnt Bread !
+                Transaction Failed!
               </Typography>
               <Typography variant="h5" className={classes.para}>
                 ~ Transaction has been failed ~
@@ -213,7 +218,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
           <div className="col-md-7">
             <div>
               <Typography variant="h2" className={classes.heading}>
-                Ready to Party !
+                Transaction Success!
               </Typography>
               <Typography variant="h5" className={classes.para}>
                 YOUR TRANSACTION IS SUCCESSFUL
@@ -231,41 +236,9 @@ const TxPopup = ({ txCase, resetPopup }) => {
             <div>
               <object
                 type="image/svg+xml"
-                data={"images/success.svg"}
-                className={classes.svgImage}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-      {txCase === 8 && (
-        <div
-          className="row flex-row align-items-center justify-content-center"
-          align="center"
-          style={{ height: "90%" }}
-        >
-          <div className="col-md-7">
-            <div>
-              <Typography variant="h2" className={classes.heading}>
-                We’ll miss you !
-              </Typography>
-              <Typography variant="h5" className={classes.para}>
-                YOUR TOKENS HAVE BEEN UNSTAKED
-              </Typography>
-              <Button
-                variant="contained"
-                className={classes.reloadButton}
-                onClick={() => window.location.reload()}
-              >
-                Join party Again
-              </Button>
-            </div>
-          </div>
-          <div className="col-md-5">
-            <div>
-              <object
-                type="image/svg+xml"
-                data={"images/unstake.svg"}
+                data={
+                  "https://icons.veryicon.com/png/o/miscellaneous/batch-editor/success-38.png"
+                }
                 className={classes.svgImage}
               />
             </div>
