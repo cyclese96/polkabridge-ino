@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PoolCard = ({ poolData, index }) => {
+const PoolCard = ({ poolData, poolId }) => {
   const classes = useStyles();
 
   const [poolDetail, setPoolDetail] = useState(null);
@@ -181,21 +181,21 @@ const PoolCard = ({ poolData, index }) => {
             </div>
             <div className="text-center mt-3">
               {poolDetail.Type !== "1" && isWhitelist && (
-                <Link to={`/pool-details/${index}`}>
+                <Link to={`/pool-details/${poolId}`}>
                   <Button variant="contained" className={classes.joinButton}>
                     View
                   </Button>
                 </Link>
               )}
               {poolDetail.Type !== "1" && !isWhitelist && (
-                <Link to={`/pool-details/${index}`}>
+                <Link to={`/pool-details/${poolId}`}>
                   <Button variant="contained" className={classes.joinButton}>
                     Not Whitelisted
                   </Button>
                 </Link>
               )}
               {poolDetail.Type === "1" && (
-                <Link to={`/pool-details/${index}`}>
+                <Link to={`/pool-details/${poolId}`}>
                   <Button variant="contained" className={classes.joinButton}>
                     View
                   </Button>

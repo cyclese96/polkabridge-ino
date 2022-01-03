@@ -117,13 +117,14 @@ const PoolDetails = () => {
 
   const { id } = useParams();
 
-  const [poolDetail, setPoolDetail] = useState({});
+  const [poolDetail, setPoolDetail] = useState(null);
 
   useEffect(async () => {
     let result = await getPoolDetails(id);
     console.log(result);
     setPoolDetail(result);
   }, []);
+
   return (
     <div
       className="container d-flex justify-content-center mt-5"
@@ -220,13 +221,14 @@ const PoolDetails = () => {
               NFT Packages on Sale
             </h4>
             <div className="row  mt-4">
-              {pools[id].packageIds.map((packageId) => {
-                return (
-                  <div className="col-12 col-md-4 mb-5">
-                    <SingleNftCard packageId={packageId} />
-                  </div>
-                );
-              })}
+              {poolDetail !== null &&
+                poolDetail.PackageIds.map((packageId) => {
+                  return (
+                    <div className="col-12 col-md-4 mb-5">
+                      <SingleNftCard packageId={packageId} />
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>

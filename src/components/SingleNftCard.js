@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Button } from "@material-ui/core/";
+import { Card, Button, Dialog, Slide, Backdrop } from "@material-ui/core/";
 import { Link } from "react-router-dom";
 import { getPackageDetails, getRemainINOToken } from "../actions/smartActions";
 import packages from "../data/packagesData";
-
+import { getUserAddress } from "../actions/web3Actions";
+import inoContract from "./../utils/inoConnection";
+import TxPopup from "./../common/TxPopup";
+import PurchaseModal from "./PurchaseModal";
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
@@ -105,20 +109,62 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const SingleNftCard = ({ packageId }) => {
   const classes = useStyles();
 
   const [remainToken, setRemainToken] = useState(null);
   const [packageDetail, setPackageDetail] = useState({});
+  const [popup, setPopup] = useState(false);
+  const [purchaseCase, setPurchaseCase] = useState(0);
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(async () => {
-    let result = await getPackageDetails(1);
+    let result = await getPackageDetails(packageId);
     let resultRemainToken = await getRemainINOToken(packageId);
+
     setPackageDetail(result);
     setRemainToken(resultRemainToken);
-    console.log(result);
-    console.log(resultRemainToken);
   }, []);
+
+  const PurchasePopup = () => {
+    setPopup(true);
+    setPurchaseCase(1);
+  };
+
+  const purchasePackage = async () => {
+    setPopup(true);
+    setPurchaseCase(3);
+    let userAddress = await getUserAddress();
+
+    const response = await inoContract.methods
+      .purchaseINO(packageId, quantity)
+      .send(
+        { from: userAddress, gasPrice: 10000000000 },
+        async function (error, transactionHash) {
+          if (transactionHash) {
+            setPurchaseCase(5);
+          } else {
+            setPurchaseCase(4);
+          }
+        }
+      )
+      .on("receipt", async function (receipt) {
+        setPurchaseCase(7);
+      })
+      .on("error", async function (error) {
+        setPurchaseCase(6);
+      });
+  };
+
+  const resetPopup = () => {
+    setPopup(false);
+    setPurchaseCase(0);
+  };
+
   return (
     <div>
       <Card elevation={10} className={classes.card}>
@@ -196,13 +242,59 @@ const SingleNftCard = ({ packageId }) => {
               </small>
             </div>
             <div className="text-center mt-3">
-              <Link to="/pool-details">
-                <Button variant="contained" className={classes.joinButton}>
-                  Purchase
-                </Button>
-              </Link>
+              <Button
+                variant="contained"
+                className={classes.joinButton}
+                onClick={PurchasePopup}
+              >
+                Purchase
+              </Button>
             </div>
           </div>
+
+          <Dialog
+            className={classes.modal}
+            open={popup}
+            TransitionComponent={Transition}
+            keepMounted={false}
+            onClose={() => setPopup(false)}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+            PaperProps={{
+              style: {
+                borderRadius: 10,
+                backgroundColor: "black",
+                border: "4px solid #212121",
+              },
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "black",
+                borderRadius: 3,
+                overflowX: "hidden",
+              }}
+            >
+              {purchaseCase === 1 && (
+                <PurchaseModal
+                  purchasePackage={purchasePackage}
+                  resetPopup={resetPopup}
+                  setQuantity={setQuantity}
+                  maxPurchase={
+                    packageDetail.TotalItemCount - packageDetail.TotalSoldCount
+                  }
+                  minQuantity={packageDetail.MinimumTokenSoldout}
+                />
+              )}
+
+              {purchaseCase != 1 && (
+                <TxPopup txCase={purchaseCase} resetPopup={resetPopup} />
+              )}
+            </div>
+          </Dialog>
         </div>
       </Card>
     </div>

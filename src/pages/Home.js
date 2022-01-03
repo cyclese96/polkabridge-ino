@@ -157,7 +157,7 @@ const Home = () => {
               {pools.map((singlePool, index) => {
                 return (
                   <div className="col-12 col-md-4">
-                    <PoolCard poolData={singlePool} index={index} />
+                    <PoolCard poolData={singlePool} poolId={singlePool.id} />
                   </div>
                 );
               })}

@@ -6,7 +6,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://bsc-dataseed.binance.org/",
     chainId: 56, // Smart Chain - Mainnet chain id
-    contractAddress: "0x2fc26998c0EB0CC67DC9d41f7f1F4508dE214292",
+    contractAddress: "0x973bdAE2f772f5Bc8e568F8b84872629f3FA128F",
     abi: [
       {
         inputs: [
@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 97, // Testnet
-    contractAddress: "0xD2561ddd789Bdb5a51b5a7EfddFdDA4C8e6A5c2c",
+    contractAddress: "0x973bdAE2f772f5Bc8e568F8b84872629f3FA128F",
     abi: [
       {
         inputs: [
@@ -859,8 +859,6 @@ if (constants.net === 0) {
                 name: "TotalSoldCount",
                 type: "uint256",
               },
-              { internalType: "bool", name: "IsActived", type: "bool" },
-              { internalType: "bool", name: "IsStopped", type: "bool" },
               {
                 internalType: "uint256",
                 name: "MinimumTokenSoldout",
@@ -911,9 +909,9 @@ if (constants.net === 0) {
               { internalType: "bool", name: "IsActived", type: "bool" },
               { internalType: "bool", name: "IsStopped", type: "bool" },
               {
-                internalType: "uint256",
-                name: "TotalPackageCount",
-                type: "uint256",
+                internalType: "uint256[]",
+                name: "PackageIds",
+                type: "uint256[]",
               },
             ],
             internalType: "struct PolkaBridgeINO.INOPool",
@@ -934,8 +932,8 @@ if (constants.net === 0) {
         type: "function",
       },
       {
-        inputs: [{ internalType: "uint256", name: "poolId", type: "uint256" }],
-        name: "getWhitelistfo",
+        inputs: [{ internalType: "uint256", name: "pid", type: "uint256" }],
+        name: "getWhitelistinfo",
         outputs: [
           { internalType: "address", name: "", type: "address" },
           { internalType: "bool", name: "", type: "bool" },
@@ -970,6 +968,13 @@ if (constants.net === 0) {
         type: "function",
       },
       {
+        inputs: [],
+        name: "poolLength",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
         inputs: [
           { internalType: "uint256", name: "", type: "uint256" },
           { internalType: "uint256", name: "", type: "uint256" },
@@ -979,8 +984,6 @@ if (constants.net === 0) {
           { internalType: "uint256", name: "Id", type: "uint256" },
           { internalType: "uint256", name: "PoolId", type: "uint256" },
           { internalType: "uint256", name: "TotalSoldCount", type: "uint256" },
-          { internalType: "bool", name: "IsActived", type: "bool" },
-          { internalType: "bool", name: "IsStopped", type: "bool" },
           {
             internalType: "uint256",
             name: "MinimumTokenSoldout",
