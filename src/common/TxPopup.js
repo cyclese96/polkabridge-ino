@@ -103,9 +103,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div>
-              <Loader width={200} />
-              {/* <img src="images/toaster.svg" width="80%" /> */}
+            <div className="text-center">
+              <Loader height={200} />
             </div>
           </div>
         </div>
@@ -134,14 +133,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div>
-              <object
-                type="image/svg+xml"
-                data={
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Icons8_flat_expired.svg/1024px-Icons8_flat_expired.svg.png"
-                }
-                className={classes.svgImage}
-              />
+            <div className="text-center">
+              <img src="/loaders/denied.png" width="100%" />
             </div>
           </div>
         </div>
@@ -163,14 +156,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div>
-              <object
-                type="image/svg+xml"
-                data={
-                  "https://icons.veryicon.com/png/o/miscellaneous/batch-editor/success-38.png"
-                }
-                className={classes.svgImage}
-              />
+            <div className="text-center">
+              <img src="/loaders/process.png" width="100%" />
             </div>
           </div>
         </div>
@@ -199,12 +186,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div>
-              <object
-                type="image/svg+xml"
-                data={"images/toaster.svg"}
-                className={classes.svgImage}
-              />
+            <div className="text-center">
+              <img src="/loaders/failed.png" width="100%" />
             </div>
           </div>
         </div>
@@ -233,14 +216,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div>
-              <object
-                type="image/svg+xml"
-                data={
-                  "https://icons.veryicon.com/png/o/miscellaneous/batch-editor/success-38.png"
-                }
-                className={classes.svgImage}
-              />
+            <div className="text-center">
+              <img src="/loaders/success.png" width="100%" />
             </div>
           </div>
         </div>
