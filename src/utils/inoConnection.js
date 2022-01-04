@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 97, // Testnet
-    contractAddress: "0xa0aBFc3010E30B2a416Bfd39588183A1b8cA9Cec",
+    contractAddress: "0x9C91262642508F4D5D5866F63a160A27dE2498Cf",
     abi: [
       {
         inputs: [
@@ -790,8 +790,6 @@ if (constants.net === 0) {
             type: "uint256",
           },
           { internalType: "uint256", name: "_LockDuration", type: "uint256" },
-          { internalType: "uint256", name: "_ActivedDate", type: "uint256" },
-          { internalType: "uint256", name: "_StopDate", type: "uint256" },
         ],
         name: "addPool",
         outputs: [],
@@ -1076,6 +1074,40 @@ if (constants.net === 0) {
           { internalType: "address", name: "newOwner", type: "address" },
         ],
         name: "transferOwnership",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "uint256", name: "_PackageId", type: "uint256" },
+          {
+            internalType: "uint256",
+            name: "_MinimumTokenSoldout",
+            type: "uint256",
+          },
+          { internalType: "uint256", name: "_TotalItemCount", type: "uint256" },
+          { internalType: "uint256", name: "_RatePerETH", type: "uint256" },
+        ],
+        name: "updatePackage",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "uint256", name: "pid", type: "uint256" },
+          { internalType: "uint256", name: "_Begin", type: "uint256" },
+          { internalType: "uint256", name: "_End", type: "uint256" },
+          { internalType: "uint256", name: "_Type", type: "uint256" },
+          {
+            internalType: "uint256",
+            name: "_AmountPBRRequire",
+            type: "uint256",
+          },
+          { internalType: "uint256", name: "_LockDuration", type: "uint256" },
+        ],
+        name: "updatePool",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",

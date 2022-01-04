@@ -133,8 +133,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div className="text-center">
-              <img src="/loaders/denied.png" width="100%" />
+            <div className="d-flex justify-content-start">
+              <img src="/loaders/denied.png" width="60%" />
             </div>
           </div>
         </div>
@@ -156,8 +156,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div className="text-center">
-              <img src="/loaders/process.png" width="100%" />
+            <div className="d-flex justify-content-start">
+              <img src="/loaders/process.png" width="60%" />
             </div>
           </div>
         </div>
@@ -186,8 +186,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div className="text-center">
-              <img src="/loaders/failed.png" width="100%" />
+            <div className="d-flex justify-content-start">
+              <img src="/loaders/failed.png" width="60%" />
             </div>
           </div>
         </div>
@@ -216,8 +216,8 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div className="text-center">
-              <img src="/loaders/success.png" width="100%" />
+            <div className="d-flex justify-content-start">
+              <img src="/loaders/success2.png" width="80%" />
             </div>
           </div>
         </div>

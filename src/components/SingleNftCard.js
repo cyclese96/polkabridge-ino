@@ -9,6 +9,7 @@ import { getUserAddress } from "../actions/web3Actions";
 import inoContract from "./../utils/inoConnection";
 import TxPopup from "./../common/TxPopup";
 import PurchaseModal from "./PurchaseModal";
+
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
@@ -113,7 +114,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const SingleNftCard = ({ packageId }) => {
+const SingleNftCard = ({ packageId, endTime }) => {
   const classes = useStyles();
 
   const [remainToken, setRemainToken] = useState(null);
@@ -121,11 +122,19 @@ const SingleNftCard = ({ packageId }) => {
   const [popup, setPopup] = useState(false);
   const [purchaseCase, setPurchaseCase] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [end, setEnd] = useState(false);
 
   useEffect(async () => {
     let result = await getPackageDetails(packageId);
     let resultRemainToken = await getRemainINOToken(packageId);
-
+    console.log(result);
+    console.log(endTime);
+    console.log(Date.now());
+    let timeToEnd = endTime * 1000 - Date.now();
+    console.log(timeToEnd);
+    if (timeToEnd < 0) {
+      setEnd(true);
+    }
     setPackageDetail(result);
     setRemainToken(resultRemainToken);
   }, []);
@@ -134,16 +143,47 @@ const SingleNftCard = ({ packageId }) => {
     setPopup(true);
     setPurchaseCase(1);
   };
+  const claimPopup = async () => {
+    setPopup(true);
+    setPurchaseCase(3);
+
+    let userAddress = await getUserAddress();
+
+    const response = await inoContract.methods
+      .claimPool(packageId)
+      .send(
+        { from: userAddress, gasPrice: 10000000000 },
+        async function (error, transactionHash) {
+          if (transactionHash) {
+            setPurchaseCase(5);
+          } else {
+            setPurchaseCase(4);
+          }
+        }
+      )
+      .on("receipt", async function (receipt) {
+        setPurchaseCase(7);
+      })
+      .on("error", async function (error) {
+        setPurchaseCase(6);
+      });
+  };
 
   const purchasePackage = async () => {
     setPopup(true);
     setPurchaseCase(3);
+
     let userAddress = await getUserAddress();
+    let amount = parseInt(quantity) / parseInt(packageDetail.RatePerETH);
 
     const response = await inoContract.methods
       .purchaseINO(packageId, quantity)
       .send(
-        { from: userAddress, gasPrice: 10000000000 },
+        {
+          from: userAddress,
+          value: 1000000000000000000 * parseFloat(amount),
+          gasPrice: 25000000000,
+        },
         async function (error, transactionHash) {
           if (transactionHash) {
             setPurchaseCase(5);
@@ -242,13 +282,24 @@ const SingleNftCard = ({ packageId }) => {
               </small>
             </div>
             <div className="text-center mt-3">
-              <Button
-                variant="contained"
-                className={classes.joinButton}
-                onClick={PurchasePopup}
-              >
-                Purchase
-              </Button>
+              {!end && (
+                <Button
+                  variant="contained"
+                  className={classes.joinButton}
+                  onClick={PurchasePopup}
+                >
+                  Purchase
+                </Button>
+              )}
+              {end && (
+                <Button
+                  variant="contained"
+                  className={classes.joinButton}
+                  onClick={claimPopup}
+                >
+                  Claim Tokens
+                </Button>
+              )}
             </div>
           </div>
 
