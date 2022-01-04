@@ -1,84 +1,226 @@
-import { Button, makeStyles } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Button, Dialog, Backdrop, Slide } from "@material-ui/core";
+import propTypes from "prop-types";
 import { connect } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  authenticateUser,
+  checkAuthenticated,
+  signOutUser,
+} from "./../actions/authActions";
+import {
+  checkCorrectNetwork,
+  checkWalletAvailable,
+  getUserAddress,
+} from "../actions/web3Actions";
+import web3 from "../web";
+import { AccountBalanceWallet } from "@material-ui/icons";
+import BalancePopup from "./BalancePopup";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "space-around",
-    background: "transparent",
-
+  button: {
     color: "white",
-    border: "1px solid rgba(224, 7, 125, 0.7)",
-
-    padding: 7,
-    paddingLeft: 10,
-    paddingRight: 15,
-    borderRadius: 20,
-    fontWeight: 500,
-    letterSpacing: 0.4,
+    backgroundColor: "white",
     textTransform: "none",
-    [theme.breakpoints.down("sm")]: {
-      width: 140,
-    },
-  },
-  item: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  navbarButton: {
-    background: "linear-gradient(to right, #C80C81,purple)",
-    color: "white",
-    padding: 8,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 20,
-    fontWeight: 500,
-    letterSpacing: 0.4,
-    textTransform: "none",
-    filter: "drop-shadow(0 0 0.5rem #414141)",
-    "&:hover": {
-      background: "#C80C81",
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginRight: 0,
-      marginLeft: 15,
-      width: 150,
-    },
-  },
-  numbers: {
-    color: "#eeeeee",
+    borderRadius: "50px",
+    padding: "8px 16px 8px 16px",
+    fontWeight: 600,
+    background: `linear-gradient(to right,#D9047C, #BF1088)`,
     fontSize: 14,
   },
-  networkIcon: {
-    width: 25,
-    marginRight: 5,
-    height: "auto",
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
+
+  heading: {
+    fontSize: 22,
+    color: "white",
+    textAlign: "center",
+    paddingBottom: 20,
+  },
+  balanceButton: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    border: "1px solid #e0247d",
+    background: "transparent",
+    borderRadius: "20px",
+    position: "relative",
+    padding: "0 12px 0 15px",
+    minWidth: "60px",
+    marginLeft: "10px",
+    marginRight: "12px",
+    marginTop: 5,
+    height: "40px",
+    maxWidth: "calc(100% - 20px);",
+  },
+  icon: {
+    color: "white",
   },
 }));
 
-const ConnectButton = ({}) => {
+function ConnectButton({
+  authenticateUser,
+  authenticated,
+  checkAuthenticated,
+}) {
   const classes = useStyles();
+  const [error, setError] = useState("");
+  const [popup, setPopup] = useState(false);
+  const [bnbBal, setBnbBal] = useState(0);
+  const [userAdd, setUserAdd] = useState(null);
+
+  const togglePopup = (value) => {
+    setPopup(value);
+  };
+
+  useEffect(() => {
+    async function asyncFn() {
+      let walletStatus = await checkWalletAvailable();
+      if (walletStatus) {
+        const networkStatus = await checkCorrectNetwork();
+
+        if (networkStatus) {
+          let authStatus = await checkAuthenticated();
+          console.log(authStatus);
+          if (authStatus) {
+            let userAddress = await getUserAddress();
+            setUserAdd(userAddress);
+            getBalance();
+          } else {
+          }
+        } else {
+          setError("Only support BSC network");
+        }
+      } else {
+        setError("Instal Metamask");
+      }
+    }
+
+    asyncFn();
+  }, [checkAuthenticated]);
+
+  const getBalance = async () => {
+    let currentAddress = await getUserAddress();
+    let balance = await web3.eth.getBalance(currentAddress);
+
+    let ethBalance = web3.utils.fromWei(balance ? balance.toString() : "0");
+    setBnbBal(ethBalance);
+  };
+
+  const connectWallet = async () => {
+    let walletStatus = await checkWalletAvailable();
+    if (walletStatus) {
+      const networkStatus = await checkCorrectNetwork();
+      if (networkStatus) {
+        authenticateUser();
+        getBalance();
+      } else {
+        setError("Only support BSC network");
+      }
+    } else {
+      setError("Install metamask first!");
+    }
+  };
+
+  useEffect(() => {
+    async function asyncFn() {
+      //Events to detect changes in account or network.
+      if (window.ethereum !== undefined) {
+        window.ethereum.on("accountsChanged", async function (accounts) {
+          authenticateUser();
+          window.location.reload();
+        });
+
+        window.ethereum.on("networkChanged", async function (networkId) {
+          let networkStatus = await checkCorrectNetwork();
+          if (networkStatus) {
+            authenticateUser();
+            getBalance();
+          } else {
+            setError("Only support BSC network");
+            signOut(userAdd);
+          }
+        });
+      }
+    }
+    asyncFn();
+  }, []);
+
+  const signOut = (currentAddress) => {
+    signOutUser(currentAddress);
+    setPopup(false);
+  };
 
   return (
-    <div>
-      {!true ? (
-        <Button className={classes.navbarButton} variant="contained">
-          Connect Wallet
-        </Button>
+    <div className="text-center">
+      {!authenticated ? (
+        <div>
+          <Button className={classes.button} onClick={connectWallet}>
+            Connect your wallet
+          </Button>
+        </div>
       ) : (
-        <Button className={classes.root}>
-          <img
-            src="https://cdn-icons.flaticon.com/png/512/2175/premium/2175147.png?token=exp=1638849971~hmac=a0589ec6243d42196fa79cfe71a2baf6"
-            height="20px"
-          />
-          <span style={{ marginLeft: 5 }}>...DC870</span>
-        </Button>
+        <div>
+          <Button
+            className={classes.balanceButton}
+            onClick={() => togglePopup(true)}
+          >
+            <AccountBalanceWallet className={classes.icon} />
+            <div>
+              <strong style={{ color: "#e5e5e5", paddingLeft: 10 }}>
+                {bnbBal !== null && parseFloat(bnbBal).toFixed(3) + " BNB"}{" "}
+              </strong>
+            </div>
+          </Button>
+        </div>
       )}
+      <Dialog
+        className={classes.modal}
+        open={popup}
+        keepMounted
+        onClose={() => togglePopup(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        PaperProps={{
+          style: {
+            borderRadius: 10,
+            backgroundColor: "black",
+            border: "4px solid #212121",
+          },
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "black",
+            borderRadius: 3,
+            overflowX: "hidden",
+          }}
+        >
+          <BalancePopup
+            address={userAdd}
+            pwar={0}
+            togglePopup={() => togglePopup(false)}
+            signOut={() => signOut(userAdd)}
+          />
+        </div>
+      </Dialog>
     </div>
   );
+}
+
+ConnectButton.propTypes = {
+  authenticateUser: propTypes.func.isRequired,
 };
 
-export default ConnectButton;
+const mapStateToProps = (state) => ({
+  authenticated: state.auth.authenticated,
+});
+
+const mapDispatchToProps = { authenticateUser, checkAuthenticated };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectButton);

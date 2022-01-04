@@ -1,146 +1,144 @@
-import { Button, makeStyles } from "@material-ui/core";
-import { AccountBalanceWallet } from "@material-ui/icons";
-import etherIcon from "../assets/ether.png";
-import binanceIcon from "../assets/binance.png";
-import polygonIcon from "../assets/polygon.png";
+import React, { useState } from "react";
+import { Button, Dialog, Backdrop, Slide } from "@material-ui/core";
+import propTypes from "prop-types";
 import { connect } from "react-redux";
-import { isMetaMaskInstalled } from "../utils/helper";
-import { bscNetwork, etheriumNetwork, maticNetwork } from "../constants";
-import { connectWallet } from "../actions/accountActions";
+import { makeStyles } from "@material-ui/core/styles";
+import { authenticateUser } from "./../actions/authActions";
+import {
+  checkCorrectNetwork,
+  checkWalletAvailable,
+} from "../actions/web3Actions";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "space-around",
-    background: "transparent",
-
+  button: {
     color: "white",
-    border: "1px solid rgba(224, 7, 125, 0.7)",
-
-    padding: 7,
-    paddingLeft: 10,
-    paddingRight: 15,
-    borderRadius: 20,
-    fontWeight: 500,
-    letterSpacing: 0.4,
+    backgroundColor: "white",
     textTransform: "none",
-    [theme.breakpoints.down("sm")]: {
-      width: 140,
-    },
-  },
-  item: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  navbarButton: {
-    background: "linear-gradient(to right, #C80C81,purple)",
-    color: "white",
-    padding: 8,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 20,
-    fontWeight: 500,
-    letterSpacing: 0.4,
-    textTransform: "none",
-    filter: "drop-shadow(0 0 0.5rem #414141)",
-    "&:hover": {
-      background: "#C80C81",
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginRight: 0,
-      marginLeft: 15,
-      width: 150,
-    },
-  },
-  numbers: {
-    color: "#eeeeee",
+    borderRadius: "50px",
+    padding: "8px 16px 8px 16px",
+    fontWeight: 600,
+    background: `linear-gradient(to right,#D9047C, #BF1088)`,
     fontSize: 14,
   },
-  networkIcon: {
-    width: 25,
-    marginRight: 5,
-    height: "auto",
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
+  metamaskButton: {
+    color: "black",
+    width: "100%",
+    background: `linear-gradient(to bottom,yellow, orange)`,
+    textTransform: "none",
+    borderRadius: "50px",
+    padding: "16px 32px 16px 32px",
+    border: "1px solid #bdbdbd",
+    fontWeight: 600,
+    fontSize: 16,
+  },
+  c98Button: {
+    color: "black",
+    width: "100%",
+    background: `linear-gradient(to bottom,yellow, orange)`,
+    textTransform: "none",
+    borderRadius: "50px",
+    padding: "16px 32px 16px 32px",
+    border: "1px solid #bdbdbd",
+    fontWeight: 600,
+    fontSize: 16,
+  },
+  heading: {
+    fontSize: 22,
+    color: "white",
+    textAlign: "center",
+    paddingBottom: 20,
   },
 }));
 
-const Wallet = ({
-  connectWallet,
-  onWalletClick,
-  account: { connected, currentNetwork, currentAccount },
-}) => {
+function Wallet({ authenticateUser }) {
   const classes = useStyles();
+  const [error, setError] = useState("");
+  const [popup, setPopup] = useState(false);
 
-  const handleConnectWallet = async () => {
-    if (!isMetaMaskInstalled()) {
-      alert("Please install Meta Mask to connect");
-      return;
+  const connectWallet = async () => {
+    let walletStatus = await checkWalletAvailable();
+    console.log(walletStatus);
+    if (walletStatus) {
+      let networkStatus = await checkCorrectNetwork();
+      if (networkStatus) {
+        authenticateUser();
+        setError("");
+      } else {
+        setError("Only support BSC network");
+      }
+    } else {
+      setError("Wallet Not Available.");
     }
-    await connectWallet(true, currentNetwork);
-  };
-
-  const iconAddress = () => {
-    if (currentNetwork === etheriumNetwork) {
-      return (
-        <img
-          className={classes.networkIcon}
-          src={etherIcon}
-          alt={currentNetwork}
-        />
-      );
-    } else if (currentNetwork === bscNetwork) {
-      return (
-        <img
-          className={classes.networkIcon}
-          src={binanceIcon}
-          alt={currentNetwork}
-        />
-      );
-    } else
-      return (
-        <img
-          className={classes.networkIcon}
-          src={polygonIcon}
-          alt={currentNetwork}
-        />
-      );
   };
 
   return (
-    <div>
-      {!connected ? (
-        <Button
-          onClick={handleConnectWallet}
-          className={classes.navbarButton}
-          variant="contained"
-        >
-          Connect Wallet
+    <div className="my-5 text-center">
+      <div className="mt-5 text-center">
+        <h4 style={{ color: "yellow", fontSize: 16 }}>Missing Account!</h4>
+        <p style={{ color: "white", fontSize: 14 }}>
+          Connect your wallet first and then only you can claim airdrop.
+        </p>
+      </div>
+      <div className="mt-3">
+        <Button className={classes.button} onClick={connectWallet}>
+          Connect your wallet
         </Button>
-      ) : (
-        <Button onClick={onWalletClick} className={classes.root}>
-          <AccountBalanceWallet
-            style={{ color: "#bdbdbd", marginRight: 5, fontSize: 20 }}
-            fontSize="medium"
-          />
-          <strong className={classes.numbers}>
-            {currentAccount ? <span></span> : "..."}
-            {[...currentAccount.toString()].splice(0, 3)}
-            {"..."}
-            {[...currentAccount.toString()].splice(
-              [...currentAccount.toString()].length - 4,
-              4
-            )}
-          </strong>
-        </Button>
-      )}
+
+        <div className="mt-2" style={{ color: "yellow" }}>
+          {error}
+        </div>
+      </div>
+      <Dialog
+        className={classes.modal}
+        open={popup}
+        TransitionComponent={Transition}
+        keepMounted={false}
+        onClose={() => setPopup(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        PaperProps={{
+          style: {
+            background: `linear-gradient(0deg, rgba(0, 0, 0, 0.81), rgba(3, 3, 3, 0.72) ),url("https://w0.peakpx.com/wallpaper/919/43/HD-wallpaper-wallet-neon-icon-violet-background-neon-symbols-wallet-neon-icons-wallet-sign-financial-signs-wallet-icon-financial-icons.jpg")`,
+
+            border: "2px solid #bdbdbd",
+            borderRadius: 18,
+            backgroundColor: "black",
+          },
+        }}
+      >
+        <div style={{ width: 400 }}>
+          <div style={{ padding: 30, paddingTop: 50, paddingBottom: 50 }}>
+            <h3 className={classes.heading}>Choose Wallet</h3>
+            <div className="mb-3">
+              <Button
+                className={classes.metamaskButton}
+                onClick={() => connectWallet(0)}
+              >
+                Metamask
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Dialog>{" "}
     </div>
   );
+}
+
+ConnectButton.propTypes = {
+  authenticateUser: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  account: state.account,
+  authenticated: state.auth.authenticated,
 });
 
-export default connect(mapStateToProps, { connectWallet })(Wallet);
+const mapDispatchToProps = { authenticateUser };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

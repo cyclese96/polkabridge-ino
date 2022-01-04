@@ -283,7 +283,7 @@ const Navbar = () => {
         <Toolbar className={classes.sectionDesktop}>
           <Avatar
             variant="square"
-            src="images/logo-white.png"
+            src="/images/logo-white.png"
             className={classes.logo}
           />
           <div className={classes.leftMargin} />

@@ -51,5 +51,20 @@ let pool3 = {
   quantity: "900",
   packageIds: [6],
 };
-pools = [pool1, pool2, pool3];
+let pool4 = {
+  id: 4,
+  image: "/images/symbol.png",
+  title: "PolkaBridge Support NFT",
+  type: "Packages",
+  totalPackages: "3",
+  description:
+    " Collection of 5 High quality Dog NFTs of level 2 Gaming NFT offered by Corgib team.",
+  startDate: "21 Jan,2022 2PM UTC",
+  price: "0.3",
+  currency: "BNB",
+  network: "BSC",
+  quantity: "900",
+  packageIds: [7],
+};
+pools = [pool1, pool2, pool3, pool4];
 export default pools;

@@ -109,8 +109,8 @@ const PoolCard = ({ poolData, poolId }) => {
   const [isWhitelist, setIsWhitelist] = useState(false);
 
   useEffect(async () => {
-    let poolResult = await getPoolDetails(poolData.id);
-    let whitelistResult = await getIsWhitelisted(poolData.id);
+    let poolResult = await getPoolDetails(poolId);
+    let whitelistResult = await getIsWhitelisted(poolId);
     console.log("poolResult");
     console.log(poolResult);
     setPoolDetail(poolResult);
@@ -188,11 +188,9 @@ const PoolCard = ({ poolData, poolId }) => {
                 </Link>
               )}
               {poolDetail.Type !== "1" && !isWhitelist && (
-                <Link to={`/pool-details/${poolId}`}>
-                  <Button variant="contained" className={classes.joinButton}>
-                    Not Whitelisted
-                  </Button>
-                </Link>
+                <Button variant="contained" className={classes.joinButton}>
+                  Not Whitelisted
+                </Button>
               )}
               {poolDetail.Type === "1" && (
                 <Link to={`/pool-details/${poolId}`}>

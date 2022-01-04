@@ -133,7 +133,7 @@ const PoolDetails = () => {
       <Card elevation={10} className={classes.card}>
         <div style={{ width: "100%" }}>
           <div className="text-center">
-            <img className={classes.logo} src={pools[id].image} />
+            <img className={classes.logo} src={pools[id - 1].image} />
           </div>
           <div
             style={{
@@ -143,24 +143,26 @@ const PoolDetails = () => {
               textAlign: "center",
             }}
           >
-            {pools[id].title}
+            {pools[id - 1].title}
           </div>
           <div className="d-flex justify-content-center">
-            <a href={pools[id].whitepaper} target="_blank">
+            <a href={pools[id - 1].whitepaper} target="_blank">
               <h4 className={classes.links}>Whitepaper</h4>
             </a>
-            <a href={pools[id].website} target="_blank">
+            <a href={pools[id - 1].website} target="_blank">
               <h4 className={classes.links}>Website</h4>
             </a>
-            <a href={pools[id].twitter} target="_blank">
+            <a href={pools[id - 1].twitter} target="_blank">
               <h4 className={classes.links}>Twitter</h4>
             </a>
-            <a href={pools[id].telegram} target="_blank">
+            <a href={pools[id - 1].telegram} target="_blank">
               <h4 className={classes.links}>Telegram</h4>
             </a>
           </div>
           <div className={classes.box}>
-            <div className={classes.description}>{pools[id].description}</div>
+            <div className={classes.description}>
+              {pools[id - 1].description}
+            </div>
 
             <div>
               <h4
@@ -182,7 +184,7 @@ const PoolDetails = () => {
                     lineHeight: 2.5,
                   }}
                 >
-                  You can participate in {pools[1].title} NFT by paying the
+                  You can participate in {pools[id - 1].title} NFT by paying the
                   amount of NFTs
                 </li>
                 <li
