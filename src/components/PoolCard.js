@@ -146,7 +146,7 @@ const PoolCard = ({ poolData, poolId }) => {
                 }}
               ></div>
               <div className={classes.earn}>
-                {poolData.totalPackages} NFT {poolData.type}
+                {poolData.packageIds.length} NFT {poolData.type}
               </div>
             </div>
 
