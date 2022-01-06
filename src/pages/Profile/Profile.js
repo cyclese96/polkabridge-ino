@@ -16,6 +16,17 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     textAlign: "left",
   },
+  message: {
+    color: "#e5e5e5",
+    fontSize: 24,
+    fontWeight: 700,
+    marginTop: 10,
+    textAlign: "center",
+  },
+  messageCard: {
+    background:
+      "linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))",
+  },
   background: {
     paddingTop: 30,
     display: "flex",
@@ -88,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   subHeading: {
     color: "#ffffff",
     textTransform: "uppercase",
-    textAlign: "center",
+    textAlign: "left",
     marginBottom: 0,
     marginTop: 35,
     fontSize: 26,
@@ -123,13 +134,25 @@ const Profile = () => {
 
       <div className={classes.background}>
         <div className={classes.contentStyles}>
-          <div>
+          <div style={{ width: "100%" }}>
             <h4 className={classes.subHeading}>Purchases</h4>
+            {purchasedPackages.length === 0 && (
+              <div className={classes.messageCard}>
+                <div className="text-center mt-3">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2855/2855027.png"
+                    height="140px"
+                  />
+                </div>
+                <h1 className={classes.message}>
+                  You did not yet participated in INO.
+                </h1>
+              </div>
+            )}
             <div className="row mt-4">
               {purchasedPackages.map((singlePackageId) => (
                 <div className="col-12 col-md-4">
                   <ProfileNftCard packageId={singlePackageId} />
-                  dsds
                 </div>
               ))}
             </div>
