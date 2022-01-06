@@ -3,7 +3,11 @@ import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button, Dialog, Slide, Backdrop } from "@material-ui/core/";
 import { Link } from "react-router-dom";
-import { getPackageDetails, getRemainINOToken } from "../actions/smartActions";
+import {
+  getPackageDetails,
+  getRemainINOToken,
+  userPurchaseDetails,
+} from "../actions/smartActions";
 import packages from "../data/packagesData";
 import { getUserAddress } from "../actions/web3Actions";
 import inoContract from "./../utils/inoConnection";
@@ -35,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
 
   lastPrice: {
     fontWeight: 500,
-    padding: 0,
-    paddingRight: 10,
     fontSize: 13,
-    paddingBottom: 3,
     color: "#e5e5e5",
+    padding: 8,
+    border: "1px solid #C80C81",
+    borderRadius: 15,
   },
 
   tokenAmount: {
@@ -88,6 +92,46 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 13,
     },
   },
+  claimedButton: {
+    background: `green`,
+    color: "white",
+    width: "fit-content",
+    height: 40,
+    textTransform: "none",
+    borderRadius: 30,
+    fontSize: 15,
+    marginRight: 5,
+    marginLeft: 5,
+    border: "1px solid rgba(224, 7, 125, 0.3)",
+    padding: "5px 20px 5px 20px",
+    "&:hover": {
+      background: "rgba(224, 7, 125, 0.7)",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "fit-content",
+      fontSize: 13,
+    },
+  },
+  noPurchase: {
+    background: `#414141`,
+    color: "white",
+    width: "fit-content",
+    height: 40,
+    textTransform: "none",
+    borderRadius: 30,
+    fontSize: 15,
+    marginRight: 5,
+    marginLeft: 5,
+    border: "1px solid #757575",
+    padding: "5px 20px 5px 20px",
+    "&:hover": {
+      background: "rgba(224, 7, 125, 0.7)",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "fit-content",
+      fontSize: 13,
+    },
+  },
   detailsWrapper: {
     paddingLeft: 10,
     paddingRight: 10,
@@ -119,6 +163,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
 
   const [remainToken, setRemainToken] = useState(null);
   const [packageDetail, setPackageDetail] = useState({});
+  const [userPurchaseDetail, setUserPurchaseDetail] = useState(null);
+  const [isClaimed, setIsClaimed] = useState(false);
+  const [isPurchased, setIsPurchased] = useState(false);
   const [popup, setPopup] = useState(false);
   const [purchaseCase, setPurchaseCase] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -127,9 +174,14 @@ const SingleNftCard = ({ packageId, endTime }) => {
   useEffect(async () => {
     let result = await getPackageDetails(packageId);
     let resultRemainToken = await getRemainINOToken(packageId);
-    console.log(result);
-    console.log(endTime);
-    console.log(Date.now());
+    let userPurchaseResult = await userPurchaseDetails(packageId);
+
+    setUserPurchaseDetail(userPurchaseResult);
+    setIsPurchased(parseInt(userPurchaseResult.PurchasedItemCount) > 0);
+    setIsClaimed(userPurchaseResult.IsClaimed);
+
+    console.log(userPurchaseResult);
+
     let timeToEnd = endTime * 1000 - Date.now();
     console.log(timeToEnd);
     if (timeToEnd < 0) {
@@ -271,14 +323,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
           </div>
           <div className="mt-3 px-2">
             <div className="d-flex justify-content-center">
-              <img
-                src="https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912"
-                height="14px"
-                style={{ marginTop: 2, marginRight: 5 }}
-              />
               <small className={classes.lastPrice}>
-                {packages[packageId].price} {packages[packageId].currency}/ NFT
-                + gas Fees
+                {packageDetail.RatePerETH && 1 / packageDetail.RatePerETH}{" "}
+                {packages[packageId].currency + " "} / Item + gas fees
               </small>
             </div>
             <div className="text-center mt-3">
@@ -291,13 +338,28 @@ const SingleNftCard = ({ packageId, endTime }) => {
                   Purchase
                 </Button>
               )}
-              {end && (
+
+              {end && !isClaimed && !isPurchased && (
+                <Button variant="contained" className={classes.noPurchase}>
+                  You did not purchase
+                </Button>
+              )}
+              {end && !isClaimed && isPurchased && (
                 <Button
                   variant="contained"
                   className={classes.joinButton}
                   onClick={claimPopup}
                 >
                   Claim Tokens
+                </Button>
+              )}
+              {end && isClaimed && isPurchased && (
+                <Button
+                  variant="contained"
+                  className={classes.claimedButton}
+                  onClick={null}
+                >
+                  Tokens Claimed
                 </Button>
               )}
             </div>

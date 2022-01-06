@@ -1,8 +1,11 @@
-import * as React from "react";
-
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
 import { Link } from "react-router-dom";
+import { userPurchaseDetails } from "../../../actions/smartActions";
+import packages from "../../../data/packagesData";
+import dateFormat, { masks } from "dateformat";
+import web3 from "../../../web";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -105,8 +108,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileNftCard = () => {
+const ProfileNftCard = ({ packageId }) => {
   const classes = useStyles();
+
+  const [userPurchaseDetail, setUserPurchaseDetail] = useState(null);
+
+  useEffect(async () => {
+    let userPurchaseResult = await userPurchaseDetails(packageId);
+    setUserPurchaseDetail(userPurchaseResult);
+  }, []);
 
   return (
     <div>
@@ -117,7 +127,7 @@ const ProfileNftCard = () => {
               minHeight: 180,
               paddingLeft: 10,
               paddingRight: 10,
-              backgroundImage: `url('https://thumbor.forbes.com/thumbor/711x425/https://specials-images.forbesimg.com/imageserve/613df842ca2a4b60e210d8e4/Avatar-project-metaverse/960x0.jpg?fit=scale')`,
+              backgroundImage: `url(${packages[packageId].image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -131,7 +141,7 @@ const ProfileNftCard = () => {
                 fontSize: 18,
               }}
             >
-              Swag Ape in Love NFT
+              {packages[packageId].title}
             </small>
           </div>
           <div className="d-flex justify-content-center align-items-center ">
@@ -144,19 +154,40 @@ const ProfileNftCard = () => {
                 marginRight: 5,
               }}
             ></div>
-            <div className={classes.earn}>By AvatarPool</div>
+            <div className={classes.earn}>{packages[packageId].poolName}</div>
           </div>
 
           <div className={classes.desktop}></div>
+          {userPurchaseDetail !== null && (
+            <div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Total Cost</div>
+                <div className={classes.detailValue}>
+                  {web3.utils.fromWei(
+                    userPurchaseDetail.TotalETHPurchase,
+                    "ether"
+                  )}
+                  {" " + packages[packageId].currency}
+                </div>
+              </div>
 
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Price</div>
-            <div className={classes.detailValue}>0.3 MATIC</div>
-          </div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Purchase date</div>
-            <div className={classes.detailValue}>21 Nov,2021</div>
-          </div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Quantity</div>
+                <div className={classes.detailValue}>
+                  {userPurchaseDetail.PurchasedItemCount}
+                </div>
+              </div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Purchase Time</div>
+                <div className={classes.detailValue}>
+                  {dateFormat(
+                    Date(parseInt(userPurchaseDetail.PurchaseTime)),
+                    " mmmm dS, yyyy,"
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
           <div className="mt-3 px-2">
             <div className="text-center mt-3">
               <Button variant="contained" className={classes.joinButton}>

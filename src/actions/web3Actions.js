@@ -1,5 +1,6 @@
 import constants from "../utils/constants";
 import web3 from "../web";
+
 //Check wallet available
 //Returns boolean true or false
 export const checkWalletAvailable = () => {

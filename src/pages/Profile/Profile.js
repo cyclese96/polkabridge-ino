@@ -1,8 +1,9 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PoolCard from "../../components/PoolCard";
 
 import ProfileNftCard from "./components/ProfileNftCard";
+import { getUserPurchasedPackages } from "../../actions/smartActions";
 
 const useStyles = makeStyles((theme) => ({
   tabText: {
@@ -98,6 +99,14 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
 
+  const [purchasedPackages, setPurchasedPackages] = useState([]);
+
+  useEffect(async () => {
+    let result = await getUserPurchasedPackages();
+    console.log(result);
+    setPurchasedPackages(result);
+  }, []);
+
   return (
     <div
       className="container mt-3"
@@ -117,15 +126,12 @@ const Profile = () => {
           <div>
             <h4 className={classes.subHeading}>Purchases</h4>
             <div className="row mt-4">
-              <div className="col-12 col-md-4">
-                <ProfileNftCard />
-              </div>
-              <div className="col-12 col-md-4">
-                <ProfileNftCard />
-              </div>
-              <div className="col-12 col-md-4">
-                <ProfileNftCard />
-              </div>
+              {purchasedPackages.map((singlePackageId) => (
+                <div className="col-12 col-md-4">
+                  <ProfileNftCard packageId={singlePackageId} />
+                  dsds
+                </div>
+              ))}
             </div>
           </div>{" "}
         </div>

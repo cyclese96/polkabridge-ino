@@ -37,12 +37,34 @@ export const getPoolList = async (packageId = 1) => {
   });
 };
 
+//READ userPurchaseDetails of a package
+//RETURNS Obj
+export const userPurchaseDetails = async (packageId) => {
+  let userAddress = await getUserAddress();
+  return await inoContract.methods
+    .whitelist(packageId, userAddress)
+    .call((err, response) => {
+      return response;
+    });
+};
+
 //READ getIsWhitelisted
 //RETURNS Obj
 export const getIsWhitelisted = async (packageId) => {
   let userAddress = await getUserAddress();
   return await inoContract.methods
     .IsWhitelist(userAddress, packageId)
+    .call((err, response) => {
+      return response;
+    });
+};
+
+//READ getUserPurchasedPackages
+//RETURNS []
+export const getUserPurchasedPackages = async () => {
+  let userAddress = await getUserAddress();
+  return await inoContract.methods
+    .getPurchasedPackageIds(userAddress)
     .call((err, response) => {
       return response;
     });

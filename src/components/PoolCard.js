@@ -176,7 +176,7 @@ const PoolCard = ({ poolData, poolId }) => {
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Type</div>
               <div className={classes.detailValue}>
-                {poolDetail.Type === 1 ? "Public" : "Private"}
+                {poolDetail.Type === "1" ? "Public" : "Private"}
               </div>
             </div>
             <div className="text-center mt-3">

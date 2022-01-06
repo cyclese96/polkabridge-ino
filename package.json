@@ -19,6 +19,7 @@
     "big-number": "^2.0.0",
     "bignumber.js": "^9.0.1",
     "coingecko-api": "^1.0.10",
+    "dateformat": "^5.0.2",
     "dotenv": "^8.2.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
