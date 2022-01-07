@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     width: 950,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
 
     paddingTop: 10,

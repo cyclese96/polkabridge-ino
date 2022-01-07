@@ -2,23 +2,23 @@ let pools = [];
 
 let pool1 = {
   id: 1,
-  image: "https://launchpad.polkabridge.org/img/tokens/arcade.png",
-  title: "AwardVr NFTs",
+  image: "https://img.api.cryptorank.io/coins/pixelverse1636378880606.png",
+  title: "PixelRobots NFTs by PixelVerse",
   type: "Packages",
-  totalPackages: "5",
-  whitepaper: "https://launchpad.polkabridge.org/img/tokens/arcade.png",
-  website: "https://launchpad.polkabridge.org/img/tokens/arcade.png",
-  twitter: "https://launchpad.polkabridge.org/img/tokens/arcade.png",
-  telegram: "https://launchpad.polkabridge.org/img/tokens/arcade.png",
+  whitepaper: "https://pixelverse.ai/assets/pdf/deck.pdf",
+  website: "https://pixelverse.ai/",
+  twitter: "https://twitter.com/pixelverse1",
+  telegram: "https://t.me/pixelverseofficial",
+  youtube: "https://www.youtube.com/watch?v=GJJkZ05I-O4&ab_channel=PixelVerse",
 
   description:
-    " Collection of 5 High quality AI generated VR Gaming NFT offered by AwardVr Artists and developers.",
-  startDate: "21 Nov,2021 2PM UTC",
-  price: "0.1",
+    "PixelRobots is the premier NFT collection of PixelVerse. PixelRobots are a multi-utility NFT for the PixelVerse ecosystem, including PixelDeFi, PixelSwap, and PixelNFT. ",
+  startDate: "21 Jan,2022 2PM UTC",
+  price: "0.80",
   currency: "BNB",
   network: "BSC",
-  quantity: "400",
-  packageIds: [1, 2],
+  quantity: "2000",
+  packageIds: [1],
 };
 
 let pool2 = {
@@ -66,5 +66,5 @@ let pool4 = {
   quantity: "900",
   packageIds: [7],
 };
-pools = [pool1, pool2, pool3, pool4];
+pools = [pool1, pool2, pool3];
 export default pools;

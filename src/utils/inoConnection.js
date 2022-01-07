@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 97, // Testnet
-    contractAddress: "0xdF492532F1937A3842c59A074d9e6086795C7294",
+    contractAddress: "0x259947B19102F06a47c28E69198DeA146e092700",
     abi: [
       {
         inputs: [
@@ -921,7 +921,10 @@ if (constants.net === 0) {
         type: "function",
       },
       {
-        inputs: [{ internalType: "address", name: "user_", type: "address" }],
+        inputs: [
+          { internalType: "address", name: "user_", type: "address" },
+          { internalType: "uint256", name: "pid", type: "uint256" },
+        ],
         name: "getPurchasedPackageIds",
         outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
         stateMutability: "view",
@@ -1118,29 +1121,6 @@ if (constants.net === 0) {
         inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
         name: "uri",
         outputs: [{ internalType: "string", name: "", type: "string" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [{ internalType: "address", name: "", type: "address" }],
-        name: "users",
-        outputs: [
-          { internalType: "uint256", name: "Id", type: "uint256" },
-          { internalType: "bool", name: "IsWhitelist", type: "bool" },
-          { internalType: "uint256", name: "WhitelistDate", type: "uint256" },
-          { internalType: "uint256", name: "PurchaseTime", type: "uint256" },
-          { internalType: "bool", name: "IsClaimed", type: "bool" },
-          {
-            internalType: "uint256",
-            name: "TotalETHPurchase",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "PurchasedItemCount",
-            type: "uint256",
-          },
-        ],
         stateMutability: "view",
         type: "function",
       },

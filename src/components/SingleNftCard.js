@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #212121",
     filter: "drop-shadow(0 0 0.5rem #212121)",
     border: "1px solid #212121",
+
     paddingBottom: 15,
     [theme.breakpoints.down("sm")]: {
       paddingLeft: 0,
@@ -263,12 +264,14 @@ const SingleNftCard = ({ packageId, endTime }) => {
         <div style={{ width: "100%" }}>
           <div
             style={{
-              minHeight: 180,
+              minHeight: 240,
               paddingLeft: 10,
               paddingRight: 10,
               backgroundImage: `url(${packages[packageId].image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              borderRadius: 20,
+              border: "8px solid #212121",
             }}
           ></div>
 
@@ -294,7 +297,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
                 marginRight: 5,
               }}
             ></div>
-            <div className={classes.earn}>By AvatarPool</div>
+            <div className={classes.earn}>
+              By {packages[packageId].poolName}
+            </div>
           </div>
 
           <div className={classes.desktop}></div>
@@ -308,8 +313,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Price</div>
             <div className={classes.detailValue}>
-              {packageDetail.RatePerETH && packageDetail.RatePerETH} Tokens /
-              BNB
+              {packages[packageId].price} {packages[packageId].currency} / NFT
             </div>
           </div>
 
