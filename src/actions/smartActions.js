@@ -63,11 +63,25 @@ export const getIsWhitelisted = async (packageId) => {
 //RETURNS []
 export const getUserPurchasedPackages = async () => {
   let userAddress = await getUserAddress();
-  return await inoContract.methods
-    .getPurchasedPackageIds(userAddress)
+
+  let totalPools = await inoContract.methods
+    .poolLength()
     .call((err, response) => {
       return response;
     });
+
+  let total = [];
+  Array(totalPools).map(async (singlePool) => {
+    let result = await inoContract.methods
+      .getPurchasedPackageIds(userAddress, singlePool)
+      .call((err, response) => {
+        return response;
+      });
+
+    total.push(result);
+  });
+
+  return total;
 };
 
 //READ getURIStringOfPackage
