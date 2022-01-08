@@ -13,6 +13,7 @@ import { getUserAddress } from "../actions/web3Actions";
 import inoContract from "./../utils/inoConnection";
 import TxPopup from "./../common/TxPopup";
 import PurchaseModal from "./PurchaseModal";
+import web3 from "../web";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -174,6 +175,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
 
   useEffect(async () => {
     let result = await getPackageDetails(packageId);
+    console.log(result);
     let resultRemainToken = await getRemainINOToken(packageId);
     let userPurchaseResult = await userPurchaseDetails(packageId);
 
@@ -227,7 +229,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
     setPurchaseCase(3);
 
     let userAddress = await getUserAddress();
-    let amount = parseInt(quantity) / parseInt(packageDetail.RatePerETH);
+    let amount =
+      parseInt(quantity) /
+      web3.utils.fromWei(packageDetail.RatePerETH, "ether");
 
     const response = await inoContract.methods
       .purchaseINO(packageId, quantity)
@@ -328,7 +332,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
           <div className="mt-3 px-2">
             <div className="d-flex justify-content-center">
               <small className={classes.lastPrice}>
-                {packageDetail.RatePerETH && 1 / packageDetail.RatePerETH}{" "}
+                {packageDetail.RatePerETH &&
+                  1 /
+                    web3.utils.fromWei(packageDetail.RatePerETH, "ether")}{" "}
                 {packages[packageId].currency + " "} / Item + gas fees
               </small>
             </div>
