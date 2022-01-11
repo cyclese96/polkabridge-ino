@@ -28,7 +28,7 @@ let pool2 = {
   type: "Packages",
   totalPackages: "9",
   description:
-    " Collection of 5 High quality Weapons of level 2 Gaming NFT offered by PolkaWar team.",
+    "PixelRobots is the premier NFT collection of PixelVerse. PixelRobots are a multi-utility NFT for the PixelVerse ecosystem, including PixelDeFi, PixelSwap, and PixelNFT.",
   startDate: "21 Jan,2022 2PM UTC",
   price: "0.3",
   currency: "BNB",

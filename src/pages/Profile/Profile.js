@@ -114,8 +114,8 @@ const Profile = () => {
 
   useEffect(async () => {
     let result = await getUserPurchasedPackages();
-    console.log(result);
-    setPurchasedPackages(result);
+
+    setPurchasedPackages([...result]);
   }, []);
 
   return (
@@ -149,13 +149,15 @@ const Profile = () => {
                 </h1>
               </div>
             )}
-            <div className="row mt-4">
-              {purchasedPackages.map((singlePackageId) => (
-                <div className="col-12 col-md-4">
-                  <ProfileNftCard packageId={singlePackageId} />
-                </div>
-              ))}
-            </div>
+            {purchasedPackages.length !== 0 && (
+              <div className="row mt-4">
+                {purchasedPackages.map((singlePackageId) => (
+                  <div className="col-12 col-md-4">
+                    <ProfileNftCard packageId={singlePackageId} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>{" "}
         </div>
       </div>

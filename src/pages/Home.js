@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     paddingTop: 10,
 
-    paddingBottom: 20,
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       justifyContent: "space-between",
@@ -80,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
 
-    paddingTop: 10,
+    paddingTop: 4,
     paddingBottom: 20,
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
@@ -92,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     textAlign: "center",
     marginBottom: 0,
-    marginTop: 35,
     fontSize: 26,
     fontWeight: 400,
   },
@@ -153,36 +151,39 @@ const Home = () => {
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Active Pools</h4>
-            <div className="container row mt-4">
+            <div className="container row mt-4 justify-content-around w-100">
               {pools.map((singlePool, index) => {
                 return (
-                  <div className="col-12 col-md-4 mb-4">
-                    <PoolCard poolData={singlePool} poolId={singlePool.id} />
-                  </div>
+                  <PoolCard
+                    poolData={singlePool}
+                    poolId={singlePool.id}
+                    endedPool={false}
+                  />
                 );
               })}
             </div>
-          </div>{" "}
+          </div>
         </div>
       </div>
 
-      {/* <div className={classes.background}>
+      <div className={classes.background}>
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Ended Pools</h4>
-            <div className="container row mt-4">
-              {pools.map((singlePool) => {
+            <div className="container row mt-4 justify-content-around w-100">
+              {pools.map((singlePool, index) => {
                 return (
-                  <div className="col-12 col-md-4">
-                    <PoolCard poolData={singlePool} />
-                  </div>
+                  <PoolCard
+                    poolData={singlePool}
+                    poolId={singlePool.id}
+                    endedPool={true}
+                  />
                 );
               })}
             </div>
           </div>{" "}
         </div>
       </div>
-    */}
     </div>
   );
 };

@@ -182,7 +182,7 @@ const ProfileNftCard = ({ packageId }) => {
                 <div className={classes.detailValue}>
                   {dateFormat(
                     Date(parseInt(userPurchaseDetail.PurchaseTime)),
-                    " mmmm dS, yyyy,"
+                    " mmmm dS, yyyy"
                   )}
                 </div>
               </div>
@@ -191,10 +191,7 @@ const ProfileNftCard = ({ packageId }) => {
           <div className="mt-3 px-2">
             <div className="text-center mt-3">
               <Button variant="contained" className={classes.joinButton}>
-                Sell
-              </Button>
-              <Button variant="contained" className={classes.joinButton}>
-                Transfer
+                View on OpenSea
               </Button>
             </div>
           </div>

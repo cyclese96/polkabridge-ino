@@ -59,29 +59,35 @@ export const getIsWhitelisted = async (packageId) => {
     });
 };
 
-//READ getUserPurchasedPackages
-//RETURNS []
-export const getUserPurchasedPackages = async () => {
-  let userAddress = await getUserAddress();
-
+//READ getTotalPoolLength
+//RETURNS number
+export const getPoolLength = async () => {
   let totalPools = await inoContract.methods
     .poolLength()
     .call((err, response) => {
       return response;
     });
 
-  let total = [];
-  Array(totalPools).map(async (singlePool) => {
+  return totalPools;
+};
+
+//READ getUserPurchasedPackages
+//RETURNS []
+export const getUserPurchasedPackages = async () => {
+  let userAddress = await getUserAddress();
+  let totalPools = await getPoolLength();
+
+  let answer = [];
+  for (let i = 1; i <= totalPools; i++) {
     let result = await inoContract.methods
-      .getPurchasedPackageIds(userAddress, singlePool)
-      .call((err, response) => {
+      .getPurchasedPackageIds(userAddress, i)
+      .call(async (err, response) => {
         return response;
       });
+    answer = [...answer, ...result];
+  }
 
-    total.push(result);
-  });
-
-  return total;
+  return answer;
 };
 
 //READ getURIStringOfPackage
