@@ -17,7 +17,8 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
     using Counters for Counters.Counter;
 
     address public immutable WETH;
-    address payable private ReceiveToken;
+    address public immutable Owner;
+    // address payable private ReceiveToken;
     Counters.Counter private tokenCounter;
     // PolkaBridgeNFT polkaBridgeNFT;
     // Contract name
@@ -26,13 +27,15 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
     string public symbol;
    
     constructor(
-        address payable _receiveToken,
+        // address payable _receiveToken,
+        address _owner, 
         address _WETH,
         string memory _name,
         string memory _symbol,
         string memory _uri
     ) ERC1155(_uri) {
-        ReceiveToken = _receiveToken;
+        // ReceiveToken = _receiveToken;
+        Owner = _owner;
         WETH = _WETH;
         name = _name;
         symbol = _symbol;
@@ -371,10 +374,8 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
 
     //withdraw ETH after INO
     function withdrawPoolFund() public onlyOwner {
-        uint256 balance = IERC20(ReceiveToken).balanceOf(address(this));
-        IERC20(ReceiveToken).transfer(owner(), balance);
-
         uint256 ETHbalance = IERC20(WETH).balanceOf(address(this));
-        IWETH(WETH).transfer(owner(), ETHbalance);
+        // IWETH(WETH).transfer(Owner, ETHbalance);
+        IERC20(WETH).transfer(Owner, ETHbalance);
     }
 }
