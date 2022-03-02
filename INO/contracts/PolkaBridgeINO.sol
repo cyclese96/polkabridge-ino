@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "./lib/IWETH.sol";
+import "./lib/IERC20.sol";
 import "./ReentrancyGuard.sol";
 // import "./PolkaBridgeNFT.sol";
 
@@ -370,8 +371,10 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
 
     //withdraw ETH after INO
     function withdrawPoolFund() public onlyOwner {
-        uint256 balance = address(this).balance;
-        require(balance > 0, "not enough fund");
-        ReceiveToken.transfer(balance);
+        uint256 balance = IERC20(ReceiveToken).balanceOf(address(this));
+        IERC20(ReceiveToken).transfer(owner(), balance);
+
+        uint256 ETHbalance = IERC20(WETH).balanceOf(address(this));
+        IWETH(WETH).transfer(owner(), ETHbalance);
     }
 }
