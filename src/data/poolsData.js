@@ -7,12 +7,12 @@ let pool1 = {
   type: "Packages",
   totalPackages: "1",
   description:
-    "PolkaBridge is the premier NFT collection of PixelVerse. PixelRobots are a multi-utility NFT for the PixelVerse ecosystem, including PixelDeFi, PixelSwap, and PixelNFT.",
-  startDate: "21 Jan,2023 2PM UTC",
-  price: "0.3",
+    "Early supporters who want to support peace in Ukraine and want to represent in metaverse.",
+  startDate: "21 Mar,2022 2PM UTC",
+  price: "0.5 ETH - 1 ETH",
   currency: "ETH",
-  network: "ETH",
-  quantity: "3000",
+  network: "Ethereum",
+  quantity: "1000",
   packageIds: [3, 4, 5],
 };
 

@@ -332,9 +332,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
           <div className="mt-3 px-2">
             <div className="d-flex justify-content-center">
               <small className={classes.lastPrice}>
-                {packageDetail.RatePerETH &&
-                  1 /
-                    web3.utils.fromWei(packageDetail.RatePerETH, "ether")}{" "}
+                {packageDetail.RatePerETH && 1 / packages[packageId].price}{" "}
                 {packages[packageId].currency + " "} / Item + gas fees
               </small>
             </div>

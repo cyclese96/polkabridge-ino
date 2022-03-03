@@ -1,14 +1,15 @@
 let packages = {
   1: {
     id: 1,
-    image: "/images/pixelrobots.jpg",
-    title: "PixelRobot",
-    poolName: "PixelVerse",
+    image:
+      "https://coinposters.com/wp-content/uploads/2022/02/5FA3BA08-5FA9-4988-8A31-3AEAA9E59B85.jpeg",
+    title: "Peace Supporter",
+    poolName: "PolkaBridge",
     description:
-      "PixelRobots is the premier NFT collection of PixelVerse. PixelRobots are a multi-utility NFT for the PixelVerse ecosystem, including PixelDeFi, PixelSwap, and PixelNFT. PixelVerse is the largely anticipated next generation metaverse NFT platform for games, communities and creators. PixelVerse backed by ExNetwork, NetVRk Ventures and Gate Labs has a cross-chain NFT marketplace, a variety of DeFi protocols including the first AMM on Avalanche and an up an coming gamified metaverse.",
-    price: "0.80",
-    currency: "BNB",
-    quantity: "4000",
+      "Early supporters who want to support peace in Ukraine and want to represent in metaverse.",
+    price: "1.0",
+    currency: "ETH",
+    quantity: "1",
   },
   2: {
     id: 1,

@@ -107,8 +107,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#af8b9c",
   },
   logo: {
-    height: 150,
-    width: 150,
+    height: 50,
   },
 }));
 

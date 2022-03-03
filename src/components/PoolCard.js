@@ -11,9 +11,10 @@ import {
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
+    height: "100%",
     maxWidth: 400,
     minWidth: 340,
-    minHeight: 500,
+    minHeight: 400,
     borderRadius: 30,
     backgroundColor: "rgba(41, 42, 66, 0.3)",
     border: "1px solid #212121",
@@ -83,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   detailsWrapper: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 10,
+    paddingTop: 20,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -173,12 +174,12 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
               <div className={classes.detailTitle}>Network</div>
               <div className={classes.detailValue}>{poolData.network}</div>
             </div>
-            <div className={classes.detailsWrapper}>
+            {/* <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Type</div>
               <div className={classes.detailValue}>
                 {poolDetail.Type === "1" ? "Public" : "Private"}
               </div>
-            </div>
+            </div> */}
             <div className="text-center mt-3">
               {poolDetail.Type !== "1" && isWhitelist && (
                 <Link to={`/pool-details/${poolId}`}>
