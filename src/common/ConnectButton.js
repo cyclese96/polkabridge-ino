@@ -170,7 +170,7 @@ function ConnectButton({
             <AccountBalanceWallet className={classes.icon} />
             <div>
               <strong style={{ color: "#e5e5e5", paddingLeft: 10 }}>
-                {bnbBal !== null && parseFloat(bnbBal).toFixed(3) + " BNB"}{" "}
+                {bnbBal !== null && parseFloat(bnbBal).toFixed(3) + " ETH"}{" "}
               </strong>
             </div>
           </Button>

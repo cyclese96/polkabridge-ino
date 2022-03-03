@@ -151,7 +151,7 @@ const Home = () => {
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Active Pools</h4>
-            <div className="container row mt-4 justify-content-around w-100">
+            <div className="container row mt-4">
               {pools.map((singlePool, index) => {
                 return (
                   <PoolCard

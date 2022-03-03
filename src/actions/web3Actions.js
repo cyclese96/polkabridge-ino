@@ -40,16 +40,16 @@ export const checkCorrectNetwork = async () => {
 
   let networkId;
   if (constants.net === 0) {
-    networkId = "56";
+    networkId = "1";
   } else {
-    networkId = "97";
+    networkId = "4";
   }
 
   if (chainID === networkId) {
-    //console.log('BSC');
+    console.log("Rinkeby or ETH");
     return true;
   } else {
-    //console.log('Other Network');
+    console.log("Other Network");
     return false;
   }
 };

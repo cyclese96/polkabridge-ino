@@ -5,7 +5,7 @@ let inoConstant;
 if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://bsc-dataseed.binance.org/",
-    chainId: 56, // Smart Chain - Mainnet chain id
+    chainId: 1, // ETH - Mainnet chain id
     contractAddress: "0x973bdAE2f772f5Bc8e568F8b84872629f3FA128F",
     abi: [
       {
@@ -574,16 +574,12 @@ if (constants.net === 0) {
 } else {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
-    chainId: 97, // Testnet
-    contractAddress: "0x5Ee56F3ac26F6d8172a0C850778637a260484702",
+    chainId: 4, // Testnet
+    contractAddress: "0x067dbd106307b34939b7a882c207320eccb27e07",
     abi: [
       {
         inputs: [
-          {
-            internalType: "address payable",
-            name: "_receiveToken",
-            type: "address",
-          },
+          { internalType: "address", name: "_owner", type: "address" },
           { internalType: "address", name: "_WETH", type: "address" },
           { internalType: "string", name: "_name", type: "string" },
           { internalType: "string", name: "_symbol", type: "string" },
@@ -736,6 +732,13 @@ if (constants.net === 0) {
         ],
         name: "IsWhitelist",
         outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "Owner",
+        outputs: [{ internalType: "address", name: "", type: "address" }],
         stateMutability: "view",
         type: "function",
       },
@@ -1036,6 +1039,13 @@ if (constants.net === 0) {
           { internalType: "bool", name: "approved", type: "bool" },
         ],
         name: "setApprovalForAll",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [{ internalType: "string", name: "uri_", type: "string" }],
+        name: "setURI",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",

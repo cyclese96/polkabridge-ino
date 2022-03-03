@@ -2,6 +2,22 @@ let pools = [];
 
 let pool1 = {
   id: 1,
+  image: "https://launchpad.polkabridge.org/img/logo-white.png",
+  title: "PolkaBridge Peace NFTs",
+  type: "Packages",
+  totalPackages: "1",
+  description:
+    "PolkaBridge is the premier NFT collection of PixelVerse. PixelRobots are a multi-utility NFT for the PixelVerse ecosystem, including PixelDeFi, PixelSwap, and PixelNFT.",
+  startDate: "21 Jan,2023 2PM UTC",
+  price: "0.3",
+  currency: "ETH",
+  network: "ETH",
+  quantity: "3000",
+  packageIds: [3, 4, 5],
+};
+
+let pool2 = {
+  id: 2,
   image: "https://img.api.cryptorank.io/coins/pixelverse1636378880606.png",
   title: "PixelRobots NFTs by PixelVerse",
   type: "Packages",
@@ -21,21 +37,6 @@ let pool1 = {
   packageIds: [1],
 };
 
-let pool2 = {
-  id: 2,
-  image: "https://launchpad.polkabridge.org/img/tokens/polkawar.png",
-  title: "Polkawar Equipments",
-  type: "Packages",
-  totalPackages: "9",
-  description:
-    "PixelRobots is the premier NFT collection of PixelVerse. PixelRobots are a multi-utility NFT for the PixelVerse ecosystem, including PixelDeFi, PixelSwap, and PixelNFT.",
-  startDate: "21 Jan,2022 2PM UTC",
-  price: "0.3",
-  currency: "BNB",
-  network: "BSC",
-  quantity: "900",
-  packageIds: [3, 4, 5],
-};
 let pool3 = {
   id: 3,
   image: "https://polkabridge.org/images/corgi.png",
@@ -66,5 +67,5 @@ let pool4 = {
   quantity: "900",
   packageIds: [7],
 };
-pools = [pool1, pool2, pool3];
+pools = [pool1];
 export default pools;
