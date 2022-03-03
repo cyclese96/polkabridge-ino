@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "compile": "truffle compile",
-    "deploy": "truffle migrate --network rinkeby_infura --reset",
-    "verify": "truffle run verify PolkaBridgeINO --network rinkeby_infura",
+    "deploy-rinkeby": "truffle migrate --network rinkeby_infura --reset",
+    "verify-rinkeby": "truffle run verify PolkaBridgeINO --network rinkeby_infura",
+    "deploy-bscTestnet": "truffle migrate --network bscTestnet --reset",
+    "verify-bscTestnet": "truffle run verify PolkaBridgeINO --network bscTestnet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
