@@ -118,7 +118,7 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
     setIsWhitelist(whitelistResult);
   }, []);
   return (
-    <div className="col-12 col-md-4 mb-4">
+    <div className="col-12 col-md-6 mb-4">
       <Card elevation={10} className={classes.card}>
         {poolDetail && (
           <div style={{ width: "100%" }}>

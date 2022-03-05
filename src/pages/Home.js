@@ -151,7 +151,7 @@ const Home = () => {
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Active Pools</h4>
-            <div className="container row mt-4">
+            <div className="container row flex-row mt-4">
               {pools.map((singlePool, index) => {
                 return (
                   <PoolCard
@@ -166,7 +166,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className={classes.background}>
+      {/* <div className={classes.background}>
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Ended Pools</h4>
@@ -183,7 +183,7 @@ const Home = () => {
             </div>
           </div>{" "}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
