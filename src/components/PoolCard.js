@@ -7,6 +7,7 @@ import {
   getPoolDetails,
   getPoolList,
 } from "../actions/smartActions";
+import Loader from "../common/Loader";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   logo: {
-    height: "30px",
+    height: "60px",
   },
 
   description: {
@@ -55,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     paddingLeft: 10,
     paddingRight: 10,
+    minHeight: 90,
     [theme.breakpoints.down("sm")]: {
       flexDirection: "row",
     },
@@ -203,7 +205,11 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             </div>
           </div>
         )}
-        {!poolDetail && <div>Loading</div>}
+        {!poolDetail && (
+          <div>
+            <Loader />
+          </div>
+        )}
       </Card>
     </div>
   );

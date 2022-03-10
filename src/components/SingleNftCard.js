@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 340,
     minHeight: 421,
-    borderRadius: 30,
+    borderRadius: 20,
     backgroundColor: "rgba(41, 42, 66, 0.1)",
     border: "1px solid #212121",
     filter: "drop-shadow(0 0 0.5rem #212121)",
@@ -271,13 +271,24 @@ const SingleNftCard = ({ packageId, endTime }) => {
               minHeight: 240,
               paddingLeft: 10,
               paddingRight: 10,
-              backgroundImage: `url(${packages[packageId].image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              borderRadius: 20,
-              border: "8px solid #212121",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              // backgroundImage: `url()`,
+              // backgroundSize: "cover",
+              // backgroundPosition: "center",
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              border: "3px solid rgba(187, 85, 181, 0.1)",
             }}
-          ></div>
+          >
+            <img
+              src={packages[packageId].image}
+              style={{ height: 150, width: "fit-content" }}
+            />
+          </div>
 
           <div className="d-flex justify-content-center align-items-center pt-2 pb-1">
             <img className={classes.avatar} />
@@ -330,12 +341,6 @@ const SingleNftCard = ({ packageId, endTime }) => {
             </div>
           </div>
           <div className="mt-3 px-2">
-            <div className="d-flex justify-content-center">
-              <small className={classes.lastPrice}>
-                {packageDetail.RatePerETH && 1 / packages[packageId].price}{" "}
-                {packages[packageId].currency + " "} / Item + gas fees
-              </small>
-            </div>
             <div className="text-center mt-3">
               {!end && (
                 <Button
