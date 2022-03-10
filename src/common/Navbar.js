@@ -289,7 +289,12 @@ const Navbar = () => {
           <div className={classes.leftMargin} />
           <div className="d-flex justify-content-end">
             <div>
-              <a href="/" className={classes.navbarItemsDesktop}>
+              <a
+                href="https://stake.polkabridge.org"
+                target="_blank"
+                rel="noreferrer"
+                className={classes.navbarItemsDesktop}
+              >
                 Stake <DotCircle active={true} />
               </a>
             </div>
@@ -321,7 +326,12 @@ const Navbar = () => {
             </a>
           </div>{" "}
           <div>
-            <a href="#" rel="noreferrer" className={classes.navbarItemsDesktop}>
+            <a
+              href="https://swap.polkabridge.org"
+              target="_blank"
+              rel="noreferrer"
+              className={classes.navbarItemsDesktop}
+            >
               Swap <DotCircle />
             </a>
           </div>
