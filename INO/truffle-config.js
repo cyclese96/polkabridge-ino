@@ -152,6 +152,7 @@ module.exports = {
     'moonbeam-truffle-plugin'
   ],
   api_keys: {
-    etherscan: process.env.API_KEY
+    etherscan: process.env.API_KEY_ETH,
+    bscscan: process.env.API_KEY_BSC
   }
 };
