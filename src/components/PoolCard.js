@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   earn: {
     textAlign: "center",
     color: "#bdbdbd",
-    fontSize: 10,
+    fontSize: 11,
   },
   desktop: {
     display: "flex",
@@ -141,16 +141,14 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             <div className="d-flex justify-content-center align-items-center ">
               <div
                 style={{
-                  backgroundColor: "#C80C81",
+                  backgroundColor: "red",
                   borderRadius: "50%",
                   height: "5px",
                   width: "5px",
                   marginRight: 5,
                 }}
               ></div>
-              <div className={classes.earn}>
-                {poolData.packageIds.length} NFT {poolData.type}
-              </div>
+              <div className={classes.earn}> Inactive</div>
             </div>
 
             <div className={classes.desktop}>
@@ -206,8 +204,8 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
           </div>
         )}
         {!poolDetail && (
-          <div>
-            <Loader />
+          <div className="text-center">
+            <Loader height={200} />
           </div>
         )}
       </Card>
