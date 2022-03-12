@@ -7,6 +7,7 @@ import {
   getPackageDetails,
   getRemainINOToken,
   userPurchaseDetails,
+  userPurchasedQtyByPackageId,
 } from "../actions/smartActions";
 import packages from "../data/packagesData";
 import { getUserAddress } from "../actions/web3Actions";
@@ -172,13 +173,16 @@ const SingleNftCard = ({ packageId, endTime }) => {
   const [purchaseCase, setPurchaseCase] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [end, setEnd] = useState(false);
+  const [quantityBought, setQuantityBought] = useState(0);
 
   useEffect(async () => {
     let result = await getPackageDetails(packageId);
     console.log(result);
     let resultRemainToken = await getRemainINOToken(packageId);
     let userPurchaseResult = await userPurchaseDetails(packageId);
-
+    let quantity = await userPurchasedQtyByPackageId(packageId);
+    console.log(quantity);
+    setQuantityBought(quantity);
     setUserPurchaseDetail(userPurchaseResult);
     setIsPurchased(parseInt(userPurchaseResult.PurchasedItemCount) > 0);
     setIsClaimed(userPurchaseResult.IsClaimed);
@@ -233,12 +237,13 @@ const SingleNftCard = ({ packageId, endTime }) => {
       parseInt(quantity) /
       web3.utils.fromWei(packageDetail.RatePerETH, "ether");
 
+    console.log(amount);
     const response = await inoContract.methods
       .purchaseINO(packageId, quantity)
       .send(
         {
           from: userAddress,
-          value: 1000000000000000000 * parseFloat(amount),
+          value: amount.toString(),
           gasPrice: 25000000000,
         },
         async function (error, transactionHash) {
@@ -328,7 +333,8 @@ const SingleNftCard = ({ packageId, endTime }) => {
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Price</div>
             <div className={classes.detailValue}>
-              {packages[packageId].price} {packages[packageId].currency} / NFT
+              {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(2)}{" "}
+              {packages[packageId].currency} / NFT
             </div>
           </div>
 
@@ -339,6 +345,14 @@ const SingleNftCard = ({ packageId, endTime }) => {
               {packageDetail.MinimumTokenSoldout &&
                 packageDetail.MinimumTokenSoldout}
             </div>
+          </div>
+          <div
+            className="text-center mt-3"
+            style={{ color: "green", fontSize: 12, minHeight: 30 }}
+          >
+            {parseInt(quantityBought) > 0 && (
+              <span>You have purchased {quantityBought} NFTs.</span>
+            )}
           </div>
           <div className="mt-3 px-2">
             <div className="text-center mt-3">

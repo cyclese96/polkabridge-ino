@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 4, // Testnet
-    contractAddress: "0x459EFF34fb445684c9723fc786F402930d5c5fa0",
+    contractAddress: "0xdBe21f0950f659a9826Ddf713559A80C311f5019",
     abi: [
       {
         inputs: [
@@ -1085,6 +1085,7 @@ if (constants.net === 0) {
       {
         inputs: [
           { internalType: "uint256", name: "_PackageId", type: "uint256" },
+          { internalType: "uint256", name: "_PoolId", type: "uint256" },
           {
             internalType: "uint256",
             name: "_MinimumTokenSoldout",

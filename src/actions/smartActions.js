@@ -48,6 +48,17 @@ export const userPurchaseDetails = async (packageId) => {
     });
 };
 
+//READ userPurchasedQtyByPackageId of a package
+//RETURNS Obj
+export const userPurchasedQtyByPackageId = async (packageId) => {
+  let userAddress = await getUserAddress();
+  return await inoContract.methods
+    .getPurchasedPackageIds(userAddress, packageId)
+    .call((err, response) => {
+      return response;
+    });
+};
+
 //READ getIsWhitelisted
 //RETURNS Obj
 export const getIsWhitelisted = async (packageId) => {
