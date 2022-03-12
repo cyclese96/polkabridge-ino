@@ -15,6 +15,7 @@ import inoContract from "./../utils/inoConnection";
 import TxPopup from "./../common/TxPopup";
 import PurchaseModal from "./PurchaseModal";
 import web3 from "../web";
+import Loader from "../common/Loader";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -174,6 +175,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
   const [quantity, setQuantity] = useState(0);
   const [end, setEnd] = useState(false);
   const [quantityBought, setQuantityBought] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     let result = await getPackageDetails(packageId);
@@ -196,6 +198,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
     }
     setPackageDetail(result);
     setRemainToken(resultRemainToken);
+    setLoading(false);
   }, []);
 
   const PurchasePopup = () => {
@@ -294,103 +297,111 @@ const SingleNftCard = ({ packageId, endTime }) => {
               style={{ height: 150, width: "fit-content" }}
             />
           </div>
-
-          <div className="d-flex justify-content-center align-items-center pt-2 pb-1">
-            <img className={classes.avatar} />
-            <small
-              style={{
-                color: "#f9f9f9",
-                marginLeft: 10,
-                fontSize: 18,
-              }}
-            >
-              {packages[packageId].title}
-            </small>
-          </div>
-          <div className="d-flex justify-content-center align-items-center ">
-            <div
-              style={{
-                backgroundColor: "#C80C81",
-                borderRadius: "50%",
-                height: "5px",
-                width: "5px",
-                marginRight: 5,
-              }}
-            ></div>
-            <div className={classes.earn}>
-              By {packages[packageId].poolName}
+          {loading && (
+            <div className="text-center">
+              <Loader height={200} />
             </div>
-          </div>
-
-          <div className={classes.desktop}></div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Items remaining</div>
-            <div className={classes.detailValue}>
-              {remainToken && remainToken}/
-              {packageDetail.TotalItemCount && packageDetail.TotalItemCount}
-            </div>
-          </div>
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Price</div>
-            <div className={classes.detailValue}>
-              {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(2)}{" "}
-              {packages[packageId].currency} / NFT
-            </div>
-          </div>
-
-          <div className={classes.detailsWrapper}>
-            <div className={classes.detailTitle}>Minimum Purchase</div>
-            <div className={classes.detailValue}>
-              {" "}
-              {packageDetail.MinimumTokenSoldout &&
-                packageDetail.MinimumTokenSoldout}
-            </div>
-          </div>
-          <div
-            className="text-center mt-3"
-            style={{ color: "green", fontSize: 12, minHeight: 30 }}
-          >
-            {parseInt(quantityBought) > 0 && (
-              <span>You have purchased {quantityBought} NFTs.</span>
-            )}
-          </div>
-          <div className="mt-3 px-2">
-            <div className="text-center mt-3">
-              {!end && (
-                <Button
-                  variant="contained"
-                  className={classes.joinButton}
-                  onClick={PurchasePopup}
+          )}
+          {!loading && (
+            <div>
+              <div className="d-flex justify-content-center align-items-center pt-2 pb-1">
+                <img className={classes.avatar} />
+                <small
+                  style={{
+                    color: "#f9f9f9",
+                    marginLeft: 10,
+                    fontSize: 18,
+                  }}
                 >
-                  Purchase
-                </Button>
-              )}
+                  {packages[packageId].title}
+                </small>
+              </div>
+              <div className="d-flex justify-content-center align-items-center ">
+                <div
+                  style={{
+                    backgroundColor: "#C80C81",
+                    borderRadius: "50%",
+                    height: "5px",
+                    width: "5px",
+                    marginRight: 5,
+                  }}
+                ></div>
+                <div className={classes.earn}>
+                  By {packages[packageId].poolName}
+                </div>
+              </div>
 
-              {end && !isClaimed && !isPurchased && (
-                <Button variant="contained" className={classes.noPurchase}>
-                  You did not purchase
-                </Button>
-              )}
-              {end && !isClaimed && isPurchased && (
-                <Button
-                  variant="contained"
-                  className={classes.joinButton}
-                  onClick={claimPopup}
-                >
-                  Claim Tokens
-                </Button>
-              )}
-              {end && isClaimed && isPurchased && (
-                <Button
-                  variant="contained"
-                  className={classes.claimedButton}
-                  onClick={null}
-                >
-                  Tokens Claimed
-                </Button>
-              )}
+              <div className={classes.desktop}></div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Items remaining</div>
+                <div className={classes.detailValue}>
+                  {remainToken && remainToken}/
+                  {packageDetail.TotalItemCount && packageDetail.TotalItemCount}
+                </div>
+              </div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Price</div>
+                <div className={classes.detailValue}>
+                  {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(2)}{" "}
+                  {packages[packageId].currency} / NFT
+                </div>
+              </div>
+
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Minimum Purchase</div>
+                <div className={classes.detailValue}>
+                  {" "}
+                  {packageDetail.MinimumTokenSoldout &&
+                    packageDetail.MinimumTokenSoldout}
+                </div>
+              </div>
+              <div
+                className="text-center mt-3"
+                style={{ color: "green", fontSize: 12, minHeight: 30 }}
+              >
+                {parseInt(quantityBought) > 0 && (
+                  <span>You have purchased {quantityBought} NFTs.</span>
+                )}
+              </div>
+              <div className="mt-3 px-2">
+                <div className="text-center mt-3">
+                  {!end && (
+                    <Button
+                      variant="contained"
+                      className={classes.joinButton}
+                      onClick={PurchasePopup}
+                    >
+                      Purchase
+                    </Button>
+                  )}
+
+                  {end && !isClaimed && !isPurchased && (
+                    <Button variant="contained" className={classes.noPurchase}>
+                      You did not purchase
+                    </Button>
+                  )}
+                  {end && !isClaimed && isPurchased && (
+                    <Button
+                      variant="contained"
+                      className={classes.joinButton}
+                      onClick={claimPopup}
+                    >
+                      Claim Tokens
+                    </Button>
+                  )}
+                  {end && isClaimed && isPurchased && (
+                    <Button
+                      variant="contained"
+                      className={classes.claimedButton}
+                      onClick={null}
+                    >
+                      Tokens Claimed
+                    </Button>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
           <Dialog
             className={classes.modal}
