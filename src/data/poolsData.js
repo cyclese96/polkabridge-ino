@@ -9,7 +9,7 @@ let pool1 = {
   description:
     "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
   startDate: "20 Mar,2022 2PM UTC",
-  price: "0.05 ETH - 0.3 ETH",
+  price: "0.05 - 0.3",
   currency: "ETH",
   network: "Ethereum",
   quantity: "1000",

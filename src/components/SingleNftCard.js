@@ -184,7 +184,8 @@ const SingleNftCard = ({ packageId, endTime }) => {
     let userPurchaseResult = await userPurchaseDetails(packageId);
     let quantity = await userPurchasedQtyByPackageId(packageId);
     console.log(quantity);
-    setQuantityBought(quantity);
+    console.log(packageId);
+    setQuantityBought(parseInt(userPurchaseResult.PurchasedItemCount));
     setUserPurchaseDetail(userPurchaseResult);
     setIsPurchased(parseInt(userPurchaseResult.PurchasedItemCount) > 0);
     setIsClaimed(userPurchaseResult.IsClaimed);

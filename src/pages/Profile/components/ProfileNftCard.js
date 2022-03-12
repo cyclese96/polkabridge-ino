@@ -127,11 +127,21 @@ const ProfileNftCard = ({ packageId }) => {
               minHeight: 180,
               paddingLeft: 10,
               paddingRight: 10,
-              backgroundImage: `url(${packages[packageId].image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              border: "3px solid rgba(187, 85, 181, 0.1)",
             }}
-          ></div>
+          >
+            <img
+              src={packages[packageId].image}
+              style={{ height: 150, width: "fit-content" }}
+            />
+          </div>
           <div className="d-flex justify-content-center align-items-center pt-2 pb-1">
             <img className={classes.avatar} />
             <small
@@ -163,10 +173,12 @@ const ProfileNftCard = ({ packageId }) => {
               <div className={classes.detailsWrapper}>
                 <div className={classes.detailTitle}>Total Cost</div>
                 <div className={classes.detailValue}>
-                  {web3.utils.fromWei(
-                    userPurchaseDetail.TotalETHPurchase,
-                    "ether"
-                  )}
+                  {parseFloat(
+                    web3.utils.fromWei(
+                      userPurchaseDetail.TotalETHPurchase,
+                      "ether"
+                    )
+                  ).toFixed(2)}
                   {" " + packages[packageId].currency}
                 </div>
               </div>

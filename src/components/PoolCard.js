@@ -8,6 +8,7 @@ import {
   getPoolList,
 } from "../actions/smartActions";
 import Loader from "../common/Loader";
+import ProgressStatsBar from "../common/ProgressStatsBar";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -86,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   detailsWrapper: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 20,
+    paddingTop: 12,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -102,6 +103,44 @@ const useStyles = makeStyles((theme) => ({
 
     fontSize: 13,
     color: "#e5e5e5",
+  },
+
+  category: {
+    fontSize: 13,
+    width: "fit-content",
+    padding: "2px 5px 2px 5px",
+    color: "white",
+    fontWeight: 300,
+
+    margin: 0,
+    padding: 0,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12,
+    },
+  },
+
+  categoryValue: {
+    fontSize: 13,
+    width: "fit-content",
+    padding: "2px 5px 2px 5px",
+    color: "#f9f9f9",
+    fontWeight: 300,
+
+    margin: 0,
+    padding: 0,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12,
+    },
+  },
+  wrapper: {
+    paddingTop: 7,
+    paddingBottom: 7,
+  },
+  powerWrapper: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    color: "grey",
+    fontSize: 12,
   },
 }));
 
@@ -141,20 +180,42 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             <div className="d-flex justify-content-center align-items-center ">
               <div
                 style={{
-                  backgroundColor: "red",
+                  backgroundColor: poolDetail.IsActived ? "green" : "red",
+
                   borderRadius: "50%",
                   height: "5px",
                   width: "5px",
                   marginRight: 5,
                 }}
               ></div>
-              <div className={classes.earn}> Inactive</div>
+              <div
+                className={classes.earn}
+                style={{ color: poolDetail.IsActived ? "green" : "red" }}
+              >
+                {" "}
+                {poolDetail.IsActived ? "Active" : "Inactive"}
+              </div>
             </div>
 
             <div className={classes.desktop}>
               <div className={classes.description}>{poolData.description}</div>
             </div>
-            <div className="mt-2"></div>
+            <div className="mt-2 px-3">
+              <div className={classes.wrapper}>
+                <div className="d-flex justify-content-between">
+                  <h6 htmlFor="category" className={classes.category}>
+                    Progress
+                  </h6>
+                  <h6 htmlFor="category" className={classes.categoryValue}>
+                    32%
+                  </h6>
+                </div>
+                <div htmlFor="power" className={classes.powerWrapper}>
+                  <ProgressStatsBar color="green" value={32} maxValue={100} />
+                </div>
+              </div>
+            </div>
+
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Start Date</div>
               <div className={classes.detailValue}>{poolData.startDate}</div>
@@ -165,6 +226,11 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
               <div className={classes.detailValue}>{poolData.quantity}</div>
             </div>
             <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Remaining Quantity</div>
+              <div className={classes.detailValue}>32</div>
+            </div>
+
+            <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Price</div>
               <div className={classes.detailValue}>
                 {poolData.price} {poolData.currency}
@@ -174,6 +240,7 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
               <div className={classes.detailTitle}>Network</div>
               <div className={classes.detailValue}>{poolData.network}</div>
             </div>
+
             {/* <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Type</div>
               <div className={classes.detailValue}>
