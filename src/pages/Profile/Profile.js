@@ -135,7 +135,7 @@ const Profile = () => {
       <div className={classes.background}>
         <div className={classes.contentStyles}>
           <div style={{ width: "100%" }}>
-            <h4 className={classes.subHeading}>Purchases</h4>
+            <h4 className={classes.subHeading}>Purchase History</h4>
             {purchasedPackages.length === 0 && (
               <div className={classes.messageCard}>
                 <div className="text-center mt-3">
