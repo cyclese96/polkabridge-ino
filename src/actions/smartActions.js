@@ -59,6 +59,37 @@ export const userPurchasedQtyByPackageId = async (packageId) => {
     });
 };
 
+//READ getRemainingQuantityOfPool of a pool
+//RETURNS Obj
+export const getRemainingQuantityOfPool = async (poolId) => {
+  let quantity = 0;
+  let poolDetail = await getPoolDetails(poolId);
+
+  for (let i = 0; i < poolDetail.PackageIds.length; i++) {
+    let remainingTokens = await getRemainINOToken(poolDetail.PackageIds[i]);
+    quantity = quantity + parseInt(remainingTokens);
+  }
+  return quantity;
+};
+
+//READ getInitialBalanceOfPool of a pool
+//RETURNS Obj
+export const getInitialBalanceOfPool = async (poolId) => {
+  let quantity = 0;
+  let poolDetail = await getPoolDetails(poolId);
+
+  for (let i = 0; i < poolDetail.PackageIds.length; i++) {
+    let remainingTokens = await inoContract.methods
+      .getBalanceItemByPackageId(poolDetail.PackageIds[i])
+      .call((err, response) => {
+        return response;
+      });
+
+    quantity = quantity + parseInt(remainingTokens);
+  }
+  return quantity;
+};
+
 //READ getIsWhitelisted
 //RETURNS Obj
 export const getIsWhitelisted = async (packageId) => {

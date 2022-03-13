@@ -3,9 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button } from "@material-ui/core/";
 import { Link } from "react-router-dom";
 import {
+  getInitialBalanceOfPool,
   getIsWhitelisted,
   getPoolDetails,
   getPoolList,
+  getRemainingQuantityOfPool,
 } from "../actions/smartActions";
 import Loader from "../common/Loader";
 import ProgressStatsBar from "../common/ProgressStatsBar";
@@ -149,15 +151,31 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
 
   const [poolDetail, setPoolDetail] = useState(null);
   const [isWhitelist, setIsWhitelist] = useState(false);
+  const [remaining, setRemaining] = useState(0);
+  const [initial, setInitial] = useState(0);
 
   useEffect(async () => {
     let poolResult = await getPoolDetails(poolId);
     let whitelistResult = await getIsWhitelisted(poolId);
+    let remainingQuantity = await getRemainingQuantityOfPool(poolId);
+    let initialQuantity = await getInitialBalanceOfPool(poolId);
+    setInitial(initialQuantity);
+
+    setRemaining(remainingQuantity);
     console.log("poolResult");
     console.log(poolResult);
     setPoolDetail(poolResult);
     setIsWhitelist(whitelistResult);
   }, []);
+
+  const percentageSell = () => {
+    let numerator = initial - remaining;
+    console.log(numerator);
+
+    let fraction = numerator / initial;
+    console.log(fraction);
+    return (fraction * 100).toFixed(1);
+  };
   return (
     <div className="col-12 col-md-6 mb-4">
       <Card elevation={10} className={classes.card}>
@@ -207,11 +225,15 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
                     Progress
                   </h6>
                   <h6 htmlFor="category" className={classes.categoryValue}>
-                    32%
+                    {percentageSell()}%
                   </h6>
                 </div>
                 <div htmlFor="power" className={classes.powerWrapper}>
-                  <ProgressStatsBar color="green" value={32} maxValue={100} />
+                  <ProgressStatsBar
+                    color="green"
+                    value={initial - remaining}
+                    maxValue={initial}
+                  />
                 </div>
               </div>
             </div>
@@ -227,7 +249,9 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             </div>
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Remaining Quantity</div>
-              <div className={classes.detailValue}>32</div>
+              <div className={classes.detailValue}>
+                {remaining} {initial}
+              </div>
             </div>
 
             <div className={classes.detailsWrapper}>
