@@ -9,6 +9,7 @@ let packages = {
     price: "0.1",
     currency: "ETH",
     quantity: "50",
+    claimType: "MANUAL",
   },
   2: {
     id: 2,
@@ -20,6 +21,7 @@ let packages = {
     price: "0.2",
     currency: "ETH",
     quantity: "50",
+    claimType: "MANUAL",
   },
   3: {
     id: 3,
@@ -32,6 +34,7 @@ let packages = {
     price: "0.4",
     currency: "ETH",
     quantity: "50",
+    claimType: "MANUAL",
   },
   4: {
     id: 4,
