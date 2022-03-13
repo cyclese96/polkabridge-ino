@@ -4,6 +4,7 @@ import PoolCard from "../../components/PoolCard";
 
 import ProfileNftCard from "./components/ProfileNftCard";
 import { getUserPurchasedPackages } from "../../actions/smartActions";
+import Loader from "../../common/Loader";
 
 const useStyles = makeStyles((theme) => ({
   tabText: {
@@ -111,11 +112,13 @@ const Profile = () => {
   const classes = useStyles();
 
   const [purchasedPackages, setPurchasedPackages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
+    setLoading(true);
     let result = await getUserPurchasedPackages();
-
     setPurchasedPackages([...result]);
+    setLoading(false);
   }, []);
 
   return (
@@ -136,26 +139,36 @@ const Profile = () => {
         <div className={classes.contentStyles}>
           <div style={{ width: "100%" }}>
             <h4 className={classes.subHeading}>Purchases</h4>
-            {purchasedPackages.length === 0 && (
-              <div className={classes.messageCard}>
-                <div className="text-center mt-3">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/2855/2855027.png"
-                    height="140px"
-                  />
-                </div>
-                <h1 className={classes.message}>
-                  You did not yet participated in INO.
-                </h1>
+            {loading && (
+              <div className="text-center">
+                <Loader height={200} />
               </div>
             )}
-            {purchasedPackages.length !== 0 && (
-              <div className="row mt-4">
-                {purchasedPackages.map((singlePackageId) => (
-                  <div className="col-12 col-md-4">
-                    <ProfileNftCard packageId={singlePackageId} />
+            {!loading && (
+              <div>
+                {" "}
+                {purchasedPackages.length === 0 && (
+                  <div className={classes.messageCard}>
+                    <div className="text-center mt-3">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/2855/2855027.png"
+                        height="140px"
+                      />
+                    </div>
+                    <h1 className={classes.message}>
+                      You did not yet participated in INO.
+                    </h1>
                   </div>
-                ))}
+                )}
+                {purchasedPackages.length !== 0 && (
+                  <div className="row mt-4">
+                    {purchasedPackages.map((singlePackageId) => (
+                      <div className="col-12 col-md-4">
+                        <ProfileNftCard packageId={singlePackageId} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>{" "}

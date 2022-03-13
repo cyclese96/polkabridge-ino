@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
     maxWidth: 340,
-    minWidth: 300,
+
     minHeight: 320,
     borderRadius: 30,
     backgroundColor: "rgba(41, 42, 66, 0.1)",
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     filter: "drop-shadow(0 0 0.5rem #212121)",
     border: "1px solid #212121",
     paddingBottom: 15,
+    marginBottom: 10,
     [theme.breakpoints.down("sm")]: {
       paddingLeft: 0,
       paddingRight: 0,
@@ -115,6 +116,7 @@ const ProfileNftCard = ({ packageId }) => {
 
   useEffect(async () => {
     let userPurchaseResult = await userPurchaseDetails(packageId);
+    console.log(userPurchaseResult);
     setUserPurchaseDetail(userPurchaseResult);
   }, []);
 
@@ -198,15 +200,40 @@ const ProfileNftCard = ({ packageId }) => {
                   )}
                 </div>
               </div>
+              <div className="mt-3 px-2">
+                {userPurchaseDetail.IsClaimed && (
+                  <div className="text-center mt-3">
+                    <Button variant="contained" className={classes.joinButton}>
+                      View on OpenSea
+                    </Button>
+                  </div>
+                )}
+                {!userPurchaseDetail.IsClaimed && (
+                  <div className="text-center mt-3">
+                    {" "}
+                    {packages[packageId].claimType === "AUTO" && (
+                      <Button
+                        variant="contained"
+                        className={classes.joinButton}
+                      >
+                        Claim Your NFT
+                      </Button>
+                    )}
+                    {packages[packageId].claimType === "MANUAL" && (
+                      <a href="htpps://google.com" target="_blank">
+                        <Button
+                          variant="contained"
+                          className={classes.joinButton}
+                        >
+                          Claim Your NFT
+                        </Button>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           )}
-          <div className="mt-3 px-2">
-            <div className="text-center mt-3">
-              <Button variant="contained" className={classes.joinButton}>
-                View on OpenSea
-              </Button>
-            </div>
-          </div>
         </div>
       </Card>
     </div>
