@@ -245,13 +245,11 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
 
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Total NFTs on sell</div>
-              <div className={classes.detailValue}>{poolData.quantity}</div>
+              <div className={classes.detailValue}>{initial}</div>
             </div>
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Remaining Quantity</div>
-              <div className={classes.detailValue}>
-                {remaining} {initial}
-              </div>
+              <div className={classes.detailValue}>{remaining}</div>
             </div>
 
             <div className={classes.detailsWrapper}>
