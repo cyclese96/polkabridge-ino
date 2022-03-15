@@ -156,6 +156,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 13,
     color: "#e5e5e5",
   },
+
+  description: {
+    fontWeight: 500,
+    padding: 0,
+    paddingTop: 10,
+    paddingLeft: 10,
+    fontSize: 13,
+    paddingBottom: 3,
+    color: "#e5e5e5",
+    textAlign: "justify",
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -278,8 +289,8 @@ const SingleNftCard = ({ packageId, endTime }) => {
           <div
             style={{
               minHeight: 240,
-              paddingLeft: 10,
-              paddingRight: 10,
+              paddingLeft: 3,
+              paddingRight: 3,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -333,6 +344,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
               </div>
 
               <div className={classes.desktop}></div>
+              <div className={classes.description}>
+                {packages[packageId].description}
+              </div>
               <div className={classes.detailsWrapper}>
                 <div className={classes.detailTitle}>Items remaining</div>
                 <div className={classes.detailValue}>

@@ -2,6 +2,22 @@ let pools = [];
 
 let pool1 = {
   id: 1,
+  image: "https://launchpad.polkabridge.org/img/logo-white.png",
+  title: "PolkaBridge's Peace NFTs",
+  type: "Packages",
+  totalPackages: "1",
+  description:
+    "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
+  startDate: "21 Mar,2022 2PM UTC",
+  price: "0.25",
+  currency: "ETH",
+  network: "Ethereum",
+  quantity: "500",
+  packageIds: [1],
+};
+
+let pool2 = {
+  id: 2,
   image: "/projects/ancient/ancient.png",
   title: "Ancient Kingdom NFTs",
   type: "Packages",
@@ -20,8 +36,8 @@ let pool1 = {
   twitter: "https://twitter.com/AncientKingNft",
 };
 
-let pool2 = {
-  id: 2,
+let pool3 = {
+  id: 3,
   image:
     "https://pbs.twimg.com/profile_images/1448503265084252163/ch9pUzUD_400x400.jpg",
   title: "Lunapad's NFTs",
@@ -41,8 +57,8 @@ let pool2 = {
   packageIds: [1],
 };
 
-let pool3 = {
-  id: 3,
+let pool4 = {
+  id: 4,
   image: "ds",
   title: "Lunapad's Gold NFTs",
   type: "Packages",
@@ -56,8 +72,8 @@ let pool3 = {
   quantity: "900",
   packageIds: [6],
 };
-let pool4 = {
-  id: 4,
+let pool5 = {
+  id: 5,
   image: "/images/symbol.png",
   title: "PolkaBridge Support NFT",
   type: "Packages",

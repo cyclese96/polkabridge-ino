@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   logo: {
-    height: "60px",
+    height: "40px",
   },
 
   description: {

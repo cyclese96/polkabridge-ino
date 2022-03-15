@@ -575,43 +575,22 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 4, // Testnet
-    contractAddress: "0xdBe21f0950f659a9826Ddf713559A80C311f5019",
+    contractAddress: "0x5D0840aa96f4F979207349a0a88588B19462fdA3",
     abi: [
       {
         inputs: [
+          {
+            internalType: "contract PolkaBridgeNFT",
+            name: "_polkaBridgeNFT",
+            type: "address",
+          },
           { internalType: "address", name: "_owner", type: "address" },
           { internalType: "address", name: "_WETH", type: "address" },
           { internalType: "string", name: "_name", type: "string" },
           { internalType: "string", name: "_symbol", type: "string" },
-          { internalType: "string", name: "_uri", type: "string" },
         ],
         stateMutability: "nonpayable",
         type: "constructor",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: true,
-            internalType: "address",
-            name: "account",
-            type: "address",
-          },
-          {
-            indexed: true,
-            internalType: "address",
-            name: "operator",
-            type: "address",
-          },
-          {
-            indexed: false,
-            internalType: "bool",
-            name: "approved",
-            type: "bool",
-          },
-        ],
-        name: "ApprovalForAll",
-        type: "event",
       },
       {
         anonymous: false,
@@ -630,99 +609,6 @@ if (constants.net === 0) {
           },
         ],
         name: "OwnershipTransferred",
-        type: "event",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: true,
-            internalType: "address",
-            name: "operator",
-            type: "address",
-          },
-          {
-            indexed: true,
-            internalType: "address",
-            name: "from",
-            type: "address",
-          },
-          {
-            indexed: true,
-            internalType: "address",
-            name: "to",
-            type: "address",
-          },
-          {
-            indexed: false,
-            internalType: "uint256[]",
-            name: "ids",
-            type: "uint256[]",
-          },
-          {
-            indexed: false,
-            internalType: "uint256[]",
-            name: "values",
-            type: "uint256[]",
-          },
-        ],
-        name: "TransferBatch",
-        type: "event",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: true,
-            internalType: "address",
-            name: "operator",
-            type: "address",
-          },
-          {
-            indexed: true,
-            internalType: "address",
-            name: "from",
-            type: "address",
-          },
-          {
-            indexed: true,
-            internalType: "address",
-            name: "to",
-            type: "address",
-          },
-          {
-            indexed: false,
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            indexed: false,
-            internalType: "uint256",
-            name: "value",
-            type: "uint256",
-          },
-        ],
-        name: "TransferSingle",
-        type: "event",
-      },
-      {
-        anonymous: false,
-        inputs: [
-          {
-            indexed: false,
-            internalType: "string",
-            name: "value",
-            type: "string",
-          },
-          {
-            indexed: true,
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-        ],
-        name: "URI",
         type: "event",
       },
       {
@@ -807,26 +693,6 @@ if (constants.net === 0) {
         name: "addWhitelist",
         outputs: [],
         stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          { internalType: "address", name: "account", type: "address" },
-          { internalType: "uint256", name: "id", type: "uint256" },
-        ],
-        name: "balanceOf",
-        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [
-          { internalType: "address[]", name: "accounts", type: "address[]" },
-          { internalType: "uint256[]", name: "ids", type: "uint256[]" },
-        ],
-        name: "balanceOfBatch",
-        outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-        stateMutability: "view",
         type: "function",
       },
       {
@@ -943,12 +809,9 @@ if (constants.net === 0) {
         type: "function",
       },
       {
-        inputs: [
-          { internalType: "address", name: "account", type: "address" },
-          { internalType: "address", name: "operator", type: "address" },
-        ],
-        name: "isApprovedForAll",
-        outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        inputs: [{ internalType: "uint256", name: "_id", type: "uint256" }],
+        name: "getURI",
+        outputs: [{ internalType: "string", name: "", type: "string" }],
         stateMutability: "view",
         type: "function",
       },
@@ -970,6 +833,19 @@ if (constants.net === 0) {
         inputs: [],
         name: "packageLength",
         outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "polkaBridgeNFT",
+        outputs: [
+          {
+            internalType: "contract PolkaBridgeNFT",
+            name: "",
+            type: "address",
+          },
+        ],
         stateMutability: "view",
         type: "function",
       },
@@ -1008,43 +884,7 @@ if (constants.net === 0) {
         type: "function",
       },
       {
-        inputs: [
-          { internalType: "address", name: "from", type: "address" },
-          { internalType: "address", name: "to", type: "address" },
-          { internalType: "uint256[]", name: "ids", type: "uint256[]" },
-          { internalType: "uint256[]", name: "amounts", type: "uint256[]" },
-          { internalType: "bytes", name: "data", type: "bytes" },
-        ],
-        name: "safeBatchTransferFrom",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          { internalType: "address", name: "from", type: "address" },
-          { internalType: "address", name: "to", type: "address" },
-          { internalType: "uint256", name: "id", type: "uint256" },
-          { internalType: "uint256", name: "amount", type: "uint256" },
-          { internalType: "bytes", name: "data", type: "bytes" },
-        ],
-        name: "safeTransferFrom",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          { internalType: "address", name: "operator", type: "address" },
-          { internalType: "bool", name: "approved", type: "bool" },
-        ],
-        name: "setApprovalForAll",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [{ internalType: "string", name: "uri_", type: "string" }],
+        inputs: [{ internalType: "string", name: "_uri", type: "string" }],
         name: "setURI",
         outputs: [],
         stateMutability: "nonpayable",
@@ -1055,15 +895,6 @@ if (constants.net === 0) {
         name: "stopPool",
         outputs: [],
         stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          { internalType: "bytes4", name: "interfaceId", type: "bytes4" },
-        ],
-        name: "supportsInterface",
-        outputs: [{ internalType: "bool", name: "", type: "bool" }],
-        stateMutability: "view",
         type: "function",
       },
       {
@@ -1126,13 +957,6 @@ if (constants.net === 0) {
         name: "updateWhitelist",
         outputs: [],
         stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        name: "uri",
-        outputs: [{ internalType: "string", name: "", type: "string" }],
-        stateMutability: "view",
         type: "function",
       },
       {
