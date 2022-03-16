@@ -248,17 +248,16 @@ const SingleNftCard = ({ packageId, endTime }) => {
     setPurchaseCase(3);
 
     let userAddress = await getUserAddress();
-    let amount =
-      parseInt(quantity) /
-      web3.utils.fromWei(packageDetail.RatePerETH, "ether");
-
-    console.log(amount);
+    let amount = parseInt(quantity) / parseFloat(packageDetail.RatePerETH);
+    let finalValue = web3.utils.toWei(amount.toString(), "ether");
+    console.log(finalValue);
     const response = await inoContract.methods
       .purchaseINO(packageId, quantity)
       .send(
         {
           from: userAddress,
-          value: amount.toString(),
+          // value: amount.toString(),
+          value: finalValue.toString(),
           gasPrice: 25000000000,
         },
         async function (error, transactionHash) {
@@ -288,13 +287,13 @@ const SingleNftCard = ({ packageId, endTime }) => {
         <div style={{ width: "100%" }}>
           <div
             style={{
-              minHeight: 240,
-              paddingLeft: 3,
-              paddingRight: 3,
+              minHeight: 180,
+              paddingLeft: 0,
+              paddingRight: 0,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              // backgroundImage: `url()`,
+              // backgroundImage: `url(${packages[packageId].image})`,
               // backgroundSize: "cover",
               // backgroundPosition: "center",
               borderTopRightRadius: 20,
@@ -396,15 +395,17 @@ const SingleNftCard = ({ packageId, endTime }) => {
                     </Button>
                   )}
                   {end && !isClaimed && isPurchased && (
-                    <Button
-                      variant="contained"
-                      className={classes.joinButton}
-                      onClick={claimPopup}
-                    >
-                      Claim Tokens
-                    </Button>
+                    <Link to="/profile">
+                      <Button
+                        variant="contained"
+                        className={classes.joinButton}
+                        // onClick={claimPopup}
+                      >
+                        Claim Tokens
+                      </Button>
+                    </Link>
                   )}
-                  {end && isClaimed && isPurchased && (
+                  {/* {end && isClaimed && isPurchased && (
                     <Button
                       variant="contained"
                       className={classes.claimedButton}
@@ -412,7 +413,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
                     >
                       Tokens Claimed
                     </Button>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

@@ -18,22 +18,22 @@ let pool1 = {
 
 let pool2 = {
   id: 2,
-  image: "/projects/ancient/ancient.png",
-  title: "Ancient Kingdom NFTs",
+  image: "https://launchpad.polkabridge.org/img/logo-white.png",
+  title: "PolkaBridge's Peace NFTs",
   type: "Packages",
-  totalPackages: "3",
+  whitepaper: "https://polkabridge.org/docs/whitepaper.pdf",
+  website: "http://polkabridge.org/",
+  twitter: "https://twitter.com/realpolkabridge",
+  telegram: "https://t.me/polkabridgegroup",
+  totalPackages: "1",
   description:
-    "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
-  startDate: "20 Mar,2022 2PM UTC",
-  price: "0.05 - 0.3",
+    "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
+  startDate: "21 Mar,2022 2PM UTC",
+  price: "0.25",
   currency: "ETH",
   network: "Ethereum",
-  quantity: "1000",
-  packageIds: [1, 2, 3],
-  website: "https://acdom.io/",
-  whitepaper: "https://acdom.io/doc/Whitepaper_Acdom_final.pdf",
-  telegram: "https://t.me/AncientAnnouncement",
-  twitter: "https://twitter.com/AncientKingNft",
+  quantity: "500",
+  packageIds: [2],
 };
 
 let pool3 = {
@@ -87,5 +87,5 @@ let pool5 = {
   quantity: "900",
   packageIds: [7],
 };
-pools = [pool1];
+pools = [pool1, pool2];
 export default pools;

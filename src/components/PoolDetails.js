@@ -226,6 +226,7 @@ const PoolDetails = () => {
                 poolDetail.PackageIds.map((packageId) => {
                   return (
                     <div className="col-12 col-md-4 mb-5">
+                      {console.log(poolDetail.End)}
                       <SingleNftCard
                         packageId={packageId}
                         endTime={poolDetail.End}

@@ -1,11 +1,15 @@
+import * as React from "react";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Button } from "@material-ui/core/";
+import { getUserAddress } from "../../../actions/web3Actions";
+import inoContract from "./../../../utils/inoConnection";
 import { Link } from "react-router-dom";
 import { userPurchaseDetails } from "../../../actions/smartActions";
 import packages from "../../../data/packagesData";
 import dateFormat, { masks } from "dateformat";
 import web3 from "../../../web";
+import { Card, Button, Dialog, Slide, Backdrop } from "@material-ui/core/";
+import TxPopup from "../../../common/TxPopup";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -109,10 +113,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const ProfileNftCard = ({ packageId }) => {
   const classes = useStyles();
 
   const [userPurchaseDetail, setUserPurchaseDetail] = useState(null);
+  const [popup, setPopup] = useState(false);
+  const [claimCase, setClaimCase] = useState(0);
 
   useEffect(async () => {
     let userPurchaseResult = await userPurchaseDetails(packageId);
@@ -120,6 +130,36 @@ const ProfileNftCard = ({ packageId }) => {
     setUserPurchaseDetail(userPurchaseResult);
   }, []);
 
+  const claimPopup = async () => {
+    setPopup(true);
+    setClaimCase(3);
+
+    let userAddress = await getUserAddress();
+
+    const response = await inoContract.methods
+      .claimPool(packageId)
+      .send(
+        { from: userAddress, gasPrice: 10000000000 },
+        async function (error, transactionHash) {
+          if (transactionHash) {
+            setClaimCase(5);
+          } else {
+            setClaimCase(4);
+          }
+        }
+      )
+      .on("receipt", async function (receipt) {
+        setClaimCase(7);
+      })
+      .on("error", async function (error) {
+        setClaimCase(6);
+      });
+  };
+
+  const resetPopup = () => {
+    setPopup(false);
+    setClaimCase(0);
+  };
   return (
     <div>
       <Card elevation={10} className={classes.card}>
@@ -204,7 +244,7 @@ const ProfileNftCard = ({ packageId }) => {
                 {userPurchaseDetail.IsClaimed && (
                   <div className="text-center mt-3">
                     <Button variant="contained" className={classes.joinButton}>
-                      View on OpenSea
+                      You've Claimed
                     </Button>
                   </div>
                 )}
@@ -215,6 +255,7 @@ const ProfileNftCard = ({ packageId }) => {
                       <Button
                         variant="contained"
                         className={classes.joinButton}
+                        onClick={claimPopup}
                       >
                         Claim Your NFT
                       </Button>
@@ -236,6 +277,37 @@ const ProfileNftCard = ({ packageId }) => {
           )}
         </div>
       </Card>
+      <Dialog
+        className={classes.modal}
+        open={popup}
+        TransitionComponent={Transition}
+        keepMounted={false}
+        onClose={() => setPopup(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        PaperProps={{
+          style: {
+            borderRadius: 10,
+            backgroundColor: "black",
+            border: "4px solid #212121",
+          },
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "black",
+            borderRadius: 3,
+            overflowX: "hidden",
+          }}
+        >
+          {claimCase !== 1 && (
+            <TxPopup txCase={claimCase} resetPopup={resetPopup} />
+          )}
+        </div>
+      </Dialog>
     </div>
   );
 };

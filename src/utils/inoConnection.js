@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 4, // Testnet
-    contractAddress: "0x5D0840aa96f4F979207349a0a88588B19462fdA3",
+    contractAddress: "0x6712da5c411a4c7e78a055b8e9fcdcddc6860b25",
     abi: [
       {
         inputs: [
