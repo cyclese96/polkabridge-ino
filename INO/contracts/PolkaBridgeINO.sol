@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
+// import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
@@ -9,38 +11,41 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "./lib/IWETH.sol";
 import "./lib/IERC20.sol";
 import "./ReentrancyGuard.sol";
-// import "./PolkaBridgeNFT.sol";
+import "./PolkaBridgeNFT.sol";
 
-contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
+
+contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
     using SafeMath for uint256;
     using Strings for uint256;
     using Counters for Counters.Counter;
-
     address public immutable WETH;
-    address public immutable Owner;
+    address payable Owner;
     // address payable private ReceiveToken;
     Counters.Counter private tokenCounter;
-    // PolkaBridgeNFT polkaBridgeNFT;
+    PolkaBridgeNFT public polkaBridgeNFT;
     // Contract name
     string public name;
     // Contract symbol
     string public symbol;
-   
     constructor(
         // address payable _receiveToken,
-        address _owner, 
+        PolkaBridgeNFT _polkaBridgeNFT,
+        address payable _owner, 
         address _WETH,
         string memory _name,
-        string memory _symbol,
-        string memory _uri
-    ) ERC1155(_uri) {
+        string memory _symbol
+        // string memory _uri
+    ) {
         // ReceiveToken = _receiveToken;
-        Owner = _owner;
+        Owner = payable(_owner);
         WETH = _WETH;
         name = _name;
         symbol = _symbol;
+        polkaBridgeNFT = _polkaBridgeNFT;
+        // polkaBridgeNFT.setURI(_uri);
     }
     
+    receive() external payable {}
     // Pool for INO
     struct INOPool {
         uint256 Id;
@@ -55,7 +60,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         bool IsStopped;
         uint[] PackageIds;
     }
-    
     // Package
     struct Package {
         uint256 Id;
@@ -66,7 +70,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         uint256 RatePerETH; // times 1e18
         address[] UsersPurchased;
     }
-   
     // User
     struct User {
         uint256 Id;
@@ -78,27 +81,32 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         uint PurchasedItemCount;
         uint[] PurchasedPackageIds;
     }
-
-    
     mapping(uint256 => mapping(address => User)) public whitelist; // (packageId, userId) -> listuser
     mapping(uint256 => mapping(address => bool)) public purchasecheck; // (packageId, userId) -> purchasecheck
     mapping(address => mapping(uint256 => User)) private users; // (userId, poolId) -> user
-
     INOPool[] pools;
     Package[] packages;
-
-    function setURI(string memory uri_) external onlyOwner {
-        _setURI(uri_);
+    // function setURI(string memory uri_) external onlyOwner {
+    //     _setURI(uri_);
+    // }
+    function changeOwner(address payable _owner) external onlyOwner {
+        Owner = payable(_owner);
     }
+
+    // function setURI(string memory _uri) external onlyOwner {
+    //     polkaBridgeNFT.setURI(_uri);
+    // }
+
+    // function getURI(uint256 _id) external view returns(string memory) {
+    //     return polkaBridgeNFT.uri(_id);
+    // }
 
     function poolLength() external view returns (uint256) {
         return pools.length;
     }
-
     function packageLength() external view returns (uint256) {
         return packages.length;
     }
-    
     // Add Whitelist function 
     function addWhitelist(address user, uint256 pid) public onlyOwner {
         uint256 poolIndex = pid.sub(1);
@@ -112,7 +120,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             whitelist[packageId][user].WhitelistDate = block.timestamp;
         }
     }
-    
     // Add Multiple Whitelist function 
     function addMulWhitelist(address[] memory user, uint256 pid)
         public onlyOwner        
@@ -144,15 +151,12 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             whitelist[packageId][user].IsWhitelist = isWhitelist;
         }
     }
-
    // Check if user IsWhitelist
     function IsWhitelist(address user, uint256 pid) public view returns (bool) {
         uint256 poolIndex = pid.sub(1);
         uint[] memory packageIds = pools[poolIndex].PackageIds;
         return whitelist[packageIds[0]][user].IsWhitelist;
     }
-    
-    
     //Add package to pool
     function addPackageToPool(
         uint256 _PoolId,
@@ -175,7 +179,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         uint256 poolIndex = _PoolId.sub(1);    
         pools[poolIndex].PackageIds.push(id);
     }
-
     //Add Pool
     function addPool(
         uint256 _Begin,
@@ -200,7 +203,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             })
         );
     }
-
     // Update the pool
     function updatePool(
         uint256 pid,
@@ -227,16 +229,13 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             pools[poolIndex].LockDuration = _LockDuration;
         }
     }
-
     // Stopping the pool
     function stopPool(uint256 pid) public onlyOwner {
         uint256 poolIndex = pid.sub(1);
         pools[poolIndex].IsActived = false;
         pools[poolIndex].IsStopped = true;
-
         pools[poolIndex].StopDate = block.timestamp;
     }
-    
     // Activating the pool
     function activePool(uint256 pid) public onlyOwner {
         uint256 poolIndex = pid.sub(1);
@@ -245,15 +244,16 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         pools[poolIndex].ActivedDate = block.timestamp;
         pools[poolIndex].StopDate = 0;
     }
-
     //Update package
     function updatePackage(
         uint256 _PackageId,
+        uint256 _PoolId,
         uint256 _MinimumTokenSoldout,
         uint256 _TotalItemCount,
         uint256 _RatePerETH
     ) public onlyOwner {
         uint256 packageIndex = _PackageId.sub(1);
+        packages[packageIndex].PoolId = _PoolId;
         if (_MinimumTokenSoldout > 0) {
             packages[packageIndex].MinimumTokenSoldout = _MinimumTokenSoldout;
         }
@@ -264,7 +264,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             packages[packageIndex].RatePerETH = _RatePerETH;
         }
     }
-    
     function getBalanceItemByPackageId(uint256 packageId)
         public
         view
@@ -273,12 +272,10 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         uint256 packageIndex = packageId.sub(1);
         return packages[packageIndex].TotalItemCount;
     }
-    
     function getRemainINOToken(uint256 packageId) public view returns (uint256) {
         uint256 packageIndex = packageId.sub(1);
         return packages[packageIndex].TotalItemCount.sub(packages[packageIndex].TotalSoldCount);
     }
-
     // To Do: Purchase function 
     function purchaseINO(uint256 packageId, uint256 quantity)
         public
@@ -288,7 +285,6 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         uint256 packageIndex = packageId.sub(1);
         uint256 poolId = packages[packageIndex].PoolId;
         uint256 poolIndex = poolId.sub(1);
-        
         require(pools[poolIndex].IsActived, "invalid pool");
         require(
             block.timestamp >= pools[poolIndex].Begin &&
@@ -298,11 +294,13 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
         // check user
         if (pools[poolIndex].Type == 2) //private
             require(IsWhitelist(msg.sender, poolId), "invalid user");
-
         // check eth
         uint256 ethAmount = msg.value;
         uint256 calcItemAmount = ethAmount.mul(packages[packageIndex].RatePerETH).div(1e18);
         require(calcItemAmount >= quantity, "insufficient funds");
+        uint256 restETH;
+        if(calcItemAmount > quantity)
+            restETH = ethAmount - quantity.mul(uint256(1).div(packages[packageIndex].RatePerETH)).mul(1e18);
         // check remained token
         uint256 remainToken = getRemainINOToken(packageId);
         require(
@@ -310,16 +308,13 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             "INO sold out"
         );
         require(remainToken >= quantity, "INO sold out");
-
         whitelist[packageId][msg.sender].TotalETHPurchase = whitelist[packageId][msg.sender]
             .TotalETHPurchase
             .add(ethAmount);
-
         whitelist[packageId][msg.sender].PurchasedItemCount = whitelist[packageId][msg.sender]
             .PurchasedItemCount
             .add(quantity);
         whitelist[packageId][msg.sender].PurchaseTime = block.timestamp;
-
         if(!purchasecheck[packageId][msg.sender]){
             packages[packageIndex].UsersPurchased.push(msg.sender);
             purchasecheck[packageId][msg.sender] = true;
@@ -329,8 +324,9 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             quantity
         );
         IWETH(WETH).deposit{value: ethAmount}();
+        IWETH(WETH).withdraw(restETH);
+        payable(msg.sender).transfer(restETH);         
     }
-
     // To Do: Claim Pool
     function claimPool(uint256 pid) public nonReentrant {
         uint256 poolIndex = pid.sub(1);
@@ -346,36 +342,52 @@ contract PolkaBridgeINO is ERC1155, Ownable, ReentrancyGuard {
             uint256 packageId = packageIds[i];
             if(purchasecheck[packageId][msg.sender]){
                 uint256 itemCount = whitelist[packageId][msg.sender].PurchasedItemCount;
-                _mint(msg.sender, packageId, itemCount, '');
+                // _mint(msg.sender, packageId, itemCount, '');
+                // polkaBridgeNFT.mintNFT(msg.sender, packageId, itemCount);
+                IERC1155(polkaBridgeNFT).safeTransferFrom(address(this), msg.sender, packageId, itemCount, '');
                 whitelist[packageId][msg.sender].IsClaimed = true;
             }
         }
     }
-    
+
+    function onERC1155Received(address, address, uint256, uint256, bytes memory) public virtual override returns (bytes4) {
+        return this.onERC1155Received.selector;
+    }
+
+    function onERC1155BatchReceived(address, address, uint256[] memory, uint256[] memory, bytes memory) public virtual override  returns (bytes4) {
+        return this.onERC1155BatchReceived.selector;
+    }
+
+    function onERC721Received(address, address, uint256, bytes memory) public virtual returns (bytes4) {
+        return this.onERC721Received.selector;
+    }    
+
+    function supportsInterface(bytes4 interfaceId) external pure override returns (bool) {
+        return interfaceId == this.supportsInterface.selector;
+    }
+
     function getPoolInfo(uint256 pid) public view
         returns ( INOPool memory retSt )
     {
         uint256 poolIndex = pid.sub(1);
         return pools[poolIndex];
     }
-
     function getPackageInfo(uint256 packageId) public view
         returns ( Package memory retSt )
     {
         uint256 packageIndex = packageId.sub(1);
         return packages[packageIndex];
     }
-
     function getPurchasedPackageIds(address user_, uint256 pid) public view
         returns ( uint[] memory )
     {
         return users[user_][pid].PurchasedPackageIds;
     }
-
     //withdraw ETH after INO
     function withdrawPoolFund() public onlyOwner {
         uint256 ETHbalance = IERC20(WETH).balanceOf(address(this));
-        // IWETH(WETH).transfer(Owner, ETHbalance);
-        IERC20(WETH).transfer(Owner, ETHbalance);
+        // IWETH(WETH).transfer(Owner, ETHbalance);        
+        IWETH(WETH).withdraw(ETHbalance);
+        Owner.transfer(ETHbalance);
     }
 }
