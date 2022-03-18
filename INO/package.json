@@ -6,9 +6,9 @@
   "scripts": {
     "compile": "truffle compile",
     "deploy-rinkeby": "truffle migrate --network rinkeby_infura --reset",
-    "verify-rinkeby": "truffle run verify PolkaBridgeINO --network rinkeby_infura",
+    "verify-rinkeby": "truffle run verify PolkaBridgeNFT PolkaBridgeINO --network rinkeby_infura",
     "deploy-bscTestnet": "truffle migrate --network bscTestnet --reset",
-    "verify-bscTestnet": "truffle run verify PolkaBridgeINO --network bscTestnet",
+    "verify-bscTestnet": "truffle run verify PolkaBridgeNFT PolkaBridgeINO --network bscTestnet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
