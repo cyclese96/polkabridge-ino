@@ -139,7 +139,7 @@ const Home = () => {
             >
               <Button className={classes.actionButton} variant="contained">
                 <Person />
-                My Profile
+                My Purchases
               </Button>
               <div></div>
             </Link>

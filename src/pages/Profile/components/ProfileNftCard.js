@@ -240,6 +240,13 @@ const ProfileNftCard = ({ packageId }) => {
                   )}
                 </div>
               </div>
+              {console.log(packages[packageId])}
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Claim Time</div>
+                <div className={classes.detailValue}>
+                  {packages[packageId].claimTime}
+                </div>
+              </div>
               <div className="mt-3 px-2">
                 {userPurchaseDetail.IsClaimed && (
                   <div className="text-center mt-3">
@@ -266,7 +273,7 @@ const ProfileNftCard = ({ packageId }) => {
                           variant="contained"
                           className={classes.joinButton}
                         >
-                          Claim Your NFT
+                          View Your NFT
                         </Button>
                       </a>
                     )}

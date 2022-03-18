@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 4, // Testnet
-    contractAddress: "0x6712da5c411a4c7e78a055b8e9fcdcddc6860b25",
+    contractAddress: "0x67CdE3bd9Ef7f7049839499CB4E30c71B358b606",
     abi: [
       {
         inputs: [
@@ -584,7 +584,7 @@ if (constants.net === 0) {
             name: "_polkaBridgeNFT",
             type: "address",
           },
-          { internalType: "address", name: "_owner", type: "address" },
+          { internalType: "address payable", name: "_owner", type: "address" },
           { internalType: "address", name: "_WETH", type: "address" },
           { internalType: "string", name: "_name", type: "string" },
           { internalType: "string", name: "_symbol", type: "string" },
@@ -618,13 +618,6 @@ if (constants.net === 0) {
         ],
         name: "IsWhitelist",
         outputs: [{ internalType: "bool", name: "", type: "bool" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [],
-        name: "Owner",
-        outputs: [{ internalType: "address", name: "", type: "address" }],
         stateMutability: "view",
         type: "function",
       },
@@ -691,6 +684,15 @@ if (constants.net === 0) {
           { internalType: "uint256", name: "pid", type: "uint256" },
         ],
         name: "addWhitelist",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "address payable", name: "_owner", type: "address" },
+        ],
+        name: "changeOwner",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
@@ -823,6 +825,44 @@ if (constants.net === 0) {
         type: "function",
       },
       {
+        inputs: [
+          { internalType: "address", name: "", type: "address" },
+          { internalType: "address", name: "", type: "address" },
+          { internalType: "uint256[]", name: "", type: "uint256[]" },
+          { internalType: "uint256[]", name: "", type: "uint256[]" },
+          { internalType: "bytes", name: "", type: "bytes" },
+        ],
+        name: "onERC1155BatchReceived",
+        outputs: [{ internalType: "bytes4", name: "", type: "bytes4" }],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "address", name: "", type: "address" },
+          { internalType: "address", name: "", type: "address" },
+          { internalType: "uint256", name: "", type: "uint256" },
+          { internalType: "uint256", name: "", type: "uint256" },
+          { internalType: "bytes", name: "", type: "bytes" },
+        ],
+        name: "onERC1155Received",
+        outputs: [{ internalType: "bytes4", name: "", type: "bytes4" }],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "address", name: "", type: "address" },
+          { internalType: "address", name: "", type: "address" },
+          { internalType: "uint256", name: "", type: "uint256" },
+          { internalType: "bytes", name: "", type: "bytes" },
+        ],
+        name: "onERC721Received",
+        outputs: [{ internalType: "bytes4", name: "", type: "bytes4" }],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
         inputs: [],
         name: "owner",
         outputs: [{ internalType: "address", name: "", type: "address" }],
@@ -895,6 +935,15 @@ if (constants.net === 0) {
         name: "stopPool",
         outputs: [],
         stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "bytes4", name: "interfaceId", type: "bytes4" },
+        ],
+        name: "supportsInterface",
+        outputs: [{ internalType: "bool", name: "", type: "bool" }],
+        stateMutability: "pure",
         type: "function",
       },
       {
@@ -992,6 +1041,7 @@ if (constants.net === 0) {
         stateMutability: "nonpayable",
         type: "function",
       },
+      { stateMutability: "payable", type: "receive" },
     ],
   };
 }

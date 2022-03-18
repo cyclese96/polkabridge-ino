@@ -87,5 +87,5 @@ let pool5 = {
   quantity: "900",
   packageIds: [7],
 };
-pools = [pool1, pool2];
+pools = [pool1];
 export default pools;
