@@ -42,6 +42,7 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         name = _name;
         symbol = _symbol;
         polkaBridgeNFT = _polkaBridgeNFT;
+        
         // polkaBridgeNFT.setURI(_uri);
     }
     
@@ -396,5 +397,16 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         // IWETH(WETH).transfer(Owner, ETHbalance);        
         IWETH(WETH).withdraw(ETHbalance);
         Owner.transfer(ETHbalance);
+    }
+
+    //withdraw ETH after IDO
+    function withdrawETHFund() public onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "not enough fund");
+        Owner.transfer(balance);
+    }
+
+    function withdrawErc20(IERC20 token) public {
+        token.transfer(Owner, token.balanceOf(address(this)));
     }
 }
