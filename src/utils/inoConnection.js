@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 4, // Testnet
-    contractAddress: "0x67CdE3bd9Ef7f7049839499CB4E30c71B358b606",
+    contractAddress: "0x3F1FA9796C4CB37c3c6472e9674B889Ef9e3d456",
     abi: [
       {
         inputs: [
@@ -672,6 +672,7 @@ if (constants.net === 0) {
             type: "uint256",
           },
           { internalType: "uint256", name: "_LockDuration", type: "uint256" },
+          { internalType: "uint256", name: "_claimType", type: "uint256" },
         ],
         name: "addPool",
         outputs: [],
@@ -775,6 +776,7 @@ if (constants.net === 0) {
               },
               { internalType: "uint256", name: "ActivedDate", type: "uint256" },
               { internalType: "uint256", name: "StopDate", type: "uint256" },
+              { internalType: "uint256", name: "claimType", type: "uint256" },
               { internalType: "bool", name: "IsActived", type: "bool" },
               { internalType: "bool", name: "IsStopped", type: "bool" },
               {
@@ -807,13 +809,6 @@ if (constants.net === 0) {
         ],
         name: "getRemainINOToken",
         outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [{ internalType: "uint256", name: "_id", type: "uint256" }],
-        name: "getURI",
-        outputs: [{ internalType: "string", name: "", type: "string" }],
         stateMutability: "view",
         type: "function",
       },
@@ -924,13 +919,6 @@ if (constants.net === 0) {
         type: "function",
       },
       {
-        inputs: [{ internalType: "string", name: "_uri", type: "string" }],
-        name: "setURI",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
         inputs: [{ internalType: "uint256", name: "pid", type: "uint256" }],
         name: "stopPool",
         outputs: [],
@@ -991,6 +979,7 @@ if (constants.net === 0) {
             type: "uint256",
           },
           { internalType: "uint256", name: "_LockDuration", type: "uint256" },
+          { internalType: "uint256", name: "_claimType", type: "uint256" },
         ],
         name: "updatePool",
         outputs: [],
