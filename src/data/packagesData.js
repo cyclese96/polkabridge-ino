@@ -1,8 +1,7 @@
 let packages = {
   1: {
     id: 1,
-    image:
-      "https://pbs.twimg.com/profile_images/1451013712748290051/Kccvxw4i_400x400.jpg",
+    image: "/projects/polkabridge/peace.jpg",
     title: "Stand Against WAR",
     poolName: "PolkaBridge Peace NFT",
     description:
