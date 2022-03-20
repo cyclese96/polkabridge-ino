@@ -56,8 +56,9 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         uint256 LockDuration; //lock after purchase
         uint256 ActivedDate;
         uint256 StopDate;
+        uint256 claimType; // 1: claim in PBR INO, 2: claim in other project
         bool IsActived;
-        bool IsStopped;
+        bool IsStopped;        
         uint[] PackageIds;
     }
     // Package
@@ -185,7 +186,8 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         uint256 _End,
         uint256 _Type, //1:public, 2:private
         uint256 _AmountPBRRequire, //must e18,important when init
-        uint256 _LockDuration //lock after purchase
+        uint256 _LockDuration, //lock after purchase
+        uint256 _claimType
     ) public onlyOwner {
         pools.push(
             INOPool({
@@ -199,6 +201,7 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
                 StopDate : 0,
                 IsActived : false,
                 IsStopped : true,
+                claimType : _claimType,
                 PackageIds: new uint[](0)
             })
         );
@@ -210,9 +213,12 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         uint256 _End,
         uint256 _Type,
         uint256 _AmountPBRRequire,
-        uint256 _LockDuration
+        uint256 _LockDuration,
+        uint256 _claimType
     ) public onlyOwner {
+        // require(_claimType == 1 || _claimType == 2, "invalid claim type");
         uint256 poolIndex = pid.sub(1);
+        pools[poolIndex].claimType = _claimType;
         if (_Begin > 0) {
             pools[poolIndex].Begin = _Begin;
         }
@@ -331,6 +337,7 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
     function claimPool(uint256 pid) public nonReentrant {
         uint256 poolIndex = pid.sub(1);
         //check user
+        require(pools[poolIndex].claimType == 1 , "not allow claim here ");
         if (pools[poolIndex].Type == 2) //private
             require(IsWhitelist(msg.sender, pid), "invalid user");
         require(block.timestamp > pools[poolIndex].End.add(pools[poolIndex].LockDuration), "not on time for claiming NFTs");
