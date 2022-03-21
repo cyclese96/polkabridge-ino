@@ -11,7 +11,7 @@ let packages = {
     currency: "ETH",
     quantity: "500",
     claimType: "AUTO",
-    claimTime: "21 Mar,2022 2PM UTC",
+    claimTime: "March 23, 2022 14:00:00 UTC",
   },
   2: {
     id: 2,
