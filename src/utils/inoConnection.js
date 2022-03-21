@@ -575,7 +575,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://data-seed-prebsc-2-s1.binance.org:8545/",
     chainId: 4, // Testnet
-    contractAddress: "0x3F1FA9796C4CB37c3c6472e9674B889Ef9e3d456",
+    contractAddress: "0x845270B21699C409ae14D18dFE1B8Fd05D44670E",
     abi: [
       {
         inputs: [
@@ -1021,6 +1021,22 @@ if (constants.net === 0) {
           },
         ],
         stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "withdrawETHFund",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [
+          { internalType: "contract IERC20", name: "token", type: "address" },
+        ],
+        name: "withdrawErc20",
+        outputs: [],
+        stateMutability: "nonpayable",
         type: "function",
       },
       {
