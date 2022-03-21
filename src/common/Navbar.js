@@ -241,10 +241,21 @@ const Navbar = () => {
           {
             name: "Launchpad",
             link: "https://launchpad.polkabridge.org/",
+            id: "launchpad",
+            icon: <PeopleAltOutlined />,
+          },
+          {
+            name: "INO",
+            link: "https://ino.polkabridge.org/",
             id: "characters",
             icon: <PeopleAltOutlined />,
           },
-          { name: "Swap", link: "#", id: "items", icon: <VpnLockOutlined /> },
+          {
+            name: "Swap",
+            link: "https://swap.polkabridge.org/",
+            id: "swap",
+            icon: <VpnLockOutlined />,
+          },
           {
             name: "Lending",
             link: "#",
@@ -364,7 +375,7 @@ const Navbar = () => {
           <div className="d-flex justify-content-center align-items-center">
             <Avatar
               variant="square"
-              src="images/logo-white.png"
+              src="/images/logo-white.png"
               style={{ height: 38, width: 150 }}
             />
           </div>
