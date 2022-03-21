@@ -14,6 +14,10 @@ let pool1 = {
   network: "Ethereum",
   quantity: "500",
   packageIds: [1],
+  whitepaper: "https://polkabridge.org/docs/whitepaper.pdf",
+  website: "http://polkabridge.org/",
+  twitter: "https://twitter.com/realpolkabridge",
+  telegram: "https://t.me/polkabridgegroup",
 };
 
 pools = [pool1];
