@@ -64,6 +64,7 @@ function ConnectButton({
   authenticateUser,
   authenticated,
   checkAuthenticated,
+  signOutUser,
 }) {
   const classes = useStyles();
   const [error, setError] = useState("");
@@ -221,6 +222,10 @@ const mapStateToProps = (state) => ({
   authenticated: state.auth.authenticated,
 });
 
-const mapDispatchToProps = { authenticateUser, checkAuthenticated };
+const mapDispatchToProps = {
+  authenticateUser,
+  checkAuthenticated,
+  signOutUser,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectButton);
