@@ -24,7 +24,7 @@ let packages = {
     currency: "ETH",
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "March 24, 2022 13:00:00 UTC",
+    claimTime: "March 23, 2022 14:00:00 UTC",
   },
   3: {
     id: 3,
@@ -37,7 +37,7 @@ let packages = {
     currency: "ETH",
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "March 24, 2022 13:00:00 UTC",
+    claimTime: "March 23, 2022 14:00:00 UTC",
   },
   4: {
     id: 4,
@@ -51,7 +51,7 @@ let packages = {
     currency: "ETH",
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "March 24, 2022 13:00:00 UTC",
+    claimTime: "March 23, 2022 14:00:00 UTC",
   },
 };
 
