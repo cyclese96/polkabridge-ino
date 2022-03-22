@@ -237,7 +237,7 @@ const PoolDetails = () => {
                             lineHeight: 2.5,
                           }}
                         >
-                          {index + 1}. {singleUtility}
+                          {singleUtility}
                         </li>
                       );
                     })}

@@ -383,7 +383,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
                 <div className={classes.detailsWrapper}>
                   <div className={classes.detailTitle}>Price</div>
                   <div className={classes.detailValue}>
-                    {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(2)}{" "}
+                    {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(3)}{" "}
                     {packages[packageId].currency} / NFT
                   </div>
                 </div>

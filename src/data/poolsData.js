@@ -35,8 +35,9 @@ let pool2 = {
   By joining the INO on PolkaBridge for a VIP card and entering the associated VIP maps, players can earn a rate of return on their initial investment of up to 2400% in just half a month with the maximum level of V12.`,
   startDate: "March 22, 2022 14:00:00 UTC",
   utilities: [
-    "Level up upto V12.",
-    "Your heroes will be able to gain strength, improve their battle abilities, defend themselves, and acquire more resources.",
+    "NFT items strengthen in-game characters significantly, support them to win more fights and gain more rewards ( win boss for KING token).",
+    "NFTs can be traded on Marketplace but they are limited in supply which leads to the rise of NFTs prices.",
+    "NFTs are on the best price.",
   ],
   price: "0.045 - 0.25",
   currency: "ETH",
