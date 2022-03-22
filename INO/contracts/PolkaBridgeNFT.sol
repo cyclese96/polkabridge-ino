@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PolkaBridgeNFT is ERC1155, Ownable {
+    string public name = "PolkaBridge NFT";
+    string public symbol = "PBRNFT";
     constructor(string memory _uri) ERC1155(_uri) {
         _setURI(_uri);
     }

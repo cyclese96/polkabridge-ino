@@ -66,7 +66,7 @@ module.exports = {
         return new HDWalletProvider(process.env.MNEMONIC, "https://mainnet.infura.io/v3/1a735e3423e2475798a8e49509c02a1a", MetaMaskAccountIndex)
       },
       network_id: 1,
-      gasPrice: web3.utils.toWei('35', 'gwei'),
+      gasPrice: web3.utils.toWei('25', 'gwei'),
       gas: 6000000,
       timeoutBlocks: 2500,
       networkCheckTimeout: 9999999

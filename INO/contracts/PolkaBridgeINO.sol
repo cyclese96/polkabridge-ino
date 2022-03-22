@@ -14,6 +14,7 @@ import "./ReentrancyGuard.sol";
 import "./PolkaBridgeNFT.sol";
 
 contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
+    string public name = "PolkaBridge: INO";
     using SafeMath for uint256;
     using Strings for uint256;
     using Counters for Counters.Counter;
@@ -22,28 +23,22 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
     // address payable private ReceiveToken;
     Counters.Counter private tokenCounter;
     PolkaBridgeNFT public polkaBridgeNFT;
-    // Contract name
-    string public name;
-    // Contract symbol
-    string public symbol;
+   
 
     constructor(
         // address payable _receiveToken,
         PolkaBridgeNFT _polkaBridgeNFT,
         address payable _owner,
-        address _WETH,
-        string memory _name,
-        string memory _symbol
-    ) // string memory _uri
+        address _WETH
+    ) 
     {
         // ReceiveToken = _receiveToken;
         Owner = payable(_owner);
         WETH = _WETH;
-        name = _name;
-        symbol = _symbol;
+
         polkaBridgeNFT = _polkaBridgeNFT;
 
-        // polkaBridgeNFT.setURI(_uri);
+
     }
 
     receive() external payable {}
