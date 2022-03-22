@@ -23,6 +23,7 @@ import { EqualizerOutlined } from "@material-ui/icons";
 
 import DotCircle from "./DotCircle";
 import ConnectButton from "./ConnectButton";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -274,7 +275,11 @@ const Navbar = () => {
             </a>
           </ListItem>
         ))}
+
         <Divider />
+        <div style={{ paddingLeft: 20 }}>
+          <ConnectButton />
+        </div>
       </List>
     </div>
   );
@@ -287,11 +292,13 @@ const Navbar = () => {
         className={classes.appBarBackground}
       >
         <Toolbar className={classes.sectionDesktop}>
-          <Avatar
-            variant="square"
-            src="/images/logo-white.png"
-            className={classes.logo}
-          />
+          <a href="/">
+            <Avatar
+              variant="square"
+              src="/images/logo-white.png"
+              className={classes.logo}
+            />
+          </a>
           <div className={classes.leftMargin} />
           <div className="d-flex justify-content-end">
             <div>
@@ -356,11 +363,13 @@ const Navbar = () => {
 
         <Toolbar className={classes.sectionMobile}>
           <div className="d-flex justify-content-center align-items-center">
-            <Avatar
-              variant="square"
-              src="/images/logo-white.png"
-              style={{ height: 38, width: 150 }}
-            />
+            <a href="/">
+              <Avatar
+                variant="square"
+                src="/images/logo-white.png"
+                style={{ height: 38, width: 150 }}
+              />
+            </a>
           </div>
 
           <div>

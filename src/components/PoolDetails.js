@@ -163,49 +163,91 @@ const PoolDetails = () => {
               {pools[id - 1].description}
             </div>
 
-            <div>
-              <h4
-                style={{
-                  color: "#f9f9f9",
-                  marginLeft: 10,
-                  fontSize: 18,
-                  marginTop: 20,
-                }}
-              >
-                Rules
-              </h4>
-              <div className="mt-2 mb-2">
-                <li
+            <div className="row">
+              <div className="col-md-6">
+                {" "}
+                <h4
                   style={{
-                    color: "#f9f9f9",
+                    color: "#DF097C",
                     marginLeft: 10,
-                    fontSize: 13,
-                    lineHeight: 2.5,
+                    fontSize: 18,
+                    marginTop: 20,
                   }}
                 >
-                  You can participate in {pools[id - 1].title} NFT by paying the
-                  amount of NFTs
-                </li>
-                <li
+                  Rules
+                </h4>
+                <div className="mt-2 mb-2">
+                  <li
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 13,
+                      lineHeight: 2.5,
+                    }}
+                  >
+                    You can participate in {pools[id - 1].title} NFT by paying
+                    the amount of NFTs
+                  </li>
+                  <li
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 13,
+                      lineHeight: 2.5,
+                    }}
+                  >
+                    Once NFTs listed on offcial platform, you can sell/transfer.
+                  </li>
+                  <li
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 13,
+                      lineHeight: 2.5,
+                    }}
+                  >
+                    For more information visit our telegram group.
+                  </li>
+                </div>
+              </div>
+              <div className="col-md-6">
+                {" "}
+                <h4
                   style={{
-                    color: "#f9f9f9",
-                    marginLeft: 10,
-                    fontSize: 13,
-                    lineHeight: 2.5,
+                    color: "#DF097C",
+
+                    fontSize: 18,
+                    marginTop: 20,
                   }}
                 >
-                  Once NFTs listed on offcial platform, you can sell/transfer.
-                </li>
-                <li
-                  style={{
-                    color: "#f9f9f9",
-                    marginLeft: 10,
-                    fontSize: 13,
-                    lineHeight: 2.5,
-                  }}
-                >
-                  For more information visit our telegram group.
-                </li>
+                  NFT Utilities
+                </h4>
+                <div className="mt-2 mb-2">
+                  <p style={{ color: "white" }}>
+                    Why you should hold PolkaBridge's Peace NFT ?
+                  </p>
+                  <li
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 13,
+                      lineHeight: 2.5,
+                    }}
+                  >
+                    1. Support peace, not War
+                  </li>
+                  <li
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 13,
+                      lineHeight: 2.5,
+                    }}
+                  >
+                    2. PBR Airdrop: Peace NFT holders will be airdropped 1999
+                    PBR / 1 NFT on 15th April
+                  </li>
+                </div>
               </div>
             </div>
           </div>

@@ -168,6 +168,23 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
     setIsWhitelist(whitelistResult);
   }, []);
 
+  const disableView = () => {
+    if (poolDetail) {
+      const date1 = parseInt(poolDetail.Begin) * 1000; // Begin Time
+      const date2 = Date.now(); // Current Time
+
+      const diffTime = date1 - date2;
+      // console.log("diffTime");
+      // console.log(date1);
+      // console.log(date2);
+      // console.log(diffTime);
+      if (diffTime > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
   const percentageSell = () => {
     let numerator = initial - remaining;
     console.log(numerator);
@@ -216,7 +233,13 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             </div>
 
             <div className={classes.desktop}>
-              <div className={classes.description}>{poolData.description}</div>
+              <div className={classes.description}>
+                {/* {poolData.description} */}
+
+                {poolData.description &&
+                  poolData.description.slice(0, 200) +
+                    (poolData.description.length > 200 ? "..." : "")}
+              </div>
             </div>
             <div className="mt-2 px-3">
               <div className={classes.wrapper}>
@@ -237,7 +260,7 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
                 </div>
               </div>
             </div>
-
+            {console.log(disableView().toString())}
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Start Date</div>
               <div className={classes.detailValue}>{poolData.startDate}</div>
@@ -271,11 +294,27 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             </div> */}
             <div className="text-center mt-3">
               {poolDetail.Type !== "1" && isWhitelist && (
-                <Link to={`/pool-details/${poolId}`}>
-                  <Button variant="contained" className={classes.joinButton}>
-                    View
-                  </Button>
-                </Link>
+                <div>
+                  {disableView() ? (
+                    <Button
+                      variant="contained"
+                      className={classes.joinButton}
+                      disabled={disableView()}
+                    >
+                      View
+                    </Button>
+                  ) : (
+                    <Link to={`/pool-details/${poolId}`}>
+                      <Button
+                        variant="contained"
+                        className={classes.joinButton}
+                        disabled={disableView()}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                  )}
+                </div>
               )}
               {poolDetail.Type !== "1" && !isWhitelist && (
                 <Button variant="contained" className={classes.joinButton}>
@@ -283,11 +322,27 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
                 </Button>
               )}
               {poolDetail.Type === "1" && (
-                <Link to={`/pool-details/${poolId}`}>
-                  <Button variant="contained" className={classes.joinButton}>
-                    View
-                  </Button>
-                </Link>
+                <div>
+                  {disableView() ? (
+                    <Button
+                      variant="contained"
+                      className={classes.joinButton}
+                      disabled={disableView()}
+                    >
+                      View
+                    </Button>
+                  ) : (
+                    <Link to={`/pool-details/${poolId}`}>
+                      <Button
+                        variant="contained"
+                        className={classes.joinButton}
+                        disabled={disableView()}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -295,6 +350,7 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
         {!poolDetail && (
           <div className="text-center">
             <Loader height={200} />
+            <p>Connect your wallet, if not connected.</p>
           </div>
         )}
       </Card>
