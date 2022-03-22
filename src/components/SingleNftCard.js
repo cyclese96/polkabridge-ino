@@ -284,23 +284,24 @@ const SingleNftCard = ({ packageId, endTime }) => {
 
   const disablePurchase = () => {
     if (packages[packageId]) {
-      console.log(packages[packageId]);
-      let date = packages[packageId].claimTime;
+      // console.log(packages[packageId]);
+      let date = packages[packageId].startDate;
+      // console.log(date);
       const date1 = new Date(date).getTime(); // Begin Time
       const date2 = Date.now(); // Current Time
 
       const diffTime = date1 - date2;
-      console.log("diffTime");
-      console.log(date1);
-      console.log(date2);
-      console.log(diffTime);
+      // console.log("diffTime");
+      // console.log("btime:" + date1);
+      // console.log("ctime:" + date2);
+      // console.log(diffTime);
       if (diffTime > 0) {
-        console.log("disable false");
-        return false;
-      } else {
-        console.log("disable true");
-
+        // console.log("disable false");
         return true;
+      } else {
+        // console.log("disable true");
+
+        return false;
       }
     }
   };
