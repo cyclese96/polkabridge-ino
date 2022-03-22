@@ -174,13 +174,16 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
       const date2 = Date.now(); // Current Time
 
       const diffTime = date1 - date2;
-      // console.log("diffTime");
-      // console.log(date1);
-      // console.log(date2);
-      // console.log(diffTime);
+      console.log("diffTime");
+      console.log(date1);
+      console.log(date2);
+      console.log(diffTime);
       if (diffTime > 0) {
+        console.log("true hai bhai");
         return true;
       } else {
+        console.log("false hai bhai");
+
         return false;
       }
     }
