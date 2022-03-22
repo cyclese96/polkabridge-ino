@@ -224,29 +224,23 @@ const PoolDetails = () => {
                 </h4>
                 <div className="mt-2 mb-2">
                   <p style={{ color: "white" }}>
-                    Why you should hold PolkaBridge's Peace NFT ?
+                    Why you should hold these NFTs ?
                   </p>
-                  <li
-                    style={{
-                      color: "#f9f9f9",
-                      marginLeft: 10,
-                      fontSize: 13,
-                      lineHeight: 2.5,
-                    }}
-                  >
-                    1. Support peace, not War
-                  </li>
-                  <li
-                    style={{
-                      color: "#f9f9f9",
-                      marginLeft: 10,
-                      fontSize: 13,
-                      lineHeight: 2.5,
-                    }}
-                  >
-                    2. PBR Airdrop: Peace NFT holders will be airdropped 1999
-                    PBR / 1 NFT on 15th April
-                  </li>
+                  {pools[id - 1].utilities &&
+                    pools[id - 1].utilities.map((singleUtility, index) => {
+                      return (
+                        <li
+                          style={{
+                            color: "#f9f9f9",
+                            marginLeft: 10,
+                            fontSize: 13,
+                            lineHeight: 2.5,
+                          }}
+                        >
+                          {index + 1}. {singleUtility}
+                        </li>
+                      );
+                    })}
                 </div>
               </div>
             </div>

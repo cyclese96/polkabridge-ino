@@ -8,6 +8,10 @@ let pool1 = {
   totalPackages: "1",
   description: "Stand against War and hold peace NFTs offered by PolkaBridge",
   startDate: "March 21, 2022 14:00:00 UTC",
+  utilities: [
+    "Support peace, not War.",
+    "PBR Airdrop: Peace NFT holders will be airdropped 1999 PBR / 1 NFT on 15th April.",
+  ],
   price: "0.25",
   currency: "ETH",
   network: "Ethereum",
@@ -25,14 +29,15 @@ let pool2 = {
   title: "Ancient Kingdom NFTs",
   type: "Packages",
   totalPackages: "3",
-  description: `Ancient Kingdom is an NFT Metaverse where you can create heroes, equip them with unique digital items (NFTs), and generate them into your own assets.
+  description: `Ancient Kingdom is the first martial art game on the Blockchain, a survival RPG in which you take on the role of one of the myth warriors, eliminate monsters and compete against other players to become the hero who will save the whole kingdom.
 
-    The game is a unique blend of battle royale, survival RPG, and turn-based strategy games in which you play as one of the myth warriors and compete to become the hero who will save the ancient kingdom.
-  
-    Ancient Kingdom is developing the play-to-earn paradigm on the BSC blockchain, which will considerably enrich the discerning player experience.
-  
-    Appealing profits when you hit the INO on PolkaBridge`,
+
+  By joining the INO on PolkaBridge for a VIP card and entering the associated VIP maps, players can earn a rate of return on their initial investment of up to 2400% in just half a month with the maximum level of V12.`,
   startDate: "March 22, 2022 14:00:00 UTC",
+  utilities: [
+    "Level up upto V12.",
+    "Your heroes will be able to gain strength, improve their battle abilities, defend themselves, and acquire more resources.",
+  ],
   price: "0.045 - 0.25",
   currency: "ETH",
   network: "Ethereum",
