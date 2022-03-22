@@ -22,11 +22,12 @@ if (typeof window.web3 !== "undefined") {
     //   constants.net === "testnet"
     //     ? `https://kovan.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`
     //     : `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`;
-
+    let url = `https://mainnet.infura.io/${infuraKey}`;
+    console.log(url);
     const infura =
       constants.net === 0
-        ? `https://rpc.ankr.com/eth`
-        : `https://rinkeby.infura.io/v3/${infuraKey}`;
+        ? `https://mainnet.infura.io/${infuraKey}`
+        : `https://rinkeby.infura.io/${infuraKey}`;
 
     web3 = new Web3(new Web3.providers.HttpProvider(infura));
   }

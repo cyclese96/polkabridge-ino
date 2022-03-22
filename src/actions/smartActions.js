@@ -5,6 +5,7 @@ import { getUserAddress } from "./web3Actions";
 //RETURNS Obj
 export const getPoolDetails = async (poolId) => {
   return await inoContract.methods.getPoolInfo(poolId).call((err, response) => {
+    console.log(err);
     return response;
   });
 };

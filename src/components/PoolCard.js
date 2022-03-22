@@ -156,7 +156,9 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
   const [initial, setInitial] = useState(0);
 
   useEffect(async () => {
+    console.log("hello");
     let poolResult = await getPoolDetails(poolId);
+    console.log(poolResult);
     let whitelistResult = await getIsWhitelisted(poolId);
     let remainingQuantity = await getRemainingQuantityOfPool(poolId);
     let initialQuantity = await getInitialBalanceOfPool(poolId);

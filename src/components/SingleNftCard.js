@@ -295,12 +295,12 @@ const SingleNftCard = ({ packageId, endTime }) => {
       console.log(date2);
       console.log(diffTime);
       if (diffTime > 0) {
-        console.log("true hai bhai");
-        return true;
-      } else {
-        console.log("false hai bhai");
-
+        console.log("disable false");
         return false;
+      } else {
+        console.log("disable true");
+
+        return true;
       }
     }
   };
