@@ -6,7 +6,7 @@ if (constants.net === 0) {
   inoConstant = {
     rpcUrl: "https://rpc.ankr.com/eth",
     chainId: 1, // ETH - Mainnet chain id
-    contractAddress: "0x18A38553Fe7c8A20FaA45E229151E1e82bEC5961",
+    contractAddress: "0x6AE737c28661D9A37ffC78Ac3e926F97b2e5d876",
     abi: [
       {
         "inputs": [
