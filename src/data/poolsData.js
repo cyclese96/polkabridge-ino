@@ -6,9 +6,8 @@ let pool1 = {
   title: "PolkaBridge's Peace NFTs",
   type: "Packages",
   totalPackages: "1",
-  description:
-    "Stand against War and hold peace NFTs offered by PolkaBridge",
-  startDate: "21 Mar,2022 4PM UTC",
+  description: "Stand against War and hold peace NFTs offered by PolkaBridge",
+  startDate: "March 21, 2022 14:00:00 UTC",
   price: "0.25",
   currency: "ETH",
   network: "Ethereum",
@@ -33,7 +32,7 @@ let pool2 = {
     Ancient Kingdom is developing the play-to-earn paradigm on the BSC blockchain, which will considerably enrich the discerning player experience.
   
     Appealing profits when you hit the INO on PolkaBridge`,
-  startDate: "22 Mar,2022 2PM UTC",
+  startDate: "March 22, 2022 14:00:00 UTC",
   price: "0.045 - 0.25",
   currency: "ETH",
   network: "Ethereum",

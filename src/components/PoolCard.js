@@ -11,6 +11,7 @@ import {
 } from "../actions/smartActions";
 import Loader from "../common/Loader";
 import ProgressStatsBar from "../common/ProgressStatsBar";
+import Timer from "../common/Timer";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -174,15 +175,15 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
       const date2 = Date.now(); // Current Time
 
       const diffTime = date1 - date2;
-      console.log("diffTime");
-      console.log(date1);
-      console.log(date2);
-      console.log(diffTime);
+      // console.log("diffTime");
+      // console.log(date1);
+      // console.log(date2);
+      // console.log(diffTime);
       if (diffTime > 0) {
-        console.log("true hai bhai");
+        // console.log("true hai bhai");
         return true;
       } else {
-        console.log("false hai bhai");
+        // console.log("false hai bhai");
 
         return false;
       }
@@ -244,25 +245,40 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
                     (poolData.description.length > 200 ? "..." : "")}
               </div>
             </div>
-            <div className="mt-2 px-3">
-              <div className={classes.wrapper}>
-                <div className="d-flex justify-content-between">
-                  <h6 htmlFor="category" className={classes.category}>
-                    Progress
-                  </h6>
-                  <h6 htmlFor="category" className={classes.categoryValue}>
-                    {percentageSell()}%
-                  </h6>
-                </div>
-                <div htmlFor="power" className={classes.powerWrapper}>
-                  <ProgressStatsBar
-                    color="green"
-                    value={initial - remaining}
-                    maxValue={initial}
-                  />
+            {disableView() ? (
+              <div className="mt-3 px-2">
+                <div className="text-center mt-3">
+                  <div className="mt-1">
+                    <div style={{ color: "white", paddingBottom: 4 }}>
+                      ~ Starts in ~{" "}
+                    </div>
+                    <Timer endTime={poolData.startDate} />
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="mt-2 px-3">
+                <div className={classes.wrapper}>
+                  <div className="d-flex justify-content-between">
+                    <h6 htmlFor="category" className={classes.category}>
+                      Progress
+                    </h6>
+                    <h6 htmlFor="category" className={classes.categoryValue}>
+                      {percentageSell()}%
+                    </h6>
+                  </div>
+
+                  <div htmlFor="power" className={classes.powerWrapper}>
+                    <ProgressStatsBar
+                      color="green"
+                      value={initial - remaining}
+                      maxValue={initial}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {console.log(disableView().toString())}
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Start Date</div>
@@ -298,20 +314,11 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
             <div className="text-center mt-3">
               {poolDetail.Type !== "1" && isWhitelist && (
                 <div>
-                  {disableView() ? (
+                  <Link to={`/pool-details/${poolId}`}>
                     <Button variant="contained" className={classes.joinButton}>
                       View
                     </Button>
-                  ) : (
-                    <Link to={`/pool-details/${poolId}`}>
-                      <Button
-                        variant="contained"
-                        className={classes.joinButton}
-                      >
-                        View
-                      </Button>
-                    </Link>
-                  )}
+                  </Link>
                 </div>
               )}
               {poolDetail.Type !== "1" && !isWhitelist && (
@@ -321,20 +328,11 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
               )}
               {poolDetail.Type === "1" && (
                 <div>
-                  {disableView() ? (
+                  <Link to={`/pool-details/${poolId}`}>
                     <Button variant="contained" className={classes.joinButton}>
                       View
                     </Button>
-                  ) : (
-                    <Link to={`/pool-details/${poolId}`}>
-                      <Button
-                        variant="contained"
-                        className={classes.joinButton}
-                      >
-                        View
-                      </Button>
-                    </Link>
-                  )}
+                  </Link>
                 </div>
               )}
             </div>

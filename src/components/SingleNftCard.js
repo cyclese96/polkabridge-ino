@@ -16,6 +16,7 @@ import TxPopup from "./../common/TxPopup";
 import PurchaseModal from "./PurchaseModal";
 import web3 from "../web";
 import Loader from "../common/Loader";
+import Timer from "../common/Timer";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -281,6 +282,29 @@ const SingleNftCard = ({ packageId, endTime }) => {
     setPurchaseCase(0);
   };
 
+  const disablePurchase = () => {
+    if (packages[packageId]) {
+      console.log(packages[packageId]);
+      let date = packages[packageId].claimTime;
+      const date1 = new Date(date).getTime(); // Begin Time
+      const date2 = Date.now(); // Current Time
+
+      const diffTime = date1 - date2;
+      console.log("diffTime");
+      console.log(date1);
+      console.log(date2);
+      console.log(diffTime);
+      if (diffTime > 0) {
+        console.log("true hai bhai");
+        return true;
+      } else {
+        console.log("false hai bhai");
+
+        return false;
+      }
+    }
+  };
+
   return (
     <div>
       <Card elevation={10} className={classes.card}>
@@ -381,14 +405,29 @@ const SingleNftCard = ({ packageId, endTime }) => {
                 </div>
                 <div className="mt-3 px-2">
                   <div className="text-center mt-3">
-                    {!end && (
-                      <Button
-                        variant="contained"
-                        className={classes.joinButton}
-                        onClick={PurchasePopup}
-                      >
-                        Purchase
-                      </Button>
+                    {disablePurchase() ? (
+                      <div className="mt-3 px-2">
+                        <div className="text-center mt-3">
+                          <div className="mt-1">
+                            <div style={{ color: "white", paddingBottom: 4 }}>
+                              ~ Sell starts in ~{" "}
+                            </div>
+                            <Timer endTime={packages[packageId].startDate} />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mt-2 px-3">
+                        {!end && (
+                          <Button
+                            variant="contained"
+                            className={classes.joinButton}
+                            onClick={PurchasePopup}
+                          >
+                            Purchase
+                          </Button>
+                        )}
+                      </div>
                     )}
 
                     {end && !isClaimed && !isPurchased && (

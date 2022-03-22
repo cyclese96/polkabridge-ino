@@ -6,6 +6,7 @@ let packages = {
     poolName: "PolkaBridge Peace NFT",
     description:
       "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
+    startDate: "March 21, 2022 14:00:00 UTC",
 
     price: "0.25",
     currency: "ETH",
@@ -22,9 +23,11 @@ let packages = {
       "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
     price: "0.045",
     currency: "ETH",
+    startDate: "March 22, 2022 14:00:00 UTC",
+
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "March 23, 2022 14:00:00 UTC",
+    claimTime: "March 25, 2022 14:00:00 UTC",
   },
   3: {
     id: 3,
@@ -35,9 +38,11 @@ let packages = {
       "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
     price: "0.15",
     currency: "ETH",
+    startDate: "March 22, 2022 14:00:00 UTC",
+
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "March 23, 2022 14:00:00 UTC",
+    claimTime: "March 25, 2022 14:00:00 UTC",
   },
   4: {
     id: 4,
@@ -49,9 +54,11 @@ let packages = {
       "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
     price: "0.25",
     currency: "ETH",
+    startDate: "March 22, 2022 14:00:00 UTC",
+
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "March 23, 2022 14:00:00 UTC",
+    claimTime: "March 25, 2022 14:00:00 UTC",
   },
 };
 
