@@ -262,12 +262,7 @@ const Navbar = () => {
             id: "features",
             icon: <FlareOutlined />,
           },
-          {
-            name: "Prediction",
-            link: "#",
-            id: "usecase",
-            icon: <CategoryIcon />,
-          },
+
           {},
         ].map((tab, index) => (
           <ListItem button key={tab.name} onClick={toggleDrawer(anchor, false)}>
@@ -351,20 +346,8 @@ const Navbar = () => {
               Lending <DotCircle />
             </a>
           </div>
-          <div>
-            <a href="#" rel="noreferrer" className={classes.navbarItemsDesktop}>
-              Prediction <DotCircle />
-            </a>
-          </div>
-          <div>
-            <a
-              href="https://corgib.polkabridge.org/bet"
-              className={classes.navbarItemsDesktop}
-              rel="noreferrer"
-            >
-              Betting <DotCircle />
-            </a>
-          </div>
+
+
           <div>
             <ConnectButton />
           </div>

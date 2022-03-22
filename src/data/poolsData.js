@@ -7,8 +7,8 @@ let pool1 = {
   type: "Packages",
   totalPackages: "1",
   description:
-    "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
-  startDate: "20 Mar,2022 2PM UTC",
+    "Stand against War and hold peace NFTs offered by PolkaBridge",
+  startDate: "21 Mar,2022 4PM UTC",
   price: "0.25",
   currency: "ETH",
   network: "Ethereum",
