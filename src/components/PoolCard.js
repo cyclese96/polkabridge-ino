@@ -299,11 +299,7 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
               {poolDetail.Type !== "1" && isWhitelist && (
                 <div>
                   {disableView() ? (
-                    <Button
-                      variant="contained"
-                      className={classes.joinButton}
-                      disabled={disableView()}
-                    >
+                    <Button variant="contained" className={classes.joinButton}>
                       View
                     </Button>
                   ) : (
@@ -311,7 +307,6 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
                       <Button
                         variant="contained"
                         className={classes.joinButton}
-                        disabled={disableView()}
                       >
                         View
                       </Button>
@@ -327,11 +322,7 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
               {poolDetail.Type === "1" && (
                 <div>
                   {disableView() ? (
-                    <Button
-                      variant="contained"
-                      className={classes.joinButton}
-                      disabled={disableView()}
-                    >
+                    <Button variant="contained" className={classes.joinButton}>
                       View
                     </Button>
                   ) : (
@@ -339,7 +330,6 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
                       <Button
                         variant="contained"
                         className={classes.joinButton}
-                        disabled={disableView()}
                       >
                         View
                       </Button>
