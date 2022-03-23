@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -241,22 +241,28 @@ const Navbar = () => {
           {
             name: "Launchpad",
             link: "https://launchpad.polkabridge.org/",
+            id: "launchpad",
+            icon: <PeopleAltOutlined />,
+          },
+          {
+            name: "INO",
+            link: "https://ino.polkabridge.org/",
             id: "characters",
             icon: <PeopleAltOutlined />,
           },
-          { name: "Swap", link: "#", id: "items", icon: <VpnLockOutlined /> },
+          {
+            name: "Swap",
+            link: "https://swap.polkabridge.org/",
+            id: "swap",
+            icon: <VpnLockOutlined />,
+          },
           {
             name: "Lending",
             link: "#",
             id: "features",
             icon: <FlareOutlined />,
           },
-          {
-            name: "Prediction",
-            link: "#",
-            id: "usecase",
-            icon: <CategoryIcon />,
-          },
+
           {},
         ].map((tab, index) => (
           <ListItem button key={tab.name} onClick={toggleDrawer(anchor, false)}>
@@ -268,7 +274,11 @@ const Navbar = () => {
             </a>
           </ListItem>
         ))}
+
         <Divider />
+        <div style={{ paddingLeft: 20 }}>
+          <ConnectButton />
+        </div>
       </List>
     </div>
   );
@@ -281,11 +291,13 @@ const Navbar = () => {
         className={classes.appBarBackground}
       >
         <Toolbar className={classes.sectionDesktop}>
-          <Avatar
-            variant="square"
-            src="/images/logo-white.png"
-            className={classes.logo}
-          />
+          <a href="/">
+            <Avatar
+              variant="square"
+              src="/images/logo-white.png"
+              className={classes.logo}
+            />
+          </a>
           <div className={classes.leftMargin} />
           <div className="d-flex justify-content-end">
             <div>
@@ -341,20 +353,6 @@ const Navbar = () => {
             </a>
           </div>
           <div>
-            <a href="#" rel="noreferrer" className={classes.navbarItemsDesktop}>
-              Prediction <DotCircle />
-            </a>
-          </div>
-          <div>
-            <a
-              href="https://corgib.polkabridge.org/bet"
-              className={classes.navbarItemsDesktop}
-              rel="noreferrer"
-            >
-              Betting <DotCircle />
-            </a>
-          </div>
-          <div>
             <ConnectButton />
           </div>
           <div className={classes.grow} />
@@ -362,11 +360,13 @@ const Navbar = () => {
 
         <Toolbar className={classes.sectionMobile}>
           <div className="d-flex justify-content-center align-items-center">
-            <Avatar
-              variant="square"
-              src="images/logo-white.png"
-              style={{ height: 38, width: 150 }}
-            />
+            <a href="/">
+              <Avatar
+                variant="square"
+                src="/images/logo-white.png"
+                style={{ height: 38, width: 150 }}
+              />
+            </a>
           </div>
 
           <div>

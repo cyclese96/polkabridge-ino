@@ -10,6 +10,7 @@ import dateFormat, { masks } from "dateformat";
 import web3 from "../../../web";
 import { Card, Button, Dialog, Slide, Backdrop } from "@material-ui/core/";
 import TxPopup from "../../../common/TxPopup";
+import Timer from "../../../common/Timer";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -126,6 +127,7 @@ const ProfileNftCard = ({ packageId }) => {
 
   useEffect(async () => {
     let userPurchaseResult = await userPurchaseDetails(packageId);
+
     console.log(userPurchaseResult);
     setUserPurchaseDetail(userPurchaseResult);
   }, []);
@@ -159,6 +161,19 @@ const ProfileNftCard = ({ packageId }) => {
   const resetPopup = () => {
     setPopup(false);
     setClaimCase(0);
+  };
+
+  const enableClaim = () => {
+    let date = packages[packageId].claimTime;
+    const date1 = new Date(date).getTime(); // Claim Time
+    const date2 = Date.now(); // Current Time
+
+    const diffTime = date1 - date2;
+    if (diffTime > 0) {
+      return false;
+    } else {
+      return true;
+    }
   };
   return (
     <div>
@@ -247,39 +262,55 @@ const ProfileNftCard = ({ packageId }) => {
                   {packages[packageId].claimTime}
                 </div>
               </div>
-              <div className="mt-3 px-2">
-                {userPurchaseDetail.IsClaimed && (
-                  <div className="text-center mt-3">
-                    <Button variant="contained" className={classes.joinButton}>
-                      You've Claimed
-                    </Button>
-                  </div>
-                )}
-                {!userPurchaseDetail.IsClaimed && (
-                  <div className="text-center mt-3">
-                    {" "}
-                    {packages[packageId].claimType === "AUTO" && (
+              {console.log(enableClaim())}
+              {enableClaim() && (
+                <div className="mt-3 px-2">
+                  {userPurchaseDetail.IsClaimed && (
+                    <div className="text-center mt-3">
                       <Button
                         variant="contained"
                         className={classes.joinButton}
-                        onClick={claimPopup}
                       >
-                        Claim Your NFT
+                        You've Claimed
                       </Button>
-                    )}
-                    {packages[packageId].claimType === "MANUAL" && (
-                      <a href="htpps://google.com" target="_blank">
+                    </div>
+                  )}
+                  {!userPurchaseDetail.IsClaimed && (
+                    <div className="text-center mt-3">
+                      {" "}
+                      {packages[packageId].claimType === "AUTO" && (
                         <Button
                           variant="contained"
                           className={classes.joinButton}
+                          onClick={claimPopup}
                         >
-                          View Your NFT
+                          Claim Your NFT
                         </Button>
-                      </a>
-                    )}
+                      )}
+                      {packages[packageId].claimType === "MANUAL" && (
+                        <a href="htpps://google.com" target="_blank">
+                          <Button
+                            variant="contained"
+                            className={classes.joinButton}
+                          >
+                            View Your NFT
+                          </Button>
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+              {!enableClaim() && (
+                <div className="mt-3 px-2">
+                  <div className="text-center mt-3">
+                    <div className={classes.detailTitle}>Time in claim</div>
+                    <div className="mt-1">
+                      <Timer endTime={packages[packageId].claimTime} />
+                    </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           )}
         </div>

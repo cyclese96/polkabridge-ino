@@ -16,6 +16,7 @@ import TxPopup from "./../common/TxPopup";
 import PurchaseModal from "./PurchaseModal";
 import web3 from "../web";
 import Loader from "../common/Loader";
+import Timer from "../common/Timer";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -281,131 +282,175 @@ const SingleNftCard = ({ packageId, endTime }) => {
     setPurchaseCase(0);
   };
 
+  const disablePurchase = () => {
+    if (packages[packageId]) {
+      // console.log(packages[packageId]);
+      let date = packages[packageId].startDate;
+      // console.log(date);
+      const date1 = new Date(date).getTime(); // Begin Time
+      const date2 = Date.now(); // Current Time
+
+      const diffTime = date1 - date2;
+      // console.log("diffTime");
+      // console.log("btime:" + date1);
+      // console.log("ctime:" + date2);
+      // console.log(diffTime);
+      if (diffTime > 0) {
+        // console.log("disable false");
+        return true;
+      } else {
+        // console.log("disable true");
+
+        return false;
+      }
+    }
+  };
+
   return (
     <div>
       <Card elevation={10} className={classes.card}>
-        <div style={{ width: "100%" }}>
-          <div
-            style={{
-              minHeight: 180,
-              paddingLeft: 0,
-              paddingRight: 0,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              // backgroundImage: `url(${packages[packageId].image})`,
-              // backgroundSize: "cover",
-              // backgroundPosition: "center",
-              borderTopRightRadius: 20,
-              borderTopLeftRadius: 20,
-              borderBottomLeftRadius: 10,
-              borderBottomRightRadius: 10,
-              border: "3px solid rgba(187, 85, 181, 0.1)",
-            }}
-          >
-            <img
-              src={packages[packageId].image}
-              style={{ height: 150, width: "fit-content" }}
-            />
-          </div>
-          {loading && (
-            <div className="text-center">
-              <Loader height={200} />
+        {packages[packageId] && (
+          <div style={{ width: "100%" }}>
+            <div
+              style={{
+                minHeight: 180,
+                paddingLeft: 0,
+                paddingRight: 0,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                // backgroundImage: `url(${packages[packageId].image})`,
+                // backgroundSize: "cover",
+                // backgroundPosition: "center",
+                borderTopRightRadius: 20,
+                borderTopLeftRadius: 20,
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+                border: "3px solid rgba(187, 85, 181, 0.1)",
+              }}
+            >
+              <img
+                src={packages[packageId].image}
+                style={{ height: 150, width: "fit-content" }}
+              />
             </div>
-          )}
-          {!loading && (
-            <div>
-              <div className="d-flex justify-content-center align-items-center pt-2 pb-1">
-                <img className={classes.avatar} />
-                <small
-                  style={{
-                    color: "#f9f9f9",
-                    marginLeft: 10,
-                    fontSize: 18,
-                  }}
-                >
-                  {packages[packageId].title}
-                </small>
+            {loading && (
+              <div className="text-center">
+                <Loader height={200} />
               </div>
-              <div className="d-flex justify-content-center align-items-center ">
+            )}
+            {!loading && (
+              <div>
+                <div className="d-flex justify-content-center align-items-center pt-2 pb-1">
+                  <img className={classes.avatar} />
+                  <small
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 18,
+                    }}
+                  >
+                    {packages[packageId].title}
+                  </small>
+                </div>
+                <div className="d-flex justify-content-center align-items-center ">
+                  <div
+                    style={{
+                      backgroundColor: "#C80C81",
+                      borderRadius: "50%",
+                      height: "5px",
+                      width: "5px",
+                      marginRight: 5,
+                    }}
+                  ></div>
+                  <div className={classes.earn}>
+                    By {packages[packageId].poolName}
+                  </div>
+                </div>
+
+                <div className={classes.desktop}></div>
+                <div className={classes.description}>
+                  {packages[packageId].description}
+                </div>
+                <div className={classes.detailsWrapper}>
+                  <div className={classes.detailTitle}>Items remaining</div>
+                  <div className={classes.detailValue}>
+                    {remainToken && remainToken}/
+                    {packageDetail.TotalItemCount &&
+                      packageDetail.TotalItemCount}
+                  </div>
+                </div>
+                <div className={classes.detailsWrapper}>
+                  <div className={classes.detailTitle}>Price</div>
+                  <div className={classes.detailValue}>
+                    {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(3)}{" "}
+                    {packages[packageId].currency} / NFT
+                  </div>
+                </div>
+
+                <div className={classes.detailsWrapper}>
+                  <div className={classes.detailTitle}>Minimum Purchase</div>
+                  <div className={classes.detailValue}>
+                    {" "}
+                    {packageDetail.MinimumTokenSoldout &&
+                      packageDetail.MinimumTokenSoldout}
+                  </div>
+                </div>
                 <div
-                  style={{
-                    backgroundColor: "#C80C81",
-                    borderRadius: "50%",
-                    height: "5px",
-                    width: "5px",
-                    marginRight: 5,
-                  }}
-                ></div>
-                <div className={classes.earn}>
-                  By {packages[packageId].poolName}
-                </div>
-              </div>
-
-              <div className={classes.desktop}></div>
-              <div className={classes.description}>
-                {packages[packageId].description}
-              </div>
-              <div className={classes.detailsWrapper}>
-                <div className={classes.detailTitle}>Items remaining</div>
-                <div className={classes.detailValue}>
-                  {remainToken && remainToken}/
-                  {packageDetail.TotalItemCount && packageDetail.TotalItemCount}
-                </div>
-              </div>
-              <div className={classes.detailsWrapper}>
-                <div className={classes.detailTitle}>Price</div>
-                <div className={classes.detailValue}>
-                  {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(2)}{" "}
-                  {packages[packageId].currency} / NFT
-                </div>
-              </div>
-
-              <div className={classes.detailsWrapper}>
-                <div className={classes.detailTitle}>Minimum Purchase</div>
-                <div className={classes.detailValue}>
-                  {" "}
-                  {packageDetail.MinimumTokenSoldout &&
-                    packageDetail.MinimumTokenSoldout}
-                </div>
-              </div>
-              <div
-                className="text-center mt-3"
-                style={{ color: "green", fontSize: 12, minHeight: 30 }}
-              >
-                {parseInt(quantityBought) > 0 && (
-                  <span>You have purchased {quantityBought} NFTs.</span>
-                )}
-              </div>
-              <div className="mt-3 px-2">
-                <div className="text-center mt-3">
-                  {!end && (
-                    <Button
-                      variant="contained"
-                      className={classes.joinButton}
-                      onClick={PurchasePopup}
-                    >
-                      Purchase
-                    </Button>
+                  className="text-center mt-3"
+                  style={{ color: "green", fontSize: 12, minHeight: 30 }}
+                >
+                  {parseInt(quantityBought) > 0 && (
+                    <span>You have purchased {quantityBought} NFTs.</span>
                   )}
+                </div>
+                <div className="mt-3 px-2">
+                  <div className="text-center mt-3">
+                    {disablePurchase() ? (
+                      <div className="mt-3 px-2">
+                        <div className="text-center mt-3">
+                          <div className="mt-1">
+                            <div style={{ color: "white", paddingBottom: 4 }}>
+                              ~ Sell starts in ~{" "}
+                            </div>
+                            <Timer endTime={packages[packageId].startDate} />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mt-2 px-3">
+                        {!end && (
+                          <Button
+                            variant="contained"
+                            className={classes.joinButton}
+                            onClick={PurchasePopup}
+                          >
+                            Purchase
+                          </Button>
+                        )}
+                      </div>
+                    )}
 
-                  {end && !isClaimed && !isPurchased && (
-                    <Button variant="contained" className={classes.noPurchase}>
-                      You did not purchase
-                    </Button>
-                  )}
-                  {end && !isClaimed && isPurchased && (
-                    <Link to="/profile">
+                    {end && !isClaimed && !isPurchased && (
                       <Button
                         variant="contained"
-                        className={classes.joinButton}
-                        // onClick={claimPopup}
+                        className={classes.noPurchase}
                       >
-                        Claim Tokens
+                        You did not purchase
                       </Button>
-                    </Link>
-                  )}
-                  {/* {end && isClaimed && isPurchased && (
+                    )}
+                    {end && !isClaimed && isPurchased && (
+                      <Link to="/profile">
+                        <Button
+                          variant="contained"
+                          className={classes.joinButton}
+                          // onClick={claimPopup}
+                        >
+                          Claim Tokens
+                        </Button>
+                      </Link>
+                    )}
+                    {/* {end && isClaimed && isPurchased && (
                     <Button
                       variant="contained"
                       className={classes.claimedButton}
@@ -414,55 +459,57 @@ const SingleNftCard = ({ packageId, endTime }) => {
                       Tokens Claimed
                     </Button>
                   )} */}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <Dialog
-            className={classes.modal}
-            open={popup}
-            TransitionComponent={Transition}
-            keepMounted={false}
-            onClose={() => setPopup(false)}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-            PaperProps={{
-              style: {
-                borderRadius: 10,
-                backgroundColor: "black",
-                border: "4px solid #212121",
-              },
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: "black",
-                borderRadius: 3,
-                overflowX: "hidden",
+            <Dialog
+              className={classes.modal}
+              open={popup}
+              TransitionComponent={Transition}
+              keepMounted={false}
+              onClose={() => setPopup(false)}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+              PaperProps={{
+                style: {
+                  borderRadius: 10,
+                  backgroundColor: "black",
+                  border: "4px solid #212121",
+                },
               }}
             >
-              {purchaseCase === 1 && (
-                <PurchaseModal
-                  purchasePackage={purchasePackage}
-                  resetPopup={resetPopup}
-                  setQuantity={setQuantity}
-                  maxPurchase={
-                    packageDetail.TotalItemCount - packageDetail.TotalSoldCount
-                  }
-                  minQuantity={packageDetail.MinimumTokenSoldout}
-                />
-              )}
+              <div
+                style={{
+                  backgroundColor: "black",
+                  borderRadius: 3,
+                  overflowX: "hidden",
+                }}
+              >
+                {purchaseCase === 1 && (
+                  <PurchaseModal
+                    purchasePackage={purchasePackage}
+                    resetPopup={resetPopup}
+                    setQuantity={setQuantity}
+                    maxPurchase={
+                      packageDetail.TotalItemCount -
+                      packageDetail.TotalSoldCount
+                    }
+                    minQuantity={packageDetail.MinimumTokenSoldout}
+                  />
+                )}
 
-              {purchaseCase != 1 && (
-                <TxPopup txCase={purchaseCase} resetPopup={resetPopup} />
-              )}
-            </div>
-          </Dialog>
-        </div>
+                {purchaseCase != 1 && (
+                  <TxPopup txCase={purchaseCase} resetPopup={resetPopup} />
+                )}
+              </div>
+            </Dialog>
+          </div>
+        )}
       </Card>
     </div>
   );

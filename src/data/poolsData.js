@@ -6,86 +6,51 @@ let pool1 = {
   title: "PolkaBridge's Peace NFTs",
   type: "Packages",
   totalPackages: "1",
-  description:
-    "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
-  startDate: "21 Mar,2022 2PM UTC",
+  description: "Stand against War and hold peace NFTs offered by PolkaBridge",
+  startDate: "March 21, 2022 14:00:00 UTC",
+  utilities: [
+    "Support peace, not War.",
+    "PBR Airdrop: Peace NFT holders will be airdropped 1999 PBR / 1 NFT on 15th April.",
+  ],
   price: "0.25",
   currency: "ETH",
   network: "Ethereum",
   quantity: "500",
   packageIds: [1],
-};
-
-let pool2 = {
-  id: 2,
-  image: "https://launchpad.polkabridge.org/img/logo-white.png",
-  title: "PolkaBridge's Peace NFTs",
-  type: "Packages",
   whitepaper: "https://polkabridge.org/docs/whitepaper.pdf",
   website: "http://polkabridge.org/",
   twitter: "https://twitter.com/realpolkabridge",
   telegram: "https://t.me/polkabridgegroup",
-  totalPackages: "1",
-  description:
-    "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
-  startDate: "21 Mar,2022 2PM UTC",
-  price: "0.25",
-  currency: "ETH",
-  network: "Ethereum",
-  quantity: "500",
-  packageIds: [2],
+  poolType: "1",
 };
 
-let pool3 = {
-  id: 3,
-  image:
-    "https://pbs.twimg.com/profile_images/1448503265084252163/ch9pUzUD_400x400.jpg",
-  title: "Lunapad's NFTs",
-  type: "Packages",
-  whitepaper: "https://pixelverse.ai/assets/pdf/deck.pdf",
-  website: "https://pixelverse.ai/",
-  twitter: "https://twitter.com/pixelverse1",
-  telegram: "https://t.me/pixelverseofficial",
-  youtube: "https://www.youtube.com/watch?v=GJJkZ05I-O4&ab_channel=PixelVerse",
-
-  description: "Lunapad's premium NFTs available for community ",
-  startDate: "21 Mar,2022 2PM UTC",
-  price: "0.1",
-  currency: "ETH",
-  network: "Ethereum",
-  quantity: "500",
-  packageIds: [1],
-};
-
-let pool4 = {
-  id: 4,
-  image: "ds",
-  title: "Lunapad's Gold NFTs",
+let pool2 = {
+  id: 2,
+  image: "/projects/ancient/ancient.png",
+  title: "Ancient Kingdom NFTs",
   type: "Packages",
   totalPackages: "3",
-  description:
-    " Collection of 5 High quality Dog NFTs of level 2 Gaming NFT offered by Corgib team.",
-  startDate: "21 Jan,2022 2PM UTC",
-  price: "0.3",
-  currency: "BNB",
-  network: "BSC",
-  quantity: "900",
-  packageIds: [6],
+  description: `Ancient Kingdom is the first martial art game on the Blockchain, a survival RPG in which you take on the role of one of the myth warriors, eliminate monsters and compete against other players to become the hero who will save the whole kingdom.
+
+
+  By joining the INO on PolkaBridge for a VIP card and entering the associated VIP maps, players can earn a rate of return on their initial investment of up to 2400% in just half a month with the maximum level of V12.`,
+  startDate: "March 22, 2022 14:00:00 UTC",
+  utilities: [
+    "NFT items strengthen in-game characters significantly, support them to win more fights and gain more rewards ( win boss for KING token).",
+    "NFTs can be traded on Marketplace but they are limited in supply which leads to the rise of NFTs prices.",
+    "NFTs are on the best price.",
+  ],
+  price: "0.045 - 0.25",
+  currency: "ETH",
+  network: "Ethereum",
+  quantity: "400",
+  packageIds: [2, 3, 4],
+  website: "https://acdom.io/",
+  whitepaper: "https://acdom.io/doc/Whitepaper_Acdom_final.pdf",
+  telegram: "https://t.me/AncientAnnouncement",
+  twitter: "https://twitter.com/AncientKingNft",
+  poolType: "1",
 };
-let pool5 = {
-  id: 5,
-  image: "/images/symbol.png",
-  title: "PolkaBridge Support NFT",
-  type: "Packages",
-  totalPackages: "3",
-  description:
-    " Collection of 5 High quality Dog NFTs of level 2 Gaming NFT offered by Corgib team.",
-  startDate: "21 Jan,2022 2PM UTC",
-  price: "0.3",
-  currency: "BNB",
-  network: "BSC",
-  quantity: "900",
-  packageIds: [7],
-};
-pools = [pool1];
+
+pools = [pool1, pool2];
 export default pools;

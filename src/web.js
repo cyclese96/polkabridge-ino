@@ -17,9 +17,14 @@ if (typeof window.web3 !== "undefined") {
     //     ? `https://kovan.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`
     //     : `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`;
 
+    // const infura =
+    //   constants.net === 1
+    //     ? `https://rinkeby.infura.io/v3/243f63f7c6d04b6a9c67f62af0d457a4`
+    //     : `https://mainnet.infura.io/v3/243f63f7c6d04b6a9c67f62af0d457a4`;
+    // web3 = new Web3(new Web3.providers.HttpProvider(infura));
     const infura =
-      constants.net === "testnet"
-        ? `https://rpc.ankr.com/bsc`
+      constants.net === 0
+        ? `https://rpc.ankr.com/eth`
         : `https://rpc.ankr.com/bsc`;
 
     web3 = new Web3(new Web3.providers.HttpProvider(infura));

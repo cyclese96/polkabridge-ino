@@ -9,8 +9,16 @@ import {
   getPoolList,
   getRemainingQuantityOfPool,
 } from "../actions/smartActions";
+import { connect } from "react-redux";
+import { checkAuthenticated } from "./../actions/authActions";
 import Loader from "../common/Loader";
 import ProgressStatsBar from "../common/ProgressStatsBar";
+import Timer from "../common/Timer";
+import {
+  checkCorrectNetwork,
+  checkWalletAvailable,
+  getUserAddress,
+} from "../actions/web3Actions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -146,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PoolCard = ({ poolData, poolId, endedPool }) => {
+const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
   const classes = useStyles();
 
   const [poolDetail, setPoolDetail] = useState(null);
@@ -154,20 +162,68 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
   const [remaining, setRemaining] = useState(0);
   const [initial, setInitial] = useState(0);
 
+  useEffect(() => {
+    async function asyncFn() {
+      let walletStatus = await checkWalletAvailable();
+      if (walletStatus) {
+        const networkStatus = await checkCorrectNetwork();
+
+        if (networkStatus) {
+          let authStatus = await checkAuthenticated();
+
+          if (authStatus) {
+            let userAddress = await getUserAddress();
+            console.log(userAddress);
+          } else {
+          }
+        } else {
+          console.log("hello1");
+        }
+      } else {
+        console.log("hello 2");
+      }
+    }
+
+    asyncFn();
+  }, [checkAuthenticated]);
+
   useEffect(async () => {
-    let poolResult = await getPoolDetails(poolId);
-    let whitelistResult = await getIsWhitelisted(poolId);
-    let remainingQuantity = await getRemainingQuantityOfPool(poolId);
-    let initialQuantity = await getInitialBalanceOfPool(poolId);
-    setInitial(initialQuantity);
+    if (authenticated) {
+      console.log("hello");
+      let poolResult = await getPoolDetails(poolId);
+      console.log(poolResult);
+      let whitelistResult = await getIsWhitelisted(poolId);
+      let remainingQuantity = await getRemainingQuantityOfPool(poolId);
+      let initialQuantity = await getInitialBalanceOfPool(poolId);
+      setInitial(initialQuantity);
 
-    setRemaining(remainingQuantity);
-    console.log("poolResult");
-    console.log(poolResult);
-    setPoolDetail(poolResult);
-    setIsWhitelist(whitelistResult);
-  }, []);
+      setRemaining(remainingQuantity);
+      console.log("poolResult");
+      setPoolDetail(poolResult);
+      setIsWhitelist(whitelistResult);
+    }
+  }, [authenticated]);
 
+  const disableView = () => {
+    if (poolDetail) {
+      const date1 = parseInt(poolDetail.Begin) * 1000; // Begin Time
+      const date2 = Date.now(); // Current Time
+
+      const diffTime = date1 - date2;
+      // console.log("diffTime");
+      // console.log(date1);
+      // console.log(date2);
+      // console.log(diffTime);
+      if (diffTime > 0) {
+        // console.log("true hai bhai");
+        return true;
+      } else {
+        // console.log("false hai bhai");
+
+        return false;
+      }
+    }
+  };
   const percentageSell = () => {
     let numerator = initial - remaining;
     console.log(numerator);
@@ -178,131 +234,170 @@ const PoolCard = ({ poolData, poolId, endedPool }) => {
   };
   return (
     <div className="col-12 col-md-6 mb-4">
+      {console.log(poolData)}
       <Card elevation={10} className={classes.card}>
-        {poolDetail && (
-          <div style={{ width: "100%" }}>
-            <div className="text-center my-3">
-              <img className={classes.logo} src={poolData.image} />
-            </div>
+        <div style={{ width: "100%" }}>
+          <div className="text-center my-3">
+            <img className={classes.logo} src={poolData.image} />
+          </div>
+          <div
+            style={{
+              color: "#f9f9f9",
+              fontWeight: 600,
+              fontSize: 20,
+              textAlign: "center",
+            }}
+          >
+            {poolData.title}
+          </div>
+
+          <div className="d-flex justify-content-center align-items-center ">
             <div
               style={{
-                color: "#f9f9f9",
-                fontWeight: 600,
-                fontSize: 20,
-                textAlign: "center",
+                // backgroundColor: poolDetail.IsActived ? "green" : "red",
+                backgroundColor: "green",
+
+                borderRadius: "50%",
+                height: "5px",
+                width: "5px",
+                marginRight: 5,
               }}
+            ></div>
+            <div
+              className={classes.earn}
+              // style={{ color: poolDetail.IsActived ? "green" : "red" }}
+              style={{ color: "green" }}
             >
-              {poolData.title}
+              {" "}
+              {/* {poolDetail.IsActived ? "Active" : "Inactive"} */}
+              Active
             </div>
+          </div>
 
-            <div className="d-flex justify-content-center align-items-center ">
-              <div
-                style={{
-                  backgroundColor: poolDetail.IsActived ? "green" : "red",
+          <div className={classes.desktop}>
+            <div className={classes.description}>
+              {/* {poolData.description} */}
 
-                  borderRadius: "50%",
-                  height: "5px",
-                  width: "5px",
-                  marginRight: 5,
-                }}
-              ></div>
-              <div
-                className={classes.earn}
-                style={{ color: poolDetail.IsActived ? "green" : "red" }}
-              >
-                {" "}
-                {poolDetail.IsActived ? "Active" : "Inactive"}
+              {poolData.description &&
+                poolData.description.slice(0, 200) +
+                  (poolData.description.length > 200 ? "..." : "")}
+            </div>
+          </div>
+          <div>
+            {!authenticated && (
+              <div className="text-center my-2" style={{ color: "red" }}>
+                Connect Your Wallet First
               </div>
-            </div>
-
-            <div className={classes.desktop}>
-              <div className={classes.description}>{poolData.description}</div>
-            </div>
-            <div className="mt-2 px-3">
-              <div className={classes.wrapper}>
-                <div className="d-flex justify-content-between">
-                  <h6 htmlFor="category" className={classes.category}>
-                    Progress
-                  </h6>
-                  <h6 htmlFor="category" className={classes.categoryValue}>
-                    {percentageSell()}%
-                  </h6>
+            )}
+          </div>
+          {authenticated && (
+            <div>
+              {disableView() ? (
+                <div className="mt-3 px-2">
+                  <div className="text-center mt-3">
+                    <div className="mt-1">
+                      <div style={{ color: "white", paddingBottom: 4 }}>
+                        ~ Starts in ~{" "}
+                      </div>
+                      <Timer endTime={poolData.startDate} />
+                    </div>
+                  </div>
                 </div>
-                <div htmlFor="power" className={classes.powerWrapper}>
-                  <ProgressStatsBar
-                    color="green"
-                    value={initial - remaining}
-                    maxValue={initial}
-                  />
+              ) : (
+                <div className="mt-2 px-3">
+                  <div className={classes.wrapper}>
+                    <div className="d-flex justify-content-between">
+                      <h6 htmlFor="category" className={classes.category}>
+                        Progress
+                      </h6>
+                      <h6 htmlFor="category" className={classes.categoryValue}>
+                        {percentageSell()}%
+                      </h6>
+                    </div>
+
+                    <div htmlFor="power" className={classes.powerWrapper}>
+                      <ProgressStatsBar
+                        color="green"
+                        value={initial - remaining}
+                        maxValue={initial}
+                      />
+                    </div>
+                  </div>
                 </div>
+              )}
+            </div>
+          )}
+
+          <div className={classes.detailsWrapper}>
+            <div className={classes.detailTitle}>Start Date</div>
+            <div className={classes.detailValue}>{poolData.startDate}</div>
+          </div>
+          {authenticated && remaining > 0 && (
+            <div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Total NFTs on sell</div>
+                <div className={classes.detailValue}>{initial}</div>
+              </div>
+              <div className={classes.detailsWrapper}>
+                <div className={classes.detailTitle}>Remaining Quantity</div>
+                <div className={classes.detailValue}>{remaining}</div>
               </div>
             </div>
+          )}
 
-            <div className={classes.detailsWrapper}>
-              <div className={classes.detailTitle}>Start Date</div>
-              <div className={classes.detailValue}>{poolData.startDate}</div>
+          <div className={classes.detailsWrapper}>
+            <div className={classes.detailTitle}>Price</div>
+            <div className={classes.detailValue}>
+              {poolData.price} {poolData.currency}
             </div>
+          </div>
+          <div className={classes.detailsWrapper}>
+            <div className={classes.detailTitle}>Network</div>
+            <div className={classes.detailValue}>{poolData.network}</div>
+          </div>
 
-            <div className={classes.detailsWrapper}>
-              <div className={classes.detailTitle}>Total NFTs on sell</div>
-              <div className={classes.detailValue}>{initial}</div>
-            </div>
-            <div className={classes.detailsWrapper}>
-              <div className={classes.detailTitle}>Remaining Quantity</div>
-              <div className={classes.detailValue}>{remaining}</div>
-            </div>
-
-            <div className={classes.detailsWrapper}>
-              <div className={classes.detailTitle}>Price</div>
-              <div className={classes.detailValue}>
-                {poolData.price} {poolData.currency}
-              </div>
-            </div>
-            <div className={classes.detailsWrapper}>
-              <div className={classes.detailTitle}>Network</div>
-              <div className={classes.detailValue}>{poolData.network}</div>
-            </div>
-
-            {/* <div className={classes.detailsWrapper}>
-              <div className={classes.detailTitle}>Type</div>
-              <div className={classes.detailValue}>
-                {poolDetail.Type === "1" ? "Public" : "Private"}
-              </div>
-            </div> */}
-            <div className="text-center mt-3">
-              {poolDetail.Type !== "1" && isWhitelist && (
+          <div className="text-center mt-3">
+            {/* {poolData.poolType !== "1" && isWhitelist && (
+              <div>
                 <Link to={`/pool-details/${poolId}`}>
                   <Button variant="contained" className={classes.joinButton}>
                     View
                   </Button>
                 </Link>
-              )}
-              {poolDetail.Type !== "1" && !isWhitelist && (
-                <Button variant="contained" className={classes.joinButton}>
-                  Not Whitelisted
-                </Button>
-              )}
-              {poolDetail.Type === "1" && (
-                <Link to={`/pool-details/${poolId}`}>
+              </div>
+            )} */}
+            {/* {poolData.poolType !== "1" && !isWhitelist && (
+              <Button variant="contained" className={classes.joinButton}>
+                Not Whitelisted
+              </Button>
+            )} */}
+            {poolData.poolType === "1" && (
+              <div>
+                {authenticated ? (
+                  <Link to={`/pool-details/${poolId}`}>
+                    <Button variant="contained" className={classes.joinButton}>
+                      View
+                    </Button>
+                  </Link>
+                ) : (
                   <Button variant="contained" className={classes.joinButton}>
                     View
                   </Button>
-                </Link>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
-        )}
-        {!poolDetail && (
-          <div className="text-center">
-            <Loader height={200} />
-          </div>
-        )}
+        </div>
       </Card>
     </div>
   );
 };
 
-export default PoolCard;
+const mapStateToProps = (state) => ({
+  authenticated: state.auth.authenticated,
+});
 
-// poolDetail !== null &&
-// poolDetail.IsStopped === endedPool && (
+const mapDispatchToProps = {
+  checkAuthenticated,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(PoolCard);

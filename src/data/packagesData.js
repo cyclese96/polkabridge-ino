@@ -1,56 +1,64 @@
 let packages = {
   1: {
     id: 1,
-    image:
-      "https://pbs.twimg.com/profile_images/1451013712748290051/Kccvxw4i_400x400.jpg",
+    image: "/projects/polkabridge/peace.jpg",
     title: "Stand Against WAR",
     poolName: "PolkaBridge Peace NFT",
     description:
       "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
+    startDate: "March 21, 2022 14:00:00 UTC",
 
     price: "0.25",
     currency: "ETH",
     quantity: "500",
     claimType: "AUTO",
-    claimTime: "21 Mar,2022 2PM UTC",
+    claimTime: "April 01, 2022 14:00:00 UTC",
   },
   2: {
     id: 2,
-    image: "/projects/polkabridge/peace-nft.jpg",
-    title: "Stand Against WAR",
-    poolName: "PolkaBridge Peace NFT",
+    image: "/projects/ancient/1.png",
+    title: "Standard Box",
+    poolName: "Ancient Kingdom NFTs",
     description:
-      "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
-
-    price: "0.25",
+      "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
+    price: "0.045",
     currency: "ETH",
-    quantity: "500",
-    claimType: "AUTO",
+    startDate: "March 22, 2022 14:00:00 UTC",
+
+    quantity: "50",
+    claimType: "MANUAL",
+    claimTime: "March 25, 2022 14:00:00 UTC",
   },
   3: {
     id: 3,
     image: "/projects/ancient/2.png",
-    title: "Medium",
+    title: "Medium Box",
     poolName: "Ancient Kingdom NFTs",
     description:
       "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
-    price: "0.2",
+    price: "0.15",
     currency: "ETH",
+    startDate: "March 22, 2022 14:00:00 UTC",
+
     quantity: "50",
     claimType: "MANUAL",
+    claimTime: "March 25, 2022 14:00:00 UTC",
   },
   4: {
     id: 4,
     image: "/projects/ancient/3.png",
-    title: "Exclusive",
+    title: "Exclusive Box",
     type: "Packages",
     poolName: "Ancient Kingdom NFTs",
     description:
       "Take the smarter approach by purchasing The Mystery Box from our INO at a bargain price and increasing your chances of unlocking higher-level VIP maps.",
-    price: "0.4",
+    price: "0.25",
     currency: "ETH",
+    startDate: "March 22, 2022 14:00:00 UTC",
+
     quantity: "50",
     claimType: "MANUAL",
+    claimTime: "March 25, 2022 14:00:00 UTC",
   },
 };
 
