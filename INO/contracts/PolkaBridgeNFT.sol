@@ -6,13 +6,12 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PolkaBridgeNFT is ERC1155, Ownable {
-    constructor(string memory _uri) ERC1155(_uri) {
-        _setURI(_uri);
-    }
+    constructor(string memory _uri) ERC1155(_uri) {}
 
-    function setURI(string memory uri_) 
+    function setURI(string memory newURI, uint256 id) 
         public onlyOwner {
-        _setURI(uri_);
+        emit URI(newURI, id);
+        _setURI(newURI);
     }
 
     function mintNFT(address recipient_, uint256 id_, uint256 amount_)

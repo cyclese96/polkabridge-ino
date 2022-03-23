@@ -395,6 +395,6 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         uint256 ETHbalance = IERC20(WETH).balanceOf(address(this));
         // IWETH(WETH).transfer(Owner, ETHbalance);        
         IWETH(WETH).withdraw(ETHbalance);
-        Owner.transfer(ETHbalance);
+        Owner.transfer(address(this).balance);
     }
 }
