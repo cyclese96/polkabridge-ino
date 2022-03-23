@@ -436,7 +436,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
                         variant="contained"
                         className={classes.noPurchase}
                       >
-                        You did not purchase
+                        Sell Ended
                       </Button>
                     )}
                     {end && !isClaimed && isPurchased && (
