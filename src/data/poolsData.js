@@ -21,6 +21,7 @@ let pool1 = {
   website: "http://polkabridge.org/",
   twitter: "https://twitter.com/realpolkabridge",
   telegram: "https://t.me/polkabridgegroup",
+  poolType: "1",
 };
 
 let pool2 = {
@@ -48,6 +49,7 @@ let pool2 = {
   whitepaper: "https://acdom.io/doc/Whitepaper_Acdom_final.pdf",
   telegram: "https://t.me/AncientAnnouncement",
   twitter: "https://twitter.com/AncientKingNft",
+  poolType: "1",
 };
 
 pools = [pool1, pool2];

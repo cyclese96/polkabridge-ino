@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,7 +23,6 @@ import { EqualizerOutlined } from "@material-ui/icons";
 
 import DotCircle from "./DotCircle";
 import ConnectButton from "./ConnectButton";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -353,8 +352,6 @@ const Navbar = () => {
               Lending <DotCircle />
             </a>
           </div>
-
-
           <div>
             <ConnectButton />
           </div>
