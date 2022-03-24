@@ -224,6 +224,26 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
       }
     }
   };
+
+  const isPoolActive = () => {
+    if (poolData) {
+      console.log(poolData.endDate);
+      console.log(new Date(poolData.endDate));
+      const difference = +new Date(poolData.endDate) - +new Date();
+
+      console.log("diffTime");
+      console.log(difference);
+
+      if (difference > 0) {
+        // console.log("true hai bhai");
+        return true;
+      } else {
+        // console.log("false hai bhai");
+
+        return false;
+      }
+    }
+  };
   const percentageSell = () => {
     let numerator = initial - remaining;
     console.log(numerator);
@@ -254,8 +274,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
           <div className="d-flex justify-content-center align-items-center ">
             <div
               style={{
-                // backgroundColor: poolDetail.IsActived ? "green" : "red",
-                backgroundColor: "green",
+                backgroundColor: isPoolActive() ? "green" : "red",
 
                 borderRadius: "50%",
                 height: "5px",
@@ -265,12 +284,10 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             ></div>
             <div
               className={classes.earn}
-              // style={{ color: poolDetail.IsActived ? "green" : "red" }}
-              style={{ color: "green" }}
+              style={{ color: isPoolActive() ? "green" : "red" }}
             >
               {" "}
-              {/* {poolDetail.IsActived ? "Active" : "Inactive"} */}
-              Active
+              {isPoolActive() ? "Active" : "Inactive"}
             </div>
           </div>
 
@@ -279,8 +296,8 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
               {/* {poolData.description} */}
 
               {poolData.description &&
-                poolData.description.slice(0, 200) +
-                  (poolData.description.length > 200 ? "..." : "")}
+                poolData.description.slice(0, 300) +
+                  (poolData.description.length > 300 ? "..." : "")}
             </div>
           </div>
           <div>
@@ -305,24 +322,41 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
                 </div>
               ) : (
                 <div className="mt-2 px-3">
-                  <div className={classes.wrapper}>
-                    <div className="d-flex justify-content-between">
-                      <h6 htmlFor="category" className={classes.category}>
-                        Progress
-                      </h6>
-                      <h6 htmlFor="category" className={classes.categoryValue}>
-                        {percentageSell()}%
-                      </h6>
-                    </div>
+                  {isPoolActive() ? (
+                    <div className={classes.wrapper}>
+                      <div className="d-flex justify-content-between">
+                        <h6 htmlFor="category" className={classes.category}>
+                          Progress
+                        </h6>
+                        <h6
+                          htmlFor="category"
+                          className={classes.categoryValue}
+                        >
+                          {percentageSell()}%
+                        </h6>
+                      </div>
 
-                    <div htmlFor="power" className={classes.powerWrapper}>
-                      <ProgressStatsBar
-                        color="green"
-                        value={initial - remaining}
-                        maxValue={initial}
-                      />
+                      <div htmlFor="power" className={classes.powerWrapper}>
+                        <ProgressStatsBar
+                          color="green"
+                          value={initial - remaining}
+                          maxValue={initial}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    ""
+                    // <div
+                    //   className={classes.detailTitle}
+                    //   style={{
+                    //     textAlign: "center",
+                    //     color: "red",
+                    //     fontSize: 16,
+                    //   }}
+                    // >
+                    //   Pool Ended
+                    // </div>
+                  )}
                 </div>
               )}
             </div>

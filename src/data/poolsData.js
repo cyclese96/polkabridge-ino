@@ -8,6 +8,7 @@ let pool1 = {
   totalPackages: "1",
   description: "Stand against War and hold peace NFTs offered by PolkaBridge",
   startDate: "March 21, 2022 14:00:00 UTC",
+  endDate: "April 01, 2022 14:00:00 UTC",
   utilities: [
     "Support peace, not War.",
     "PBR Airdrop: Peace NFT holders will be airdropped 1999 PBR / 1 NFT on 15th April.",
@@ -35,6 +36,7 @@ let pool2 = {
 
   By joining the INO on PolkaBridge for a VIP card and entering the associated VIP maps, players can earn a rate of return on their initial investment of up to 2400% in just half a month with the maximum level of V12.`,
   startDate: "March 22, 2022 14:00:00 UTC",
+  endDate: "March 23, 2022 14:00:00 UTC",
   utilities: [
     "NFT items strengthen in-game characters significantly, support them to win more fights and gain more rewards ( win boss for KING token).",
     "NFTs can be traded on Marketplace but they are limited in supply which leads to the rise of NFTs prices.",

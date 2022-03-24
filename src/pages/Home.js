@@ -104,18 +104,49 @@ const Home = () => {
   const classes = useStyles(props);
 
   const [value, setValue] = useState(0);
+  const [active, setActive] = useState([]);
+  const [inactive, setInactive] = useState([]);
+  const [dataloaded, setDataloaded] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const [poolsDetail, setPoolsDetail] = useState({});
-
   useEffect(async () => {
-    // let poolResult = await getPoolList(1);
-    // setPoolsDetail(poolResult);
+    if (!dataloaded) {
+      distributePools();
+    }
   }, []);
 
+  const distributePools = () => {
+    pools.map((singlePool, index) => {
+      console.log(singlePool.endDate);
+      console.log(new Date(singlePool.endDate));
+      const difference = +new Date(singlePool.endDate) - +new Date();
+
+      let actualPool = (
+        <PoolCard
+          poolData={singlePool}
+          poolId={singlePool.id}
+          endedPool={false}
+        />
+      );
+
+      if (difference > 0) {
+        setActive([...active, actualPool]);
+
+        // console.log("true hai bhai");
+        return true;
+      } else {
+        setInactive([...inactive, actualPool]);
+
+        // console.log("false hai bhai");
+
+        return false;
+      }
+    });
+    setDataloaded(true);
+  };
   return (
     <div
       className="container mt-3"
@@ -153,38 +184,29 @@ const Home = () => {
             <h4 className={classes.subHeading}>Active Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {pools.map((singlePool, index) => {
-                return (
-                  <PoolCard
-                    poolData={singlePool}
-                    poolId={singlePool.id}
-                    endedPool={false}
-                  />
-                );
+              {active.map((singlePool, index) => {
+                console.log(singlePool);
+                return singlePool;
               })}
             </div>
           </div>
         </div>
       </div>
 
-      {/* <div className={classes.background}>
+      <div className={classes.background}>
         <div className={classes.contentStyles}>
           <div>
             <h4 className={classes.subHeading}>Ended Pools</h4>
-            <div className="container row mt-4 justify-content-around w-100">
-              {pools.map((singlePool, index) => {
-                return (
-                  <PoolCard
-                    poolData={singlePool}
-                    poolId={singlePool.id}
-                    endedPool={true}
-                  />
-                );
+
+            <div className="container row flex-row mt-4">
+              {inactive.map((singlePool, index) => {
+                console.log(singlePool);
+                return singlePool;
               })}
             </div>
-          </div>{" "}
+          </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
