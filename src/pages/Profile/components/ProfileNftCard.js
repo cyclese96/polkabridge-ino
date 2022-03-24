@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { getUserAddress } from "../../../actions/web3Actions";
 import inoContract from "./../../../utils/inoConnection";
 import { Link } from "react-router-dom";
 import { userPurchaseDetails } from "../../../actions/smartActions";
@@ -11,6 +10,7 @@ import web3 from "../../../web";
 import { Card, Button, Dialog, Slide, Backdrop } from "@material-ui/core/";
 import TxPopup from "../../../common/TxPopup";
 import Timer from "../../../common/Timer";
+import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -125,8 +125,10 @@ const ProfileNftCard = ({ packageId }) => {
   const [popup, setPopup] = useState(false);
   const [claimCase, setClaimCase] = useState(0);
 
+  const { active, account, chainId } = useWeb3React();
+
   useEffect(async () => {
-    let userPurchaseResult = await userPurchaseDetails(packageId);
+    let userPurchaseResult = await userPurchaseDetails(packageId, account);
 
     console.log(userPurchaseResult);
     setUserPurchaseDetail(userPurchaseResult);
@@ -136,12 +138,10 @@ const ProfileNftCard = ({ packageId }) => {
     setPopup(true);
     setClaimCase(3);
 
-    let userAddress = await getUserAddress();
-
     const response = await inoContract.methods
       .claimPool(packageId)
       .send(
-        { from: userAddress, gasPrice: 10000000000 },
+        { from: account, gasPrice: 10000000000 },
         async function (error, transactionHash) {
           if (transactionHash) {
             setClaimCase(5);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -17,12 +17,17 @@ import FlareOutlined from "@material-ui/icons/FlareOutlined";
 import TouchAppOutlined from "@material-ui/icons/TouchAppOutlined";
 import VpnLockOutlined from "@material-ui/icons/VpnLockOutlined";
 import CategoryIcon from "@material-ui/icons/Category";
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import { useWeb3React } from "@web3-react/core";
 
 // import CustomSnackBar from "./CustomSnackbar";
 import { EqualizerOutlined } from "@material-ui/icons";
 
 import DotCircle from "./DotCircle";
 import ConnectButton from "./ConnectButton";
+import { isMetaMaskInstalled } from "../utils/connections";
+import connectors from "../utils/connectors";
+import AccountDialog from "./AccountDialog";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -210,6 +215,50 @@ const Navbar = () => {
   const [state, setState] = React.useState({
     right: false,
   });
+  const [accountDialog, setAccountDialog] = useState(false);
+
+  const { active, account, activate, deactivate } = useWeb3React();
+
+  const createConnectHandler = async (connector) => {
+    try {
+      console.log("trying connection with ", connector);
+      // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
+      if (connector instanceof WalletConnectConnector) {
+        connector.walletConnectProvider = undefined;
+      }
+
+      await activate(connector);
+      localStorage.connected = "yes";
+    } catch (error) {
+      console.error("createConnectHandler", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!active && localStorage.connected === "yes") {
+      const connector = connectors.injected;
+      createConnectHandler(connector);
+    }
+  }, [active]);
+
+  const handleLogout = () => {
+    localStorage.connected = "none";
+    deactivate();
+  };
+
+  const handleWalletClick = () => {
+    if (active) {
+      setAccountDialog(true);
+    } else {
+      if (isMetaMaskInstalled()) {
+        const connector = connectors.injected;
+        createConnectHandler(connector);
+      } else {
+        const connector = connectors.walletconnect;
+        createConnectHandler(connector);
+      }
+    }
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     setState({ ...state, [anchor]: open });
@@ -290,6 +339,11 @@ const Navbar = () => {
         position="fixed"
         className={classes.appBarBackground}
       >
+        <AccountDialog
+          open={accountDialog}
+          handleLogout={handleLogout}
+          handleClose={() => setAccountDialog(false)}
+        />
         <Toolbar className={classes.sectionDesktop}>
           <a href="/">
             <Avatar
@@ -353,7 +407,7 @@ const Navbar = () => {
             </a>
           </div>
           <div>
-            <ConnectButton />
+            <ConnectButton onWalletClick={handleWalletClick} />
           </div>
           <div className={classes.grow} />
         </Toolbar>
