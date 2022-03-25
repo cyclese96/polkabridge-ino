@@ -287,7 +287,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
               style={{ color: isPoolActive() ? "green" : "red" }}
             >
               {" "}
-              {isPoolActive() ? "Active" : "Inactive"}
+              {isPoolActive() ? "Active" : "Ended"}
             </div>
           </div>
 
@@ -297,7 +297,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
 
               {poolData.description &&
                 poolData.description.slice(0, 300) +
-                  (poolData.description.length > 300 ? "..." : "")}
+                (poolData.description.length > 300 ? "..." : "")}
             </div>
           </div>
           <div>
