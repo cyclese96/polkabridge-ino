@@ -297,7 +297,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
 
               {poolData.description &&
                 poolData.description.slice(0, 300) +
-                  (poolData.description.length > 300 ? "..." : "")}
+                (poolData.description.length > 300 ? "..." : "")}
             </div>
           </div>
           <div>
