@@ -287,7 +287,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
               style={{ color: isPoolActive() ? "green" : "red" }}
             >
               {" "}
-              {isPoolActive() ? "Active" : "Inactive"}
+              {isPoolActive() ? "Active" : "Ended"}
             </div>
           </div>
 
@@ -332,15 +332,24 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
                           htmlFor="category"
                           className={classes.categoryValue}
                         >
-                          {percentageSell()}%
+                          {isNaN(parseFloat(percentageSell()))
+                            ? "--"
+                            : percentageSell()}
+                          %
                         </h6>
                       </div>
 
                       <div htmlFor="power" className={classes.powerWrapper}>
                         <ProgressStatsBar
                           color="green"
-                          value={initial - remaining}
-                          maxValue={initial}
+                          value={
+                            isNaN(parseFloat(percentageSell()))
+                              ? 0
+                              : initial - remaining
+                          }
+                          maxValue={
+                            isNaN(parseFloat(percentageSell())) ? 100 : initial
+                          }
                         />
                       </div>
                     </div>
