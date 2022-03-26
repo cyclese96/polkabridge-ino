@@ -1,10 +1,9 @@
-import { getUserAddress } from "./web3Actions";
 import { GET_CURRENT_USER, REMOVE_CURRENT_USER } from "./types";
 
 //GET user authenticated
-export const authenticateUser = () => async (dispatch) => {
+export const authenticateUser = (account) => async (dispatch) => {
   let user = localStorage.getItem("userAddress");
-  let userAddress = await getUserAddress();
+  let userAddress = account;
   console.log("3. authenticating a new user");
   if (!user) {
     console.log("4. Address Not Available");
@@ -18,9 +17,9 @@ export const authenticateUser = () => async (dispatch) => {
 };
 
 //GET user authenticated
-export const checkAuthenticated = () => async (dispatch) => {
+export const checkAuthenticated = (account) => async (dispatch) => {
   let user = localStorage.getItem("userAddress");
-  let userAddress = await getUserAddress();
+  let userAddress = account;
 
   if (user) {
     dispatch({

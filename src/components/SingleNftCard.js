@@ -10,13 +10,13 @@ import {
   userPurchasedQtyByPackageId,
 } from "../actions/smartActions";
 import packages from "../data/packagesData";
-import { getUserAddress } from "../actions/web3Actions";
 import inoContract from "./../utils/inoConnection";
 import TxPopup from "./../common/TxPopup";
 import PurchaseModal from "./PurchaseModal";
 import web3 from "../web";
 import Loader from "../common/Loader";
 import Timer from "../common/Timer";
+import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -187,32 +187,36 @@ const SingleNftCard = ({ packageId, endTime }) => {
   const [quantity, setQuantity] = useState(0);
   const [end, setEnd] = useState(false);
   const [quantityBought, setQuantityBought] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const { active, account, chainId } = useWeb3React();
 
   useEffect(async () => {
-    let result = await getPackageDetails(packageId);
-    console.log(result);
-    let resultRemainToken = await getRemainINOToken(packageId);
-    let userPurchaseResult = await userPurchaseDetails(packageId);
-    let quantity = await userPurchasedQtyByPackageId(packageId);
-    console.log(quantity);
-    console.log(packageId);
-    setQuantityBought(parseInt(userPurchaseResult.PurchasedItemCount));
-    setUserPurchaseDetail(userPurchaseResult);
-    setIsPurchased(parseInt(userPurchaseResult.PurchasedItemCount) > 0);
-    setIsClaimed(userPurchaseResult.IsClaimed);
+    if (account) {
+      let result = await getPackageDetails(packageId);
+      let resultRemainToken = await getRemainINOToken(packageId);
+      let userPurchaseResult = await userPurchaseDetails(packageId, account);
+      let quantity = await userPurchasedQtyByPackageId(packageId, account);
 
-    console.log(userPurchaseResult);
+      // console.log(result);
+      // console.log(resultRemainToken);
+      // console.log(userPurchaseResult);
+      // console.log(quantity);
+      setQuantityBought(parseInt(userPurchaseResult.PurchasedItemCount));
+      setUserPurchaseDetail(userPurchaseResult);
+      setIsPurchased(parseInt(userPurchaseResult.PurchasedItemCount) > 0);
+      setIsClaimed(userPurchaseResult.IsClaimed);
 
-    let timeToEnd = endTime * 1000 - Date.now();
-    console.log(timeToEnd);
-    if (timeToEnd < 0) {
-      setEnd(true);
+      let timeToEnd = endTime * 1000 - Date.now();
+
+      if (timeToEnd < 0) {
+        setEnd(true);
+      }
+      setPackageDetail(result);
+      setRemainToken(resultRemainToken);
+      setLoading(false);
     }
-    setPackageDetail(result);
-    setRemainToken(resultRemainToken);
-    setLoading(false);
-  }, []);
+  }, [active, account]);
 
   const PurchasePopup = () => {
     setPopup(true);
@@ -222,7 +226,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
     setPopup(true);
     setPurchaseCase(3);
 
-    let userAddress = await getUserAddress();
+    let userAddress = account;
 
     const response = await inoContract.methods
       .claimPool(packageId)
@@ -248,7 +252,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
     setPopup(true);
     setPurchaseCase(3);
 
-    let userAddress = await getUserAddress();
+    let userAddress = account;
     let amount = parseInt(quantity) / parseFloat(packageDetail.RatePerETH);
     let finalValue = web3.utils.toWei(amount.toString(), "ether");
     console.log(finalValue);

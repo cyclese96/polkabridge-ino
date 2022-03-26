@@ -259,9 +259,9 @@ const PoolDetails = () => {
             </h4>
             <div className="row  mt-4">
               {poolDetail !== null &&
-                poolDetail.PackageIds.map((packageId) => {
+                poolDetail.PackageIds.map((packageId, index) => {
                   return (
-                    <div className="col-12 col-md-4 mb-5">
+                    <div className="col-12 col-md-4 mb-5" key={index}>
                       {console.log(poolDetail.End)}
                       <SingleNftCard
                         packageId={packageId}

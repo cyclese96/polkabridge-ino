@@ -14,11 +14,7 @@ import { checkAuthenticated } from "./../actions/authActions";
 import Loader from "../common/Loader";
 import ProgressStatsBar from "../common/ProgressStatsBar";
 import Timer from "../common/Timer";
-import {
-  checkCorrectNetwork,
-  checkWalletAvailable,
-  getUserAddress,
-} from "../actions/web3Actions";
+import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -162,47 +158,22 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
   const [remaining, setRemaining] = useState(0);
   const [initial, setInitial] = useState(0);
 
-  useEffect(() => {
-    async function asyncFn() {
-      let walletStatus = await checkWalletAvailable();
-      if (walletStatus) {
-        const networkStatus = await checkCorrectNetwork();
-
-        if (networkStatus) {
-          let authStatus = await checkAuthenticated();
-
-          if (authStatus) {
-            let userAddress = await getUserAddress();
-            console.log(userAddress);
-          } else {
-          }
-        } else {
-          console.log("hello1");
-        }
-      } else {
-        console.log("hello 2");
-      }
-    }
-
-    asyncFn();
-  }, [checkAuthenticated]);
+  const { active, account, chainId } = useWeb3React();
 
   useEffect(async () => {
-    if (authenticated) {
-      console.log("hello");
+    if (active) {
       let poolResult = await getPoolDetails(poolId);
       console.log(poolResult);
-      let whitelistResult = await getIsWhitelisted(poolId);
+      let whitelistResult = await getIsWhitelisted(poolId, account);
       let remainingQuantity = await getRemainingQuantityOfPool(poolId);
       let initialQuantity = await getInitialBalanceOfPool(poolId);
       setInitial(initialQuantity);
 
       setRemaining(remainingQuantity);
-      console.log("poolResult");
       setPoolDetail(poolResult);
       setIsWhitelist(whitelistResult);
     }
-  }, [authenticated]);
+  }, [active]);
 
   const disableView = () => {
     if (poolDetail) {
@@ -246,15 +217,13 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
   };
   const percentageSell = () => {
     let numerator = initial - remaining;
-    console.log(numerator);
 
     let fraction = numerator / initial;
-    console.log(fraction);
+
     return (fraction * 100).toFixed(1);
   };
   return (
     <div className="col-12 col-md-6 mb-4">
-      {console.log(poolData)}
       <Card elevation={10} className={classes.card}>
         <div style={{ width: "100%" }}>
           <div className="text-center my-3">
@@ -301,13 +270,13 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             </div>
           </div>
           <div>
-            {!authenticated && (
+            {!active && (
               <div className="text-center my-2" style={{ color: "red" }}>
                 Connect Your Wallet First
               </div>
             )}
           </div>
-          {authenticated && (
+          {active && (
             <div>
               {disableView() ? (
                 <div className="mt-3 px-2">
@@ -416,7 +385,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             )} */}
             {poolData.poolType === "1" && (
               <div>
-                {authenticated ? (
+                {active ? (
                   <Link to={`/pool-details/${poolId}`}>
                     <Button variant="contained" className={classes.joinButton}>
                       View

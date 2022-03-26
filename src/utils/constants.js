@@ -4,6 +4,8 @@ let network_type = 0;
 let constants;
 constants = {
   net: network_type,
+  ankr_rpc_eth: "https://rpc.ankr.com/eth",
+  ankr_rpc_rinkeby: "https://rpc.ankr.com/eth",
 };
 
 export default constants;

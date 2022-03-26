@@ -4,10 +4,7 @@ import propTypes from "prop-types";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { authenticateUser } from "./../actions/authActions";
-import {
-  checkCorrectNetwork,
-  checkWalletAvailable,
-} from "../actions/web3Actions";
+import { useWeb3React } from "@web3-react/core";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -58,21 +55,22 @@ function Wallet({ authenticateUser }) {
   const classes = useStyles();
   const [error, setError] = useState("");
   const [popup, setPopup] = useState(false);
+  const { active, account, chainId } = useWeb3React();
 
   const connectWallet = async () => {
-    let walletStatus = await checkWalletAvailable();
-    console.log(walletStatus);
-    if (walletStatus) {
-      let networkStatus = await checkCorrectNetwork();
-      if (networkStatus) {
-        authenticateUser();
-        setError("");
-      } else {
-        setError("Only support BSC network");
-      }
-    } else {
-      setError("Wallet Not Available.");
-    }
+    // let walletStatus = await checkWalletAvailable();
+    // console.log(walletStatus);
+    // if (walletStatus) {
+    //   let networkStatus = await checkCorrectNetwork();
+    //   if (networkStatus) {
+    //     authenticateUser();
+    //     setError("");
+    //   } else {
+    //     setError("Only support BSC network");
+    //   }
+    // } else {
+    //   setError("Wallet Not Available.");
+    // }
   };
 
   return (

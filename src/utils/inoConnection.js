@@ -1798,10 +1798,6 @@ if (constants.net === 0) {
   };
 }
 
-// var provider = "https://main-light.eth.linkpool.io";
-// var web3Provider = new Web3.providers.HttpProvider(provider);
-// var web3 = new Web3(web3Provider);
-
 var web3 = new Web3(window.ethereum);
 var inoContract = new web3.eth.Contract(
   inoConstant.abi,

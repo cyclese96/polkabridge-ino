@@ -166,7 +166,6 @@ const Home = () => {
                 marginRight: 10,
                 paddingTop: 30,
               }}
-              href="https://polkabridge.medium.com/polkabridge-launches-launchpad-v2-the-multichain-universe-misson-8377161bfdba"
             >
               <Button className={classes.actionButton} variant="contained">
                 <Person />

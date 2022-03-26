@@ -5,6 +5,7 @@ import PoolCard from "../../components/PoolCard";
 import ProfileNftCard from "./components/ProfileNftCard";
 import { getUserPurchasedPackages } from "../../actions/smartActions";
 import Loader from "../../common/Loader";
+import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
   tabText: {
@@ -113,10 +114,12 @@ const Profile = () => {
 
   const [purchasedPackages, setPurchasedPackages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { active, account, chainId } = useWeb3React();
 
   useEffect(async () => {
     setLoading(true);
-    let result = await getUserPurchasedPackages();
+    let userAddress = account;
+    let result = await getUserPurchasedPackages(userAddress);
     setPurchasedPackages([...result]);
     setLoading(false);
   }, []);
