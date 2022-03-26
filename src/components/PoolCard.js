@@ -161,18 +161,19 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
   const { active, account, chainId } = useWeb3React();
 
   useEffect(async () => {
+    let poolResult = await getPoolDetails(poolId);
+    let remainingQuantity = await getRemainingQuantityOfPool(poolId);
+    let initialQuantity = await getInitialBalanceOfPool(poolId);
     if (active) {
-      let poolResult = await getPoolDetails(poolId);
       console.log(poolResult);
       let whitelistResult = await getIsWhitelisted(poolId, account);
-      let remainingQuantity = await getRemainingQuantityOfPool(poolId);
-      let initialQuantity = await getInitialBalanceOfPool(poolId);
-      setInitial(initialQuantity);
 
-      setRemaining(remainingQuantity);
-      setPoolDetail(poolResult);
       setIsWhitelist(whitelistResult);
     }
+    setInitial(initialQuantity);
+
+    setRemaining(remainingQuantity);
+    setPoolDetail(poolResult);
   }, [active]);
 
   const disableView = () => {
@@ -266,13 +267,45 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
 
               {poolData.description &&
                 poolData.description.slice(0, 300) +
-                (poolData.description.length > 300 ? "..." : "")}
+                  (poolData.description.length > 300 ? "..." : "")}
             </div>
           </div>
           <div>
             {!active && (
-              <div className="text-center my-2" style={{ color: "red" }}>
-                Connect Your Wallet First
+              <div>
+                <div
+                  className={classes.wrapper}
+                  style={{ paddingLeft: 15, paddingRight: 15 }}
+                >
+                  <div className="d-flex justify-content-between">
+                    <h6 htmlFor="category" className={classes.category}>
+                      Progress
+                    </h6>
+                    <h6 htmlFor="category" className={classes.categoryValue}>
+                      {isNaN(parseFloat(percentageSell()))
+                        ? "--"
+                        : percentageSell()}
+                      %
+                    </h6>
+                  </div>
+
+                  <div htmlFor="power" className={classes.powerWrapper}>
+                    <ProgressStatsBar
+                      color="green"
+                      value={
+                        isNaN(parseFloat(percentageSell()))
+                          ? 0
+                          : initial - remaining
+                      }
+                      maxValue={
+                        isNaN(parseFloat(percentageSell())) ? 100 : initial
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="text-center my-2" style={{ color: "red" }}>
+                  Connect Your Wallet First
+                </div>
               </div>
             )}
           </div>
@@ -385,17 +418,11 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             )} */}
             {poolData.poolType === "1" && (
               <div>
-                {active ? (
-                  <Link to={`/pool-details/${poolId}`}>
-                    <Button variant="contained" className={classes.joinButton}>
-                      View
-                    </Button>
-                  </Link>
-                ) : (
+                <Link to={`/pool-details/${poolId}`}>
                   <Button variant="contained" className={classes.joinButton}>
                     View
                   </Button>
-                )}
+                </Link>
               </div>
             )}
           </div>

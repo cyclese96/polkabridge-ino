@@ -192,9 +192,9 @@ const SingleNftCard = ({ packageId, endTime }) => {
   const { active, account, chainId } = useWeb3React();
 
   useEffect(async () => {
+    let result = await getPackageDetails(packageId);
+    let resultRemainToken = await getRemainINOToken(packageId);
     if (account) {
-      let result = await getPackageDetails(packageId);
-      let resultRemainToken = await getRemainINOToken(packageId);
       let userPurchaseResult = await userPurchaseDetails(packageId, account);
       let quantity = await userPurchasedQtyByPackageId(packageId, account);
 
@@ -212,10 +212,11 @@ const SingleNftCard = ({ packageId, endTime }) => {
       if (timeToEnd < 0) {
         setEnd(true);
       }
-      setPackageDetail(result);
-      setRemainToken(resultRemainToken);
+
       setLoading(false);
     }
+    setRemainToken(resultRemainToken);
+    setPackageDetail(result);
   }, [active, account]);
 
   const PurchasePopup = () => {
@@ -409,52 +410,53 @@ const SingleNftCard = ({ packageId, endTime }) => {
                   )}
                 </div>
                 <div className="mt-3 px-2">
-                  <div className="text-center mt-3">
-                    {disablePurchase() ? (
-                      <div className="mt-3 px-2">
-                        <div className="text-center mt-3">
-                          <div className="mt-1">
-                            <div style={{ color: "white", paddingBottom: 4 }}>
-                              ~ Sell starts in ~{" "}
+                  {active && (
+                    <div className="text-center mt-3">
+                      {disablePurchase() ? (
+                        <div className="mt-3 px-2">
+                          <div className="text-center mt-3">
+                            <div className="mt-1">
+                              <div style={{ color: "white", paddingBottom: 4 }}>
+                                ~ Sell starts in ~{" "}
+                              </div>
+                              <Timer endTime={packages[packageId].startDate} />
                             </div>
-                            <Timer endTime={packages[packageId].startDate} />
                           </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="mt-2 px-3">
-                        {!end && (
+                      ) : (
+                        <div className="mt-2 px-3">
+                          {!end && (
+                            <Button
+                              variant="contained"
+                              className={classes.joinButton}
+                              onClick={PurchasePopup}
+                            >
+                              Purchase
+                            </Button>
+                          )}
+                        </div>
+                      )}
+
+                      {end && !isClaimed && !isPurchased && (
+                        <Button
+                          variant="contained"
+                          className={classes.noPurchase}
+                        >
+                          Sell Ended
+                        </Button>
+                      )}
+                      {end && !isClaimed && isPurchased && (
+                        <Link to="/profile">
                           <Button
                             variant="contained"
                             className={classes.joinButton}
-                            onClick={PurchasePopup}
+                            // onClick={claimPopup}
                           >
-                            Purchase
+                            Claim Tokens
                           </Button>
-                        )}
-                      </div>
-                    )}
-
-                    {end && !isClaimed && !isPurchased && (
-                      <Button
-                        variant="contained"
-                        className={classes.noPurchase}
-                      >
-                        Sell Ended
-                      </Button>
-                    )}
-                    {end && !isClaimed && isPurchased && (
-                      <Link to="/profile">
-                        <Button
-                          variant="contained"
-                          className={classes.joinButton}
-                          // onClick={claimPopup}
-                        >
-                          Claim Tokens
-                        </Button>
-                      </Link>
-                    )}
-                    {/* {end && isClaimed && isPurchased && (
+                        </Link>
+                      )}
+                      {/* {end && isClaimed && isPurchased && (
                     <Button
                       variant="contained"
                       className={classes.claimedButton}
@@ -463,7 +465,19 @@ const SingleNftCard = ({ packageId, endTime }) => {
                       Tokens Claimed
                     </Button>
                   )} */}
-                  </div>
+                    </div>
+                  )}
+
+                  {!active && (
+                    <div className="text-center mt-3">
+                      <Button
+                        variant="contained"
+                        className={classes.joinButton}
+                      >
+                        Connect Wallet First
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
