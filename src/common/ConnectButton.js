@@ -75,7 +75,7 @@ const ConnectWallet = ({ onWalletClick }) => {
           className={classes.navbarButton}
           variant="contained"
         >
-          Connect Wallet
+          {window.innerWidth < 500 ? "Connect" : "Connect Wallet"}
         </Button>
       ) : (
         <Button onClick={onWalletClick} className={classes.root}>

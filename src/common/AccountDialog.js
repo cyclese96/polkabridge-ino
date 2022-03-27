@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   background: {
     minWidth: 360,
     width: "100%",
-    height: 450,
+    height: 300,
     backgroundColor: "#121827",
     color: "#f9f9f9",
     display: "flex",
@@ -65,6 +65,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttons: {
+    display: "flex",
+    justifyContent: "space-between",
     // marginTop: 80,
     // marginBottom: 20,
   },
@@ -129,6 +131,23 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 12,
     },
   },
+  button: {
+    background: "linear-gradient(to right, #C80C81,purple)",
+    color: "white",
+    padding: 8,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 20,
+    fontWeight: 500,
+    letterSpacing: 0.4,
+    textTransform: "none",
+
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 0,
+      marginLeft: 15,
+      width: 150,
+    },
+  },
 }));
 
 const AccountDialog = ({ open, handleClose, handleLogout }) => {
@@ -183,7 +202,7 @@ const AccountDialog = ({ open, handleClose, handleLogout }) => {
             </div>
           </div>
 
-          <div style={{ width: "100%", paddingLeft: 20, paddingRight: 20 }}>
+          {/* <div style={{ width: "100%", paddingLeft: 20, paddingRight: 20 }}>
             <div className="d-flex justify-content-between mt-4">
               <div className="d-flex justify-content-start">
                 <div className={classes.logoWrapper}>
@@ -196,12 +215,20 @@ const AccountDialog = ({ open, handleClose, handleLogout }) => {
               </div>
               <div className={classes.tokenAmount}>32</div>
             </div>
-          </div>
+          </div> */}
           <div className={classes.buttons}>
-            <Button variant="light" onClick={handleClose}>
+            <Button
+              variant="light"
+              onClick={handleClose}
+              className={classes.button}
+            >
               Cancel
             </Button>
-            <Button onClick={onSingOut}>Sign out</Button>
+            <div style={{ paddingLeft: 10 }}>
+              <Button onClick={onSingOut} className={classes.button}>
+                Sign out
+              </Button>
+            </div>
           </div>
         </Card>
       </Dialog>

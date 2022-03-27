@@ -325,8 +325,9 @@ const Navbar = () => {
         ))}
 
         <Divider />
+
         <div style={{ paddingLeft: 20 }}>
-          <ConnectButton />
+          <ConnectButton onWalletClick={handleWalletClick} />
         </div>
       </List>
     </div>
