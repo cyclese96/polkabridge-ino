@@ -377,7 +377,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             <div className={classes.detailTitle}>Start Date</div>
             <div className={classes.detailValue}>{poolData.startDate}</div>
           </div>
-          {authenticated && remaining > 0 && (
+          {/* {authenticated && remaining > 0 && (
             <div>
               <div className={classes.detailsWrapper}>
                 <div className={classes.detailTitle}>Total NFTs on sell</div>
@@ -388,8 +388,17 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
                 <div className={classes.detailValue}>{remaining}</div>
               </div>
             </div>
-          )}
-
+          )} */}
+          <div>
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Total NFTs on sell</div>
+              <div className={classes.detailValue}>{initial}</div>
+            </div>
+            <div className={classes.detailsWrapper}>
+              <div className={classes.detailTitle}>Remaining Quantity</div>
+              <div className={classes.detailValue}>{remaining}</div>
+            </div>
+          </div>
           <div className={classes.detailsWrapper}>
             <div className={classes.detailTitle}>Price</div>
             <div className={classes.detailValue}>
