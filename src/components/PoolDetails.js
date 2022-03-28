@@ -69,11 +69,14 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     padding: 0,
     paddingTop: 10,
-    paddingLeft: 10,
+
     fontSize: 15,
     paddingBottom: 3,
     color: "#e5e5e5",
     textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 13,
+    },
   },
   joinButton: {
     background: `#E0247D`,
@@ -105,9 +108,24 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 10,
     fontSize: 15,
     color: "#af8b9c",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 13,
+    },
   },
   logo: {
     height: 80,
+    [theme.breakpoints.down("sm")]: {
+      height: 60,
+    },
+  },
+  poolTitle: {
+    color: "#f9f9f9",
+    fontWeight: 700,
+    fontSize: 28,
+    textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 22,
+    },
   },
 }));
 
@@ -134,16 +152,7 @@ const PoolDetails = () => {
           <div className="text-center">
             <img className={classes.logo} src={pools[id - 1].image} />
           </div>
-          <div
-            style={{
-              color: "#f9f9f9",
-              fontWeight: 700,
-              fontSize: 28,
-              textAlign: "center",
-            }}
-          >
-            {pools[id - 1].title}
-          </div>
+          <div className={classes.poolTitle}>{pools[id - 1].title}</div>
           <div className="d-flex justify-content-center">
             <a href={pools[id - 1].whitepaper} target="_blank">
               <h4 className={classes.links}>Whitepaper</h4>

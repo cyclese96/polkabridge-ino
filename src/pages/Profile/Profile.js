@@ -8,6 +8,16 @@ import Loader from "../../common/Loader";
 import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 60,
+    paddingBottom: 60,
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: 40,
+      paddingBottom: 20,
+    },
+  },
   tabText: {
     fontWeight: 900,
     textTransform: "none",
@@ -106,6 +116,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 35,
     fontSize: 26,
     fontWeight: 400,
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+      marginTop: 0,
+      fontSize: 20,
+    },
   },
 }));
 
@@ -118,17 +133,18 @@ const Profile = () => {
 
   useEffect(async () => {
     setLoading(true);
-    let userAddress = account;
-    let result = await getUserPurchasedPackages(userAddress);
-    setPurchasedPackages([...result]);
+    if (active) {
+      let userAddress = account;
+      console.log(userAddress);
+      let result = await getUserPurchasedPackages(userAddress);
+      setPurchasedPackages([...result]);
+    }
+
     setLoading(false);
-  }, []);
+  }, [active]);
 
   return (
-    <div
-      className="container mt-3"
-      style={{ paddingTop: 60, paddingBottom: 60 }}
-    >
+    <div className={classes.root}>
       <div className={classes.background}>
         <div className={classes.headStyle}>
           <div>
@@ -142,36 +158,45 @@ const Profile = () => {
         <div className={classes.contentStyles}>
           <div style={{ width: "100%" }}>
             <h4 className={classes.subHeading}>Purchase History</h4>
-            {loading && (
-              <div className="text-center">
-                <Loader height={200} />
+            {active && (
+              <div>
+                {loading && (
+                  <div className="text-center">
+                    <Loader height={200} />
+                  </div>
+                )}
+                {!loading && (
+                  <div>
+                    {" "}
+                    {purchasedPackages.length === 0 && (
+                      <div className={classes.messageCard}>
+                        <div className="text-center mt-3">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/2855/2855027.png"
+                            height="140px"
+                          />
+                        </div>
+                        <h1 className={classes.message}>
+                          You did not yet participated in INO.
+                        </h1>
+                      </div>
+                    )}
+                    {purchasedPackages.length !== 0 && (
+                      <div className="row mt-4">
+                        {purchasedPackages.map((singlePackageId) => (
+                          <div className="col-12 col-md-4">
+                            <ProfileNftCard packageId={singlePackageId} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
-            {!loading && (
-              <div>
-                {" "}
-                {purchasedPackages.length === 0 && (
-                  <div className={classes.messageCard}>
-                    <div className="text-center mt-3">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/2855/2855027.png"
-                        height="140px"
-                      />
-                    </div>
-                    <h1 className={classes.message}>
-                      You did not yet participated in INO.
-                    </h1>
-                  </div>
-                )}
-                {purchasedPackages.length !== 0 && (
-                  <div className="row mt-4">
-                    {purchasedPackages.map((singlePackageId) => (
-                      <div className="col-12 col-md-4">
-                        <ProfileNftCard packageId={singlePackageId} />
-                      </div>
-                    ))}
-                  </div>
-                )}
+            {!active && (
+              <div className="text-center">
+                <h4 style={{ color: "white" }}>Connect Your Wallet First</h4>
               </div>
             )}
           </div>{" "}

@@ -12,7 +12,7 @@ import { Close } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    width: 640,
+    width: "100%",
     height: 360,
     backgroundColor: "#000000",
     borderRadius: 10,
@@ -65,6 +65,12 @@ const useStyles = makeStyles((theme) => ({
     width: "80%",
     [theme.breakpoints.down("md")]: {
       width: "80px",
+    },
+  },
+  imageSymbol: {
+    width: "60%",
+    [theme.breakpoints.down("md")]: {
+      width: "100px",
     },
   },
 }));
@@ -133,8 +139,12 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div className="d-flex justify-content-start">
-              <img src="/loaders/denied.png" width="60%" />
+            <div className="d-flex justify-content-center">
+              <img
+                src="/loaders/denied.png"
+                width="60%"
+                className={classes.imageSymbol}
+              />
             </div>
           </div>
         </div>
@@ -156,8 +166,12 @@ const TxPopup = ({ txCase, resetPopup }) => {
             </div>
           </div>
           <div className="col-md-5">
-            <div className="d-flex justify-content-start">
-              <img src="/loaders/process.png" width="60%" />
+            <div className="d-flex justify-content-center">
+              <img
+                src="/loaders/process.png"
+                width="60%"
+                className={classes.imageSymbol}
+              />
             </div>
           </div>
         </div>
@@ -168,7 +182,7 @@ const TxPopup = ({ txCase, resetPopup }) => {
           align="center"
           style={{ height: "90%" }}
         >
-          <div className="col-md-7">
+          <div className="col-md-7  order-2 order-md-1">
             <div>
               <Typography variant="h2" className={classes.heading}>
                 Transaction Failed!
@@ -185,9 +199,13 @@ const TxPopup = ({ txCase, resetPopup }) => {
               </Button>
             </div>
           </div>
-          <div className="col-md-5">
-            <div className="d-flex justify-content-start">
-              <img src="/loaders/failed.png" width="60%" />
+          <div className="col-md-5  order-1 order-md-2">
+            <div className="d-flex justify-content-center">
+              <img
+                src="/loaders/failed.png"
+                width="60%"
+                className={classes.imageSymbol}
+              />
             </div>
           </div>
         </div>

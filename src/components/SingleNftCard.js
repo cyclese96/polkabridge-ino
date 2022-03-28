@@ -93,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
       background: "rgba(224, 7, 125, 0.7)",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "fit-content",
-      fontSize: 13,
+      width: "80%",
+      fontSize: 15,
     },
   },
   claimedButton: {
@@ -113,8 +113,8 @@ const useStyles = makeStyles((theme) => ({
       background: "rgba(224, 7, 125, 0.7)",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "fit-content",
-      fontSize: 13,
+      width: "80%",
+      fontSize: 15,
     },
   },
   noPurchase: {
@@ -133,8 +133,8 @@ const useStyles = makeStyles((theme) => ({
       background: "rgba(224, 7, 125, 0.7)",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "fit-content",
-      fontSize: 13,
+      width: "80%",
+      fontSize: 15,
     },
   },
   detailsWrapper: {

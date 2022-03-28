@@ -86,8 +86,8 @@ const useStyles = makeStyles((theme) => ({
       background: "rgba(224, 7, 125, 0.7)",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "fit-content",
-      fontSize: 13,
+      width: "80%",
+      fontSize: 15,
     },
   },
   detailsWrapper: {
@@ -157,10 +157,12 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
   const [isWhitelist, setIsWhitelist] = useState(false);
   const [remaining, setRemaining] = useState(0);
   const [initial, setInitial] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const { active, account, chainId } = useWeb3React();
 
   useEffect(async () => {
+    setLoading(true);
     let poolResult = await getPoolDetails(poolId);
     let remainingQuantity = await getRemainingQuantityOfPool(poolId);
     let initialQuantity = await getInitialBalanceOfPool(poolId);
@@ -174,6 +176,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
 
     setRemaining(remainingQuantity);
     setPoolDetail(poolResult);
+    setLoading(false);
   }, [active]);
 
   const disableView = () => {
@@ -392,11 +395,15 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
           <div>
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Total NFTs on sell</div>
-              <div className={classes.detailValue}>{initial}</div>
+              <div className={classes.detailValue}>
+                {!loading ? initial : "--"}
+              </div>
             </div>
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Remaining Quantity</div>
-              <div className={classes.detailValue}>{remaining}</div>
+              <div className={classes.detailValue}>
+                {!loading ? remaining : "--"}
+              </div>
             </div>
           </div>
           <div className={classes.detailsWrapper}>

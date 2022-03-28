@@ -6,7 +6,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { FileCopy } from "@material-ui/icons";
 
 import { connect } from "react-redux";
-import { Button, Card } from "@material-ui/core";
+import { Button, Card, Divider } from "@material-ui/core";
 import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
 
     [theme.breakpoints.down("sm")]: {
-      minWidth: 200,
+      minWidth: 300,
       width: "100%",
       height: 450,
     },
@@ -144,8 +144,135 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.down("sm")]: {
       marginRight: 0,
+
+      marginLeft: 15,
+      width: "fit-content",
+    },
+  },
+
+  item: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  navbarButton: {
+    background: "linear-gradient(to right, #C80C81,purple)",
+    color: "white",
+    padding: 8,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 20,
+    fontWeight: 500,
+    letterSpacing: 0.4,
+    textTransform: "none",
+    filter: "drop-shadow(0 0 0.5rem #414141)",
+    "&:hover": {
+      background: "#C80C81",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 0,
       marginLeft: 15,
       width: 150,
+    },
+  },
+  numbers: {
+    color: "#eeeeee",
+    fontSize: 14,
+  },
+  networkIcon: {
+    width: 25,
+    marginRight: 5,
+    height: "auto",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  background: {
+    height: "100%",
+    width: 500,
+
+    paddingBottom: 30,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+  padding: {
+    paddingTop: 20,
+    paddingLeft: 20,
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: 5,
+      paddingLeft: 5,
+    },
+  },
+  button: {
+    color: "#D9047C",
+    backgroundColor: "white",
+    textTransform: "none",
+    borderRadius: "50px",
+    padding: "8px 20px 8px 20px",
+    fontWeight: 400,
+    background: `linear-gradient(to bottom,#fce3ee, #fce3ee)`,
+    fontSize: 14,
+    letterSpacing: "0px",
+  },
+  buttonMain: {
+    borderRadius: "50px",
+    background: `linear-gradient(to bottom,#D9047C, #BF1088)`,
+    lineHeight: "24px",
+    verticalAlign: "baseline",
+    letterSpacing: "0px",
+    margin: 0,
+    color: "#ffffff",
+    padding: "8px 20px 8px 20px",
+
+    fontWeight: 400,
+    fontSize: 14,
+    textTransform: "none",
+  },
+
+  highlight: {
+    color: "#e0247d",
+    paddingLeft: 5,
+  },
+
+  icon: {
+    fontSize: 16,
+    marginRight: 7,
+    color: "#ffffff",
+  },
+  title: {
+    fontWeight: 400,
+    verticalAlign: "baseline",
+    letterSpacing: "-0.8px",
+    margin: 0,
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: "left",
+    color: "#e0247d",
+    fontSize: 22,
+  },
+  subtitle: {
+    fontWeight: 400,
+    verticalAlign: "baseline",
+    letterSpacing: "-0.8px",
+    margin: 0,
+    paddingTop: 10,
+    paddingBottom: 5,
+    textAlign: "left",
+    color: " #757575",
+    fontSize: 14,
+  },
+  para: {
+    fontWeight: 400,
+    verticalAlign: "baseline",
+    letterSpacing: "-0.8px",
+    margin: 0,
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: "left",
+    color: "white",
+    fontSize: 18,
+    [theme.breakpoints.down("md")]: {
+      fontSize: 14,
     },
   },
 }));
@@ -172,65 +299,40 @@ const AccountDialog = ({ open, handleClose, handleLogout }) => {
           style: { borderRadius: 25, backgroundColor: "#121827" },
         }}
       >
-        <Card elevation={10} className={classes.background}>
-          <div style={{ width: "100%" }}>
-            <div className="d-flex justify-content-between align-items-center">
-              <div style={{ width: 40 }}></div>
-              <div className={classes.heading}>My Wallet</div>
-              <IconButton aria-label="close" onClick={handleClose}>
-                <CloseIcon style={{ color: "#919191" }} />
-              </IconButton>
+        <div className={classes.background}>
+          <div className="container text-center">
+            <div className={classes.padding}>
+              <h5 className={classes.title}>My Wallet</h5>
+            </div>{" "}
+            <Divider style={{ backgroundColor: "white" }} />
+            <div className={classes.padding}>
+              <h6 className={classes.subtitle}>Address</h6>
+              <p className={classes.para}>{account}</p>
             </div>
-            <div
-              style={{ paddingLeft: 10, paddingRight: 10, textAlign: "center" }}
-            >
-              <h6 htmlFor="username" className={classes.subheading}>
-                <strong className={classes.numbers}>
-                  {account ? <span></span> : "..."}
-                  {account?.slice(0, 3)}
-                  {"..."}
-                  {account?.slice(account?.length - 4, account?.length)}
-                </strong>
-                <IconButton style={{ padding: 0 }}>
-                  {" "}
-                  <FileCopy
-                    className={classes.copyIcon}
-                    onClick={() => navigator.clipboard.writeText(account)}
-                  />
-                </IconButton>
-              </h6>
-            </div>
-          </div>
-
-          {/* <div style={{ width: "100%", paddingLeft: 20, paddingRight: 20 }}>
-            <div className="d-flex justify-content-between mt-4">
-              <div className="d-flex justify-content-start">
-                <div className={classes.logoWrapper}>
-                  <img src="" className={classes.logo} />
+            <div style={{ paddingLeft: 15 }}>
+              <div className="my-3 d-flex justify-content-start">
+                <div style={{ paddingRight: 10 }}>
+                  <Button
+                    variant="contained"
+                    className={classes.buttonMain}
+                    onClick={onSingOut}
+                  >
+                    Sign Out
+                  </Button>
                 </div>
                 <div>
-                  <div className={classes.tokenTitle}>Ethereum</div>
-                  <div className={classes.tokenSubtitle}>ETH</div>
+                  <Button
+                    variant="contained"
+                    className={classes.button}
+                    onClick={handleClose}
+                  >
+                    Close
+                  </Button>
                 </div>
               </div>
-              <div className={classes.tokenAmount}>32</div>
-            </div>
-          </div> */}
-          <div className={classes.buttons}>
-            <Button
-              variant="light"
-              onClick={handleClose}
-              className={classes.button}
-            >
-              Cancel
-            </Button>
-            <div style={{ paddingLeft: 10 }}>
-              <Button onClick={onSingOut} className={classes.button}>
-                Sign out
-              </Button>
             </div>
           </div>
-        </Card>
+        </div>
       </Dialog>
     </div>
   );
