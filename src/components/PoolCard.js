@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 3,
     color: "#e5e5e5",
     textAlign: "justify",
+    minHeight: 130,
   },
 
   earn: {
@@ -167,7 +168,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
     let remainingQuantity = await getRemainingQuantityOfPool(poolId);
     let initialQuantity = await getInitialBalanceOfPool(poolId);
     if (active) {
-      console.log(poolResult);
+      // console.log(poolResult);
       let whitelistResult = await getIsWhitelisted(poolId, account);
 
       setIsWhitelist(whitelistResult);
@@ -202,12 +203,12 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
 
   const isPoolActive = () => {
     if (poolData) {
-      console.log(poolData.endDate);
-      console.log(new Date(poolData.endDate));
+      // console.log(poolData.endDate);
+      // console.log(new Date(poolData.endDate));
       const difference = +new Date(poolData.endDate) - +new Date();
 
-      console.log("diffTime");
-      console.log(difference);
+      // console.log("diffTime");
+      // console.log(difference);
 
       if (difference > 0) {
         // console.log("true hai bhai");
@@ -326,7 +327,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
                   </div>
                 </div>
               ) : (
-                <div className="mt-2 px-3">
+                <div className="mt-2 px-3 mb-3">
                   {isPoolActive() ? (
                     <div className={classes.wrapper}>
                       <div className="d-flex justify-content-between">

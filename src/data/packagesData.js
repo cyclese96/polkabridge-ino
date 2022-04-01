@@ -60,6 +60,20 @@ let packages = {
     claimType: "MANUAL",
     claimTime: "March 25, 2022 14:00:00 UTC",
   },
+  5: {
+    id: 5,
+    image: "/projects/shoefy/CHEST.png",
+    title: "ShoeFy NFTs",
+    type: "Packages",
+    poolName: "ShoeFy NFTs",
+    description: "Worldwide NFT metaverse for play-to-earn and fun.",
+    price: "0.25",
+    currency: "ETH",
+    startDate: "March 06, 2022 14:00:00 UTC",
+    quantity: "40",
+    claimType: "MANUAL",
+    claimTime: "April 10, 2022 14:00:00 UTC",
+  },
 };
 
 export default packages;

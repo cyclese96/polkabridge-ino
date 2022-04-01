@@ -5,7 +5,6 @@ import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { People, Person } from "@material-ui/icons";
 import pools from "../data/poolsData";
-import { getPoolDetails, getPoolList } from "../actions/smartActions";
 
 const useStyles = makeStyles((theme) => ({
   tabText: {
@@ -103,50 +102,6 @@ const Home = () => {
   };
   const classes = useStyles(props);
 
-  const [value, setValue] = useState(0);
-  const [active, setActive] = useState([]);
-  const [inactive, setInactive] = useState([]);
-  const [dataloaded, setDataloaded] = useState(false);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  useEffect(async () => {
-    if (!dataloaded) {
-      distributePools();
-    }
-  }, []);
-
-  const distributePools = () => {
-    pools.map((singlePool, index) => {
-      console.log(singlePool.endDate);
-      console.log(new Date(singlePool.endDate));
-      const difference = +new Date(singlePool.endDate) - +new Date();
-
-      let actualPool = (
-        <PoolCard
-          poolData={singlePool}
-          poolId={singlePool.id}
-          endedPool={false}
-        />
-      );
-
-      if (difference > 0) {
-        setActive([...active, actualPool]);
-
-        // console.log("true hai bhai");
-        return true;
-      } else {
-        setInactive([...inactive, actualPool]);
-
-        // console.log("false hai bhai");
-
-        return false;
-      }
-    });
-    setDataloaded(true);
-  };
   return (
     <div
       className="container mt-3"
@@ -183,9 +138,19 @@ const Home = () => {
             <h4 className={classes.subHeading}>Active Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {active.map((singlePool, index) => {
-                console.log(singlePool);
-                return singlePool;
+              {pools.map((singlePool, index) => {
+                const difference = +new Date(singlePool.endDate) - +new Date();
+                if (difference > 0) {
+                  return (
+                    <PoolCard
+                      poolData={singlePool}
+                      poolId={singlePool.id}
+                      endedPool={false}
+                    />
+                  );
+                } else {
+                  return null;
+                }
               })}
             </div>
           </div>
@@ -198,9 +163,19 @@ const Home = () => {
             <h4 className={classes.subHeading}>Ended Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {inactive.map((singlePool, index) => {
-                console.log(singlePool);
-                return singlePool;
+              {pools.map((singlePool, index) => {
+                const difference = +new Date(singlePool.endDate) - +new Date();
+                if (difference < 0) {
+                  return (
+                    <PoolCard
+                      poolData={singlePool}
+                      poolId={singlePool.id}
+                      endedPool={false}
+                    />
+                  );
+                } else {
+                  return null;
+                }
               })}
             </div>
           </div>

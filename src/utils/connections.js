@@ -10,7 +10,10 @@ export const isMetaMaskInstalled = () => {
 
 export const inoContract = () => {
   const abi = inoAbi;
-  const contractAddress = "0x6AE737c28661D9A37ffC78Ac3e926F97b2e5d876";
+  const contractAddress =
+    currentNetwork === 0
+      ? "0x6AE737c28661D9A37ffC78Ac3e926F97b2e5d876"
+      : "0x14c3f86a10DDBc9Df9914dACfaEad9f859914B62";
   const connection = getCurrentConnection(abi, contractAddress);
   return connection;
 };

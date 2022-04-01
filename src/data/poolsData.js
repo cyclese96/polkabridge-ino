@@ -54,5 +54,32 @@ let pool2 = {
   poolType: "1",
 };
 
-pools = [pool1, pool2];
+let pool3 = {
+  id: 3,
+  image:
+    "https://static.wixstatic.com/media/03667d_125a7fc35a9a4054bb52ca6202306305~mv2.png/v1/fill/w_100,h_100,al_c,usm_0.66_1.00_0.01,enc_auto/Shoefy%20Purple%20pink.png",
+  title: "ShoeFy NFTs",
+  type: "Packages",
+  totalPackages: "3",
+  description: `ShoeFy is an innovative decentralized platform that combines Non-Fungible Tokens (NFT) and Fungible Tokens (FT). It is a futuristic NFT project that utilizes cutting-edge DeFi tools to maximize returns. ShoeFy can amplify the NFTs potential by including both farming and staking to generate passive income. ShoeFy have two tokens namely, $SHOE(ERC-20), the native Fungible Token and sNFTs (ERC-721) which are randomly generated on-chain. Each sNFT is an algorithmically programmed unique digital shoe on the platform.`,
+  startDate: "April 6, 2022 14:00:00 UTC",
+  endDate: "April 7, 2022 14:00:00 UTC",
+  utilities: [
+    "NFT staking - High Passive Income in $SHOE tokens",
+    "NFT Layer Farming - Stake $SHOE tokens to mint more NFTs.",
+    "Access to Play 2 Earn Car Racing Game and Free Car NFT Airdrop.",
+    "Access to Shoeverse Metaverse & future collections.",
+  ],
+  price: "0.25",
+  currency: "ETH",
+  network: "Ethereum",
+  quantity: "40",
+  packageIds: [5],
+  website: "https://www.shoefy.io/",
+  whitepaper: "https://t.me/ShoeFy_Official/",
+  telegram: "https://t.me/ShoeFy_Official",
+  twitter: "https://twitter.com/ShoeFyio",
+  poolType: "1",
+};
+pools = [pool1, pool2, pool3];
 export default pools;
