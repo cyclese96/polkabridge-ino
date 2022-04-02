@@ -81,5 +81,5 @@ let pool3 = {
   twitter: "https://twitter.com/ShoeFyio",
   poolType: "1",
 };
-pools = [pool1, pool2, pool3];
+pools = [pool1, pool2];
 export default pools;
