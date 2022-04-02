@@ -36,6 +36,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="pool-details/:id" element={<PoolDetails />} />
+                  <Route path="shoefy/:id" element={<PoolDetails />} />
                   <Route path="profile" element={<Profile />} />
                 </Routes>
               </Router>
