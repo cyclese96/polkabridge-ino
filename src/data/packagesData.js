@@ -69,7 +69,7 @@ let packages = {
     description: "Worldwide NFT metaverse for play-to-earn and fun.",
     price: "0.25",
     currency: "ETH",
-    startDate: "March 06, 2022 14:00:00 UTC",
+    startDate: "April 04, 2022 14:00:00 UTC",
     quantity: "40",
     claimType: "MANUAL",
     claimTime: "April 10, 2022 14:00:00 UTC",
