@@ -275,7 +275,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             </div>
           </div>
           <div>
-            {!active && (
+            {!active && isPoolActive() && (
               <div>
                 <div
                   className={classes.wrapper}
