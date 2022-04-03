@@ -140,16 +140,13 @@ const ProfileNftCard = ({ packageId }) => {
 
     const response = await inoContract.methods
       .claimPool(packageId)
-      .send(
-        { from: account, gasPrice: 10000000000 },
-        async function (error, transactionHash) {
-          if (transactionHash) {
-            setClaimCase(5);
-          } else {
-            setClaimCase(4);
-          }
+      .send({ from: account }, async function (error, transactionHash) {
+        if (transactionHash) {
+          setClaimCase(5);
+        } else {
+          setClaimCase(4);
         }
-      )
+      })
       .on("receipt", async function (receipt) {
         setClaimCase(7);
       })
