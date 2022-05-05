@@ -4,6 +4,7 @@ import PoolCard from "../components/PoolCard";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { People, Person } from "@material-ui/icons";
+import { useWeb3React } from "@web3-react/core";
 import pools from "../data/poolsData";
 
 const useStyles = makeStyles((theme) => ({
@@ -100,7 +101,21 @@ const Home = () => {
     backgroundColor: "black",
     color: "white",
   };
+  const { active, account, chainId } = useWeb3React();
   const classes = useStyles(props);
+  let [chainPools, setChainPools] = useState([]);
+
+  useEffect(async () => {
+    let actualPools = pools.filter((singlePool) => {
+      console.log(singlePool.chainId.includes(chainId));
+      return singlePool.chainId.includes(chainId);
+    });
+    console.log(chainId);
+    console.log(actualPools);
+    if (actualPools.length > 0) {
+      setChainPools(actualPools);
+    }
+  }, [chainId]);
 
   return (
     <div
@@ -138,7 +153,7 @@ const Home = () => {
             <h4 className={classes.subHeading}>Upcoming Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {pools.map((singlePool, index) => {
+              {chainPools.map((singlePool, index) => {
                 const difference = +new Date(singlePool.endDate) - +new Date();
                 if (difference > 0) {
                   return (
@@ -163,7 +178,7 @@ const Home = () => {
             <h4 className={classes.subHeading}>Ended Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {pools.map((singlePool, index) => {
+              {chainPools.map((singlePool, index) => {
                 const difference = +new Date(singlePool.endDate) - +new Date();
                 if (difference < 0) {
                   return (

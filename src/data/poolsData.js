@@ -16,6 +16,7 @@ let pool1 = {
   price: "0.25",
   currency: "ETH",
   network: "Ethereum",
+  chainId: [1, 4],
   quantity: "500",
   packageIds: [1],
   whitepaper: "https://polkabridge.org/docs/whitepaper.pdf",
@@ -45,6 +46,8 @@ let pool2 = {
   price: "0.045 - 0.25",
   currency: "ETH",
   network: "Ethereum",
+  chainId: [1, 4],
+
   quantity: "400",
   packageIds: [2, 3, 4],
   website: "https://acdom.io/",
@@ -72,6 +75,8 @@ let pool3 = {
   ],
   price: "0.25",
   currency: "ETH",
+  chainId: [1, 4],
+
   network: "Ethereum",
   quantity: "40",
   packageIds: [5],
@@ -104,11 +109,45 @@ let pool4 = {
   network: "Ethereum",
   quantity: "40",
   packageIds: [5],
+  chainId: [1, 4],
+
   website: "https://galaxyblitz.world",
   whitepaper: "https://galaxy-blitz.gitbook.io/galaxy-blitz",
   telegram: "https://t.me/galaxyblitz",
   twitter: "https://twitter.com/GalaxyBlitzGame",
   poolType: "1",
 };
-pools = [pool1, pool2, pool3, pool4];
+
+let pool5 = {
+  id: 1,
+  image: "https://s2.coinmarketcap.com/static/img/coins/200x200/17600.png",
+  title: "FOTA Initial NFT Offering",
+  type: "Packages",
+  totalPackages: "1",
+  description: `Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space. `,
+  startDate: "May 20, 2022 14:00:00 UTC",
+  endDate: "May 21, 2022 14:00:00 UTC",
+  utilities: [
+    "NFTs collected can be used to trade for physical assets and be used in the game.",
+    "NFTs can be staked and mine MIT token, up to 600% APY",
+    "Pledge NFT to share MIT seasonal rewards pool (Farm)",
+    "NFT merge (N+N=R, R+R=S) ",
+    "Lottery: stake determined level of NFT to stand a chance to win the prize",
+    "AR function for L and SSR level high end NFTs",
+  ],
+  price: "0.25",
+  currency: "BNB",
+  network: "Binance Smart Chain",
+  quantity: "40",
+  packageIds: [8],
+  chainId: [56, 97],
+
+  website: "https://galaxyblitz.world",
+  whitepaper: "https://galaxy-blitz.gitbook.io/galaxy-blitz",
+  telegram: "https://t.me/galaxyblitz",
+  twitter: "https://twitter.com/GalaxyBlitzGame",
+  poolType: "1",
+};
+pools = [pool1, pool2, pool3, pool4, pool5];
+
 export default pools;

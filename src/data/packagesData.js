@@ -104,6 +104,21 @@ let packages = {
     claimType: "MANUAL",
     claimTime: "April 29, 2022 14:00:00 UTC",
   },
+  8: {
+    id: 8,
+    image: "/projects/galaxy/green.gif",
+    title: "FOTA Initial NFT Offering Exclusive",
+    type: "Packages",
+    poolName: "Galaxy Blitz NFTs",
+    description:
+      "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
+    price: "0.25",
+    currency: "BNB",
+    startDate: "May 20, 2022 14:00:00 UTC",
+    quantity: "40",
+    claimType: "MANUAL",
+    claimTime: "May 20, 2022 14:00:00 UTC",
+  },
 };
 
 export default packages;
