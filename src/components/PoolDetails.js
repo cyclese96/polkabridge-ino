@@ -6,6 +6,7 @@ import { getPoolDetails, getTotalParticipants } from "../actions/smartActions";
 import pools from "../data/poolsData";
 
 import { useParams } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -135,6 +136,21 @@ const PoolDetails = () => {
   const { id } = useParams();
 
   const [poolDetail, setPoolDetail] = useState(null);
+  const { active, account, chainId } = useWeb3React();
+
+  let [chainPools, setChainPools] = useState([]);
+
+  useEffect(async () => {
+    let actualPools = pools.filter((singlePool) => {
+      console.log(singlePool.chainId.includes(chainId));
+      return singlePool.chainId.includes(chainId);
+    });
+    console.log(chainId);
+    console.log(actualPools);
+    if (actualPools.length > 0) {
+      setChainPools(actualPools);
+    }
+  }, [chainId]);
 
   useEffect(async () => {
     let result = await getPoolDetails(id);
@@ -268,11 +284,12 @@ const PoolDetails = () => {
             </h4>
             <div className="row  mt-4">
               {poolDetail !== null &&
+                chainPools.length > 0 &&
                 poolDetail.PackageIds.map((packageId, index) => {
                   return (
                     <div className="col-12 col-md-4 mb-5" key={index}>
-                      {console.log(poolDetail.End)}
                       <SingleNftCard
+                        itemId={chainPools[index].packageIds[index]}
                         packageId={packageId}
                         endTime={poolDetail.End}
                       />

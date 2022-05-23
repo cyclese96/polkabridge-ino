@@ -174,7 +174,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const SingleNftCard = ({ packageId, endTime }) => {
+const SingleNftCard = ({ packageId, endTime, itemId }) => {
   const classes = useStyles();
 
   const [remainToken, setRemainToken] = useState(null);
@@ -314,7 +314,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
   return (
     <div>
       <Card elevation={10} className={classes.card}>
-        {packages[packageId] && (
+        {packages[itemId] && (
           <div style={{ width: "100%" }}>
             <div
               style={{
@@ -335,7 +335,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
               }}
             >
               <img
-                src={packages[packageId].image}
+                src={packages[itemId].image}
                 style={{ height: 150, width: "fit-content" }}
               />
             </div>
@@ -355,7 +355,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
                       fontSize: 18,
                     }}
                   >
-                    {packages[packageId].title}
+                    {packages[itemId].title}
                   </small>
                 </div>
                 <div className="d-flex justify-content-center align-items-center ">
@@ -369,13 +369,13 @@ const SingleNftCard = ({ packageId, endTime }) => {
                     }}
                   ></div>
                   <div className={classes.earn}>
-                    By {packages[packageId].poolName}
+                    By {packages[itemId].poolName}
                   </div>
                 </div>
 
                 <div className={classes.desktop}></div>
                 <div className={classes.description}>
-                  {packages[packageId].description}
+                  {packages[itemId].description}
                 </div>
                 <div className={classes.detailsWrapper}>
                   <div className={classes.detailTitle}>Items remaining</div>
@@ -389,7 +389,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
                   <div className={classes.detailTitle}>Price</div>
                   <div className={classes.detailValue}>
                     {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(3)}{" "}
-                    {packages[packageId].currency} / NFT
+                    {packages[itemId].currency} / NFT
                   </div>
                 </div>
 
@@ -419,7 +419,7 @@ const SingleNftCard = ({ packageId, endTime }) => {
                               <div style={{ color: "white", paddingBottom: 4 }}>
                                 ~ Sell starts in ~{" "}
                               </div>
-                              <Timer endTime={packages[packageId].startDate} />
+                              <Timer endTime={packages[itemId].startDate} />
                             </div>
                           </div>
                         </div>

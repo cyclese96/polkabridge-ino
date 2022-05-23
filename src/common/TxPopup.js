@@ -12,7 +12,7 @@ import { Close } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    width: "100%",
+    width: 600,
     height: 360,
     backgroundColor: "#000000",
     borderRadius: 10,
@@ -94,9 +94,9 @@ const TxPopup = ({ txCase, resetPopup }) => {
       </div>
       {txCase === 3 && (
         <div
-          className="row flex-row align-items-center justify-content-center"
+          className="row flex-row align-items-center justify-content-center w-100"
           align="center"
-          style={{ height: "90%" }}
+          style={{ height: "90%", width: "100%" }}
         >
           <div className="col-md-7">
             <div>
