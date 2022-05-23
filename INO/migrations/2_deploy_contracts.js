@@ -14,6 +14,6 @@ const URI = "https://gateway.ipfs.io/ipfs/QmTReaXPY3zcUvzartjpMSdzTsQ6sRFvpKMooD
 module.exports = async function (deployer) {
     await deployer.deploy(PolkaBridgeNFT, URI);
     console.log("PolkaBridgeNFT deployed at " + PolkaBridgeNFT.address)
-    await deployer.deploy(PolkaBridgeINO, PolkaBridgeNFT.address, owner, WETH);//, URI);
-    console.log("PolkaBridgeINO deployed at " + PolkaBridgeINO.address)
+    // await deployer.deploy(PolkaBridgeINO, PolkaBridgeNFT.address, owner, WETH);//, URI);
+    // console.log("PolkaBridgeINO deployed at " + PolkaBridgeINO.address)
 };
