@@ -106,14 +106,18 @@ const Home = () => {
   let [chainPools, setChainPools] = useState([]);
 
   useEffect(async () => {
-    let actualPools = pools.filter((singlePool) => {
-      console.log(singlePool.chainId.includes(chainId));
-      return singlePool.chainId.includes(chainId);
-    });
-    console.log(chainId);
-    console.log(actualPools);
-    if (actualPools.length > 0) {
-      setChainPools(actualPools);
+    if (chainId) {
+      let actualPools = pools.filter((singlePool) => {
+        console.log(singlePool.chainId.includes(chainId));
+        return singlePool.chainId.includes(chainId);
+      });
+      console.log(chainId);
+      console.log(actualPools);
+      if (actualPools.length > 0) {
+        setChainPools(actualPools);
+      }
+    } else {
+      setChainPools(pools);
     }
   }, [chainId]);
 

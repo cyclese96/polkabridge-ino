@@ -141,14 +141,18 @@ const PoolDetails = () => {
   let [chainPools, setChainPools] = useState([]);
 
   useEffect(async () => {
-    let actualPools = pools.filter((singlePool) => {
-      console.log(singlePool.chainId.includes(chainId));
-      return singlePool.chainId.includes(chainId);
-    });
-    console.log(chainId);
-    console.log(actualPools);
-    if (actualPools.length > 0) {
-      setChainPools(actualPools);
+    if (chainId) {
+      let actualPools = pools.filter((singlePool) => {
+        console.log(singlePool.chainId.includes(chainId));
+        return singlePool.chainId.includes(chainId);
+      });
+      console.log(chainId);
+      console.log(actualPools);
+      if (actualPools.length > 0) {
+        setChainPools(actualPools);
+      }
+    } else {
+      setChainPools(pools);
     }
   }, [chainId]);
 
@@ -288,10 +292,13 @@ const PoolDetails = () => {
                 poolDetail.PackageIds.map((packageId, index) => {
                   return (
                     <div className="col-12 col-md-4 mb-5" key={index}>
+                      {console.log(packageId)}
+                      {console.log("packageId")}
+                      {console.log(chainPools[index].packageIds[index])}
                       <SingleNftCard
-                        itemId={chainPools[index].packageIds[index]}
                         packageId={packageId}
                         endTime={poolDetail.End}
+                        itemId={packageId}
                       />
                     </div>
                   );
