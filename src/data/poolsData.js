@@ -98,7 +98,7 @@ let pool4 = {
   title: "FOTA Heros",
   type: "Packages",
   totalPackages: "1",
-  description: `Entering into the FOTA Metaverse - A 3D Space, each player will become his unique heroes to start the journey. Each hero is born with his own power,`,
+  description: `FOTA is a Triple-A MOBA Game project owned by Meta DJINN PTE.LTD and based in SINGAPORE, with a fantasy universe inhabited by many races throughout the universe. In the world of FOTA, NFT Technology is optimized so that users can feel the possibility of owning valuable digital assets during the journey`,
   startDate: "June 28, 2022 14:00:00 UTC",
   endDate: "June 29, 2022 14:00:00 UTC",
   utilities: [

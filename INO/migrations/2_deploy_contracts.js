@@ -11,6 +11,9 @@ let WETH = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";//main
 
 const URI = "https://gateway.ipfs.io/ipfs/QmTReaXPY3zcUvzartjpMSdzTsQ6sRFvpKMooDQ6VMEdYz/{id}.json";
 
+//const URI = "https://gateway.ipfs.io/ipfs/QmWkdyiv5McW582vvjik11mYLd8a8v26JfKAgYFVB8EMGB/{id}.json";
+
+
 module.exports = async function (deployer) {
     await deployer.deploy(PolkaBridgeNFT, URI);
     console.log("PolkaBridgeNFT deployed at " + PolkaBridgeNFT.address)
