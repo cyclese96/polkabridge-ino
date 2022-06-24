@@ -157,13 +157,14 @@ const Home = () => {
             <h4 className={classes.subHeading}>Upcoming Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {chainPools.map((singlePool, index) => {
+              {pools.map((singlePool, index) => {
                 const difference = +new Date(singlePool.endDate) - +new Date();
                 if (difference > 0) {
                   return (
                     <PoolCard
                       poolData={singlePool}
                       poolId={singlePool.id}
+                      chainIds={singlePool.chainId}
                       endedPool={false}
                     />
                   );
@@ -182,14 +183,15 @@ const Home = () => {
             <h4 className={classes.subHeading}>Ended Pools</h4>
 
             <div className="container row flex-row mt-4">
-              {chainPools.map((singlePool, index) => {
+              {pools.map((singlePool, index) => {
                 const difference = +new Date(singlePool.endDate) - +new Date();
                 if (difference < 0) {
                   return (
                     <PoolCard
                       poolData={singlePool}
                       poolId={singlePool.id}
-                      endedPool={false}
+                      chainIds={singlePool.chainId}
+                      endedPool={true}
                     />
                   );
                 } else {

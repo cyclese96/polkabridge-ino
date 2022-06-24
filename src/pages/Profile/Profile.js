@@ -127,7 +127,8 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles();
 
-  const [purchasedPackages, setPurchasedPackages] = useState([]);
+  const [purchasedPackagesEth, setPurchasedPackagesEth] = useState([]);
+  const [purchasedPackagesBsc, setPurchasedPackagesBsc] = useState([]);
   const [loading, setLoading] = useState(false);
   const { active, account, chainId } = useWeb3React();
 
@@ -136,10 +137,13 @@ const Profile = () => {
     if (active) {
       let userAddress = account;
       console.log(userAddress);
-      let result = await getUserPurchasedPackages(userAddress);
-      setPurchasedPackages([...result]);
+      let resultEth = await getUserPurchasedPackages(userAddress, [1, 4]);
+      let resultBsc = await getUserPurchasedPackages(userAddress, [56, 97]);
+      setPurchasedPackagesEth(resultEth);
+      setPurchasedPackagesBsc(resultBsc);
+      console.log(resultEth);
+      console.log(resultBsc);
     }
-
     setLoading(false);
   }, [active]);
 
@@ -168,7 +172,9 @@ const Profile = () => {
                 {!loading && (
                   <div>
                     {" "}
-                    {purchasedPackages.length === 0 && (
+                    {purchasedPackagesEth.length +
+                      purchasedPackagesBsc.length ===
+                      0 && (
                       <div className={classes.messageCard}>
                         <div className="text-center mt-3">
                           <img
@@ -181,11 +187,26 @@ const Profile = () => {
                         </h1>
                       </div>
                     )}
-                    {purchasedPackages.length !== 0 && (
+                    {purchasedPackagesEth.length +
+                      purchasedPackagesBsc.length !==
+                      0 && (
                       <div className="row mt-4">
-                        {purchasedPackages.map((singlePackageId) => (
+                        {purchasedPackagesEth.map((singlePackageId) => (
                           <div className="col-12 col-md-4">
-                            <ProfileNftCard packageId={singlePackageId} />
+                            <ProfileNftCard
+                              packageId={singlePackageId}
+                              chainIds={[1, 4]}
+                              currency="ETH"
+                            />
+                          </div>
+                        ))}
+                        {purchasedPackagesBsc.map((singlePackageId) => (
+                          <div className="col-12 col-md-4">
+                            <ProfileNftCard
+                              packageId={singlePackageId}
+                              chainIds={[56, 97]}
+                              currency="BSC"
+                            />
                           </div>
                         ))}
                       </div>

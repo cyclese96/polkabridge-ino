@@ -136,29 +136,16 @@ const PoolDetails = () => {
   const { id } = useParams();
 
   const [poolDetail, setPoolDetail] = useState(null);
+  const [poolDetailLocal, setPoolDetailLocal] = useState(null);
   const { active, account, chainId } = useWeb3React();
 
-  let [chainPools, setChainPools] = useState([]);
-
   useEffect(async () => {
-    if (chainId) {
-      let actualPools = pools.filter((singlePool) => {
-        console.log(singlePool.chainId.includes(chainId));
-        return singlePool.chainId.includes(chainId);
-      });
-      console.log(chainId);
-      console.log(actualPools);
-      if (actualPools.length > 0) {
-        setChainPools(actualPools);
-      }
-    } else {
-      setChainPools(pools);
-    }
-  }, [chainId]);
+    let poolDataId = id;
+    let poolDataObj = pools[parseInt(poolDataId) - 1];
 
-  useEffect(async () => {
-    let result = await getPoolDetails(id);
-    console.log(result);
+    setPoolDetailLocal(poolDataObj);
+    let result = await getPoolDetails(poolDataObj.id, poolDataObj.chainId);
+
     setPoolDetail(result);
   }, []);
 
@@ -286,16 +273,14 @@ const PoolDetails = () => {
             >
               NFT Packages on Sale
             </h4>
+
             <div className="row  mt-4">
               {poolDetail !== null &&
-                chainPools.length > 0 &&
                 poolDetail.PackageIds.map((packageId, index) => {
                   return (
                     <div className="col-12 col-md-4 mb-5" key={index}>
-                      {console.log(packageId)}
-                      {console.log("packageId")}
-                      {console.log(chainPools[index].packageIds[index])}
                       <SingleNftCard
+                        poolDetailLocal={poolDetailLocal}
                         packageId={packageId}
                         endTime={poolDetail.End}
                         itemId={packageId}

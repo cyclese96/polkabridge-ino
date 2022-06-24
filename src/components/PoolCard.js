@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 3,
     color: "#e5e5e5",
     textAlign: "justify",
-    minHeight: 130,
+    minHeight: 100,
   },
 
   earn: {
@@ -151,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
+const PoolCard = ({ poolData, poolId, chainIds, endedPool, authenticated }) => {
   const classes = useStyles();
 
   const [poolDetail, setPoolDetail] = useState(null);
@@ -164,17 +164,16 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
 
   useEffect(async () => {
     setLoading(true);
-    let poolResult = await getPoolDetails(poolId);
-    let remainingQuantity = await getRemainingQuantityOfPool(poolId);
-    let initialQuantity = await getInitialBalanceOfPool(poolId);
+    let poolResult = await getPoolDetails(poolId, chainIds);
+    let remainingQuantity = await getRemainingQuantityOfPool(poolId, chainIds);
+    let initialQuantity = await getInitialBalanceOfPool(poolId, chainIds);
     if (active) {
       // console.log(poolResult);
-      let whitelistResult = await getIsWhitelisted(poolId, account);
+      let whitelistResult = await getIsWhitelisted(poolId, account, chainIds);
 
       setIsWhitelist(whitelistResult);
     }
     setInitial(initialQuantity);
-
     setRemaining(remainingQuantity);
     setPoolDetail(poolResult);
     setLoading(false);
@@ -228,7 +227,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
     return (fraction * 100).toFixed(1);
   };
   return (
-    <div className="col-12 col-md-6 mb-4">
+    <div className="col-12 col-md-6 mb-5">
       <Card elevation={10} className={classes.card}>
         <div style={{ width: "100%" }}>
           <div className="text-center my-3">
@@ -270,8 +269,8 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
               {/* {poolData.description} */}
 
               {poolData.description &&
-                poolData.description.slice(0, 300) +
-                  (poolData.description.length > 300 ? "..." : "")}
+                poolData.description.slice(0, 220) +
+                  (poolData.description.length > 220 ? "..." : "")}
             </div>
           </div>
           <div>
@@ -435,7 +434,7 @@ const PoolCard = ({ poolData, poolId, endedPool, authenticated }) => {
             )} */}
             {poolData.poolType === "1" && (
               <div>
-                <Link to={`/pool-details/${poolId}`}>
+                <Link to={`/pool-details/${poolData.poolId}`}>
                   <Button variant="contained" className={classes.joinButton}>
                     View
                   </Button>

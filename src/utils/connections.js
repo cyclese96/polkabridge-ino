@@ -6,15 +6,21 @@ import { checkCurrentChainId } from "./../actions/smartActions";
 let ethContractAddress = "0x6AE737c28661D9A37ffC78Ac3e926F97b2e5d876";
 let rinkebyContractAddress = "0x14c3f86a10DDBc9Df9914dACfaEad9f859914B62";
 let bscmainContractAddress = "0x6AE737c28661D9A37ffC78Ac3e926F97b2e5d876";
-let bsctestContractAddress = "0x6844ab5644f4b061179cdb99964b7f8d23b0514d";
+let bsctestContractAddress = "0xB00f8f951dc0c66f5B2a0c4b2343F1dc7C896732";
 
 export const isMetaMaskInstalled = () => {
   return typeof window.web3 !== "undefined";
 };
 
-export const inoContract = async () => {
+export const inoContract = async (chainIds) => {
   const abi = inoAbi;
-  let chainId = await checkCurrentChainId();
+  let chainId;
+  if (chainIds) {
+    chainId = constants.net === 0 ? chainIds[0] : chainIds[1];
+  } else {
+    chainId = 1;
+  }
+
   let contractAddress;
 
   switch (parseInt(chainId)) {
@@ -36,7 +42,7 @@ export const inoContract = async () => {
       contractAddress = ethContractAddress;
   }
 
-  const connection = await getCurrentConnection(abi, contractAddress);
+  const connection = await getCurrentConnection(abi, contractAddress, chainId);
 
   // let res = await connection.methods.getPoolInfo(1).call((err, response) => {
   //   return response;
@@ -46,8 +52,7 @@ export const inoContract = async () => {
   return connection;
 };
 
-export const getCurrentConnection = async (abi, contractAddress) => {
-  let chainId = await checkCurrentChainId();
+export const getCurrentConnection = async (abi, contractAddress, chainId) => {
   let currentRPC;
 
   switch (parseInt(chainId)) {
@@ -70,7 +75,7 @@ export const getCurrentConnection = async (abi, contractAddress) => {
   }
 
   const web3 = isMetaMaskInstalled()
-    ? new Web3(window.ethereum)
+    ? new Web3(new Web3.providers.HttpProvider(currentRPC))
     : new Web3(new Web3.providers.HttpProvider(currentRPC));
   let temp = new web3.eth.Contract(abi, contractAddress);
 

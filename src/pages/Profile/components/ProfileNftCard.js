@@ -5,6 +5,7 @@ import inoContract from "./../../../utils/inoConnection";
 import { Link } from "react-router-dom";
 import { userPurchaseDetails } from "../../../actions/smartActions";
 import packages from "../../../data/packagesData";
+import packagesBsc from "../../../data/packagesBsc";
 import dateFormat, { masks } from "dateformat";
 import web3 from "../../../web";
 import { Card, Button, Dialog, Slide, Backdrop } from "@material-ui/core/";
@@ -118,7 +119,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ProfileNftCard = ({ packageId }) => {
+const ProfileNftCard = ({ packageId, chainIds, currency }) => {
   const classes = useStyles();
 
   const [userPurchaseDetail, setUserPurchaseDetail] = useState(null);
@@ -127,8 +128,14 @@ const ProfileNftCard = ({ packageId }) => {
 
   const { active, account, chainId } = useWeb3React();
 
+  const actualPackages = currency === "ETH" ? packages : packagesBsc;
+
   useEffect(async () => {
-    let userPurchaseResult = await userPurchaseDetails(packageId, account);
+    let userPurchaseResult = await userPurchaseDetails(
+      packageId,
+      account,
+      chainIds
+    );
 
     console.log(userPurchaseResult);
     setUserPurchaseDetail(userPurchaseResult);
@@ -161,7 +168,7 @@ const ProfileNftCard = ({ packageId }) => {
   };
 
   const enableClaim = () => {
-    let date = packages[packageId].claimTime;
+    let date = actualPackages[packageId].claimTime;
     const date1 = new Date(date).getTime(); // Claim Time
     const date2 = Date.now(); // Current Time
 
@@ -171,6 +178,30 @@ const ProfileNftCard = ({ packageId }) => {
     } else {
       return true;
     }
+  };
+
+  const formatDate = (timestamp) => {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    var date = new Date(parseInt(timestamp) * 1000);
+    console.log(date);
+    let dateString =
+      date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+
+    return dateString;
   };
   return (
     <div>
@@ -192,7 +223,7 @@ const ProfileNftCard = ({ packageId }) => {
             }}
           >
             <img
-              src={packages[packageId].image}
+              src={actualPackages[packageId].image}
               style={{ height: 150, width: "fit-content" }}
             />
           </div>
@@ -205,7 +236,7 @@ const ProfileNftCard = ({ packageId }) => {
                 fontSize: 18,
               }}
             >
-              {packages[packageId].title}
+              {actualPackages[packageId].title}
             </small>
           </div>
           <div className="d-flex justify-content-center align-items-center ">
@@ -218,7 +249,9 @@ const ProfileNftCard = ({ packageId }) => {
                 marginRight: 5,
               }}
             ></div>
-            <div className={classes.earn}>{packages[packageId].poolName}</div>
+            <div className={classes.earn}>
+              {actualPackages[packageId].poolName}
+            </div>
           </div>
 
           <div className={classes.desktop}></div>
@@ -233,7 +266,7 @@ const ProfileNftCard = ({ packageId }) => {
                       "ether"
                     )
                   ).toFixed(2)}
-                  {" " + packages[packageId].currency}
+                  {" " + actualPackages[packageId].currency}
                 </div>
               </div>
 
@@ -246,17 +279,14 @@ const ProfileNftCard = ({ packageId }) => {
               <div className={classes.detailsWrapper}>
                 <div className={classes.detailTitle}>Purchase Time</div>
                 <div className={classes.detailValue}>
-                  {dateFormat(
-                    Date(parseInt(userPurchaseDetail.PurchaseTime)),
-                    " mmmm dS, yyyy"
-                  )}
+                  {formatDate(userPurchaseDetail.PurchaseTime)}
                 </div>
               </div>
-              {console.log(packages[packageId])}
+              {console.log(actualPackages[packageId])}
               <div className={classes.detailsWrapper}>
                 <div className={classes.detailTitle}>Claim Time</div>
                 <div className={classes.detailValue}>
-                  {packages[packageId].claimTime}
+                  {actualPackages[packageId].claimTime}
                 </div>
               </div>
               {console.log(enableClaim())}
@@ -303,7 +333,7 @@ const ProfileNftCard = ({ packageId }) => {
                   <div className="text-center mt-3">
                     <div className={classes.detailTitle}>Time in claim</div>
                     <div className="mt-1">
-                      <Timer endTime={packages[packageId].claimTime} />
+                      <Timer endTime={actualPackages[packageId].claimTime} />
                     </div>
                   </div>
                 </div>

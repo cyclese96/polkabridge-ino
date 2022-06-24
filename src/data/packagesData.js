@@ -1,6 +1,7 @@
 let packages = {
   1: {
     id: 1,
+    packageId: 1,
     image: "/projects/polkabridge/peace.jpg",
     title: "Stand Against WAR",
     poolName: "PolkaBridge Peace NFT",
@@ -16,6 +17,7 @@ let packages = {
   },
   2: {
     id: 2,
+    packageId: 2,
     image: "/projects/ancient/1.png",
     title: "Standard Box",
     poolName: "Ancient Kingdom NFTs",
@@ -31,6 +33,7 @@ let packages = {
   },
   3: {
     id: 3,
+    packageId: 3,
     image: "/projects/ancient/2.png",
     title: "Medium Box",
     poolName: "Ancient Kingdom NFTs",
@@ -46,6 +49,7 @@ let packages = {
   },
   4: {
     id: 4,
+    packageId: 4,
     image: "/projects/ancient/3.png",
     title: "Exclusive Box",
     type: "Packages",
@@ -62,6 +66,7 @@ let packages = {
   },
   5: {
     id: 5,
+    packageId: 5,
     image: "/projects/shoefy/CHEST.png",
     title: "ShoeFy NFTs",
     type: "Packages",
@@ -73,51 +78,6 @@ let packages = {
     quantity: "40",
     claimType: "MANUAL",
     claimTime: "April 10, 2022 14:00:00 UTC",
-  },
-  6: {
-    id: 6,
-    image: "/projects/galaxy/green.gif",
-    title: "Galaxy Blitz Basic",
-    type: "Packages",
-    poolName: "Galaxy Blitz NFTs",
-    description:
-      "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "0.25",
-    currency: "ETH",
-    startDate: "April 28, 2022 14:00:00 UTC",
-    quantity: "40",
-    claimType: "MANUAL",
-    claimTime: "April 29, 2022 14:00:00 UTC",
-  },
-  7: {
-    id: 7,
-    image: "/projects/galaxy/yellow.gif",
-    title: "Galaxy Blitz Exclusive",
-    type: "Packages",
-    poolName: "Galaxy Blitz NFTs",
-    description:
-      "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "0.25",
-    currency: "ETH",
-    startDate: "April 28, 2022 14:00:00 UTC",
-    quantity: "40",
-    claimType: "MANUAL",
-    claimTime: "April 29, 2022 14:00:00 UTC",
-  },
-  8: {
-    id: 8,
-    image: "/projects/galaxy/green.gif",
-    title: "FOTA Initial NFT Offering Exclusive",
-    type: "Packages",
-    poolName: "Galaxy Blitz NFTs",
-    description:
-      "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "0.25",
-    currency: "BNB",
-    startDate: "May 20, 2022 14:00:00 UTC",
-    quantity: "40",
-    claimType: "MANUAL",
-    claimTime: "May 20, 2022 14:00:00 UTC",
   },
 };
 

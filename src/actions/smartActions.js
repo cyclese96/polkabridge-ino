@@ -1,5 +1,4 @@
 import { inoContract } from "../utils/connections";
-import web3 from "web3";
 
 //Check correct network
 //Returns boolean true or false
@@ -25,20 +24,23 @@ export const checkCurrentChainId = async () => {
 
 //READ poolInfo
 //RETURNS Obj
-export const getPoolDetails = async (poolId) => {
-  let contractInstance = await inoContract();
+export const getPoolDetails = async (poolId, chainIds) => {
+  let contractInstance = await inoContract(chainIds);
 
-  return await contractInstance.methods
+  let res = await contractInstance.methods
     .getPoolInfo(poolId)
     .call((err, response) => {
       return response;
     });
+
+  console.log(res);
+  return res;
 };
 
 //READ packageInfo
 //RETURNS Obj
-export const getPackageDetails = async (packageId) => {
-  let contractInstance = await inoContract();
+export const getPackageDetails = async (packageId, chainIds) => {
+  let contractInstance = await inoContract(chainIds);
   return await contractInstance.methods
     .getPackageInfo(packageId)
     .call((err, response) => {
@@ -48,8 +50,8 @@ export const getPackageDetails = async (packageId) => {
 
 //READ remainINOToken
 //RETURNS Obj
-export const getRemainINOToken = async (packageId = 1) => {
-  let contractInstance = await inoContract();
+export const getRemainINOToken = async (packageId = 1, chainIds) => {
+  let contractInstance = await inoContract(chainIds);
   return await contractInstance.methods
     .getRemainINOToken(packageId)
     .call((err, response) => {
@@ -69,21 +71,29 @@ export const getPoolList = async (packageId = 1) => {
 
 //READ userPurchaseDetails of a package
 //RETURNS Obj
-export const userPurchaseDetails = async (packageId, account) => {
-  let contractInstance = await inoContract();
+export const userPurchaseDetails = async (packageId, account, chainIds) => {
+  try {
+    let contractInstance = await inoContract(chainIds);
 
-  let userAddress = account;
-  return await contractInstance.methods
-    .whitelist(packageId, userAddress)
-    .call((err, response) => {
-      return response;
-    });
+    let userAddress = account;
+    return await contractInstance.methods
+      .whitelist(packageId, userAddress)
+      .call((err, response) => {
+        return response;
+      });
+  } catch (err) {
+    return null;
+  }
 };
 
 //READ userPurchasedQtyByPackageId of a package
 //RETURNS Obj
-export const userPurchasedQtyByPackageId = async (packageId, userAddress) => {
-  let contractInstance = await inoContract();
+export const userPurchasedQtyByPackageId = async (
+  packageId,
+  userAddress,
+  chainIds
+) => {
+  let contractInstance = await inoContract(chainIds);
 
   return await contractInstance.methods
     .getPurchasedPackageIds(userAddress, packageId)
@@ -94,12 +104,15 @@ export const userPurchasedQtyByPackageId = async (packageId, userAddress) => {
 
 //READ getRemainingQuantityOfPool of a pool
 //RETURNS Obj
-export const getRemainingQuantityOfPool = async (poolId) => {
+export const getRemainingQuantityOfPool = async (poolId, chainIds) => {
   let quantity = 0;
-  let poolDetail = await getPoolDetails(poolId);
+  let poolDetail = await getPoolDetails(poolId, chainIds);
 
   for (let i = 0; i < poolDetail.PackageIds.length; i++) {
-    let remainingTokens = await getRemainINOToken(poolDetail.PackageIds[i]);
+    let remainingTokens = await getRemainINOToken(
+      poolDetail.PackageIds[i],
+      chainIds
+    );
     quantity = quantity + parseInt(remainingTokens);
   }
   return quantity;
@@ -107,10 +120,10 @@ export const getRemainingQuantityOfPool = async (poolId) => {
 
 //READ getInitialBalanceOfPool of a pool
 //RETURNS Obj
-export const getInitialBalanceOfPool = async (poolId) => {
-  let contractInstance = await inoContract();
+export const getInitialBalanceOfPool = async (poolId, chainIds) => {
+  let contractInstance = await inoContract(chainIds);
   let quantity = 0;
-  let poolDetail = await getPoolDetails(poolId);
+  let poolDetail = await getPoolDetails(poolId, chainIds);
 
   for (let i = 0; i < poolDetail.PackageIds.length; i++) {
     let remainingTokens = await contractInstance.methods
@@ -126,8 +139,8 @@ export const getInitialBalanceOfPool = async (poolId) => {
 
 //READ getIsWhitelisted
 //RETURNS Obj
-export const getIsWhitelisted = async (packageId, account) => {
-  let contractInstance = await inoContract();
+export const getIsWhitelisted = async (packageId, account, chainIds) => {
+  let contractInstance = await inoContract(chainIds);
   let userAddress = account;
   return await contractInstance.methods
     .IsWhitelist(userAddress, packageId)
@@ -138,8 +151,8 @@ export const getIsWhitelisted = async (packageId, account) => {
 
 //READ getTotalPoolLength
 //RETURNS number
-export const getPoolLength = async () => {
-  let contractInstance = await inoContract();
+export const getPoolLength = async (chainIds) => {
+  let contractInstance = await inoContract(chainIds);
 
   let totalPools = await contractInstance.methods
     .poolLength()
@@ -152,22 +165,26 @@ export const getPoolLength = async () => {
 
 //READ getUserPurchasedPackages
 //RETURNS []
-export const getUserPurchasedPackages = async (account) => {
-  let userAddress = account;
-  let totalPools = await getPoolLength();
-  let contractInstance = await inoContract();
+export const getUserPurchasedPackages = async (account, chainIds) => {
+  try {
+    let userAddress = account;
+    let totalPools = await getPoolLength(chainIds);
+    let contractInstance = await inoContract(chainIds);
 
-  let answer = [];
-  for (let i = 1; i <= totalPools; i++) {
-    let result = await contractInstance.methods
-      .getPurchasedPackageIds(userAddress, i)
-      .call(async (err, response) => {
-        return response;
-      });
-    answer = [...answer, ...result];
+    let answer = [];
+    for (let i = 1; i <= totalPools; i++) {
+      let result = await contractInstance.methods
+        .getPurchasedPackageIds(userAddress, i)
+        .call(async (err, response) => {
+          return response;
+        });
+      answer = [...answer, ...result];
+    }
+
+    return answer;
+  } catch (err) {
+    return [];
   }
-
-  return answer;
 };
 
 //READ getURIStringOfPackage

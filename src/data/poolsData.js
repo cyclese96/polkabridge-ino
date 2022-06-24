@@ -2,11 +2,13 @@ let pools = [];
 
 let pool1 = {
   id: 1,
+  poolId: 1,
   image: "https://launchpad.polkabridge.org/img/logo-white.png",
   title: "PolkaBridge's Peace NFTs",
   type: "Packages",
   totalPackages: "1",
-  description: "Stand against War and hold peace NFTs offered by PolkaBridge",
+  description:
+    "Stand against War and hold peace NFTs offered by PolkaBridge. We will donate to money to Ukrain to support.",
   startDate: "March 21, 2022 14:00:00 UTC",
   endDate: "April 01, 2022 14:00:00 UTC",
   utilities: [
@@ -28,6 +30,7 @@ let pool1 = {
 
 let pool2 = {
   id: 2,
+  poolId: 2,
   image: "/projects/ancient/ancient.png",
   title: "Ancient Kingdom NFTs",
   type: "Packages",
@@ -59,6 +62,7 @@ let pool2 = {
 
 let pool3 = {
   id: 3,
+  poolId: 3,
   image:
     "https://static.wixstatic.com/media/03667d_125a7fc35a9a4054bb52ca6202306305~mv2.png/v1/fill/w_100,h_100,al_c,usm_0.66_1.00_0.01,enc_auto/Shoefy%20Purple%20pink.png",
   title: "ShoeFy NFTs",
@@ -88,45 +92,15 @@ let pool3 = {
 };
 
 let pool4 = {
-  id: 4,
-  image: "https://s2.coinmarketcap.com/static/img/coins/200x200/17600.png",
-  title: "Galaxy Blitz NFTs",
+  id: 1,
+  poolId: 4,
+  image: "https://miro.medium.com/max/1400/1*9oPwMlH9Hz38bWhNzVdeWg.png",
+  title: "FOTA Heros",
   type: "Packages",
   totalPackages: "1",
-  description: `Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space. `,
-  startDate: "April 28, 2022 14:00:00 UTC",
-  endDate: "April 29, 2022 14:00:00 UTC",
-  utilities: [
-    "NFTs collected can be used to trade for physical assets and be used in the game.",
-    "NFTs can be staked and mine MIT token, up to 600% APY",
-    "Pledge NFT to share MIT seasonal rewards pool (Farm)",
-    "NFT merge (N+N=R, R+R=S) ",
-    "Lottery: stake determined level of NFT to stand a chance to win the prize",
-    "AR function for L and SSR level high end NFTs",
-  ],
-  price: "0.25",
-  currency: "ETH",
-  network: "Ethereum",
-  quantity: "40",
-  packageIds: [5],
-  chainId: [1, 4],
-
-  website: "https://galaxyblitz.world",
-  whitepaper: "https://galaxy-blitz.gitbook.io/galaxy-blitz",
-  telegram: "https://t.me/galaxyblitz",
-  twitter: "https://twitter.com/GalaxyBlitzGame",
-  poolType: "1",
-};
-
-let pool5 = {
-  id: 5,
-  image: "https://s2.coinmarketcap.com/static/img/coins/200x200/17600.png",
-  title: "FOTA Initial NFT Offering",
-  type: "Packages",
-  totalPackages: "1",
-  description: `Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space. `,
-  startDate: "May 20, 2022 14:00:00 UTC",
-  endDate: "May 21, 2022 14:00:00 UTC",
+  description: `Entering into the FOTA Metaverse - A 3D Space, each player will become his unique heroes to start the journey. Each hero is born with his own power,`,
+  startDate: "June 28, 2022 14:00:00 UTC",
+  endDate: "June 29, 2022 14:00:00 UTC",
   utilities: [
     "NFTs collected can be used to trade for physical assets and be used in the game.",
     "NFTs can be staked and mine MIT token, up to 600% APY",
@@ -139,15 +113,14 @@ let pool5 = {
   currency: "BNB",
   network: "Binance Smart Chain",
   quantity: "40",
-  packageIds: [8],
+  packageIds: [6],
   chainId: [56, 97],
-
   website: "https://galaxyblitz.world",
   whitepaper: "https://galaxy-blitz.gitbook.io/galaxy-blitz",
   telegram: "https://t.me/galaxyblitz",
   twitter: "https://twitter.com/GalaxyBlitzGame",
   poolType: "1",
 };
-pools = [pool1, pool2, pool3, pool4, pool5];
+pools = [pool1, pool2, pool3, pool4];
 
 export default pools;
