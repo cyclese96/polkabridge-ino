@@ -106,7 +106,7 @@ let pool4 = {
     "Hero is the embodiment of the players in FOTA Metaverse. People can explore the Metaverse through Hero to play the PvE and PvP mode, then earn directly from these lessons. .",
     "In the long run, players can level up their hero and upgrade skill with EXP Point",
   ],
-  price: "1",
+  price: "0.74-0.826",
   currency: "BNB",
   network: "Binance Smart Chain",
   quantity: "250",
