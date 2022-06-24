@@ -315,6 +315,8 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
       const date1 = new Date(date).getTime(); // Begin Time
       const date2 = Date.now(); // Current Time
 
+      console.log(date);
+      console.log(date2);
       const diffTime = date1 - date2;
 
       if (diffTime > 0) {
@@ -406,8 +408,10 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
                   <div className={classes.detailsWrapper}>
                     <div className={classes.detailTitle}>Price</div>
                     <div className={classes.detailValue}>
-                      {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(3)}{" "}
-                      {actualPackages[itemId].currency} / NFT
+                      {/* {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(3)}{" "}
+                      {actualPackages[itemId].currency} */}
+                      {actualPackages[itemId].price}
+                      {""} {actualPackages[itemId].currency}
                     </div>
                   </div>
 
