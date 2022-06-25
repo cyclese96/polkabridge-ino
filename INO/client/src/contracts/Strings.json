@@ -5070,8 +5070,8 @@
     "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.5",
-  "updatedAt": "2022-03-22T07:58:11.032Z",
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-06-25T05:04:25.973Z",
   "devdoc": {
     "details": "String operations.",
     "kind": "dev",
