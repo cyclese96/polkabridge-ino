@@ -323,14 +323,14 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         uint256 ethAmount = msg.value;
         uint256 calcItemAmount = ethAmount
             .mul(packages[packageIndex].RatePerETH)
-            .div(1e18);
+            .div(1e36);
         require(calcItemAmount >= quantity, "insufficient funds");
         uint256 restETH;
         if (calcItemAmount > quantity)
             restETH =
                 ethAmount -
                 quantity
-                    .mul(uint256(1).div(packages[packageIndex].RatePerETH))
+                    .mul(uint256(1).div(packages[packageIndex].RatePerETH.div(1e18)))
                     .mul(1e18);
         // check remained token
         uint256 remainToken = getRemainINOToken(packageId);
