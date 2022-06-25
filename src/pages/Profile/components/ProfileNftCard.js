@@ -265,7 +265,7 @@ const ProfileNftCard = ({ packageId, chainIds, currency }) => {
                       userPurchaseDetail.TotalETHPurchase,
                       "ether"
                     )
-                  ).toFixed(2)}
+                  ).toFixed(3)}
                   {" " + actualPackages[packageId].currency}
                 </div>
               </div>

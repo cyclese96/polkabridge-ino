@@ -179,7 +179,7 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
   const classes = useStyles();
 
   const [remainToken, setRemainToken] = useState(null);
-  const [packageDetail, setPackageDetail] = useState({});
+  const [packageDetail, setPackageDetail] = useState(null);
   const [userPurchaseDetail, setUserPurchaseDetail] = useState(null);
   const [isClaimed, setIsClaimed] = useState(false);
   const [isPurchased, setIsPurchased] = useState(false);
@@ -271,7 +271,12 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
 
     let userAddress = account;
 
-    let amount = parseInt(quantity) / parseFloat(packageDetail.RatePerETH);
+    let priceInEth =
+      1 / parseFloat(web3.utils.fromWei(packageDetail.RatePerETH, "ether"));
+    console.log(priceInEth);
+    let amount = parseInt(quantity) * priceInEth;
+    console.log(amount);
+
     let finalValue = web3.utils.toWei(amount.toString(), "ether");
 
     console.log(finalValue);
@@ -397,92 +402,125 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
                   <div className={classes.description}>
                     {actualPackages[itemId].description}
                   </div>
-                  <div className={classes.detailsWrapper}>
-                    <div className={classes.detailTitle}>Items remaining</div>
-                    <div className={classes.detailValue}>
-                      {remainToken && remainToken}/
-                      {packageDetail.TotalItemCount &&
-                        packageDetail.TotalItemCount}
-                    </div>
-                  </div>
-                  <div className={classes.detailsWrapper}>
-                    <div className={classes.detailTitle}>Price</div>
-                    <div className={classes.detailValue}>
-                      {/* {(1 / parseFloat(packageDetail.RatePerETH)).toFixed(3)}{" "}
-                      {actualPackages[itemId].currency} */}
-                      {actualPackages[itemId].price}
-                      {""} {actualPackages[itemId].currency}
-                    </div>
-                  </div>
+                  {packageDetail && (
+                    <div>
+                      <div className={classes.detailsWrapper}>
+                        <div className={classes.detailTitle}>
+                          Items remaining
+                        </div>
+                        <div className={classes.detailValue}>
+                          {remainToken && remainToken}/
+                          {packageDetail.TotalItemCount &&
+                            packageDetail.TotalItemCount}
+                        </div>
+                      </div>
+                      <div className={classes.detailsWrapper}>
+                        <div className={classes.detailTitle}>Price</div>
+                        <div className={classes.detailValue}>
+                          {(
+                            1 /
+                            parseFloat(
+                              web3.utils.fromWei(
+                                packageDetail.RatePerETH,
+                                "ether"
+                              )
+                            )
+                          ).toFixed(3)}{" "}
+                          {actualPackages[itemId].currency}
+                          {/* {actualPackages[itemId].price}
+                      {""} {actualPackages[itemId].currency} */}
+                        </div>
+                      </div>
 
-                  <div className={classes.detailsWrapper}>
-                    <div className={classes.detailTitle}>Minimum Purchase</div>
-                    <div className={classes.detailValue}>
-                      {" "}
-                      {packageDetail.MinimumTokenSoldout &&
-                        packageDetail.MinimumTokenSoldout}
-                    </div>
-                  </div>
-                  <div
-                    className="text-center mt-3"
-                    style={{ color: "green", fontSize: 12, minHeight: 30 }}
-                  >
-                    {parseInt(quantityBought) > 0 && (
-                      <span>You have purchased {quantityBought} NFTs.</span>
-                    )}
-                  </div>
-                  <div className="mt-3 px-2">
-                    {active && (
-                      <div className="text-center mt-3">
-                        {disablePurchase() ? (
-                          <div className="mt-3 px-2">
-                            <div className="text-center mt-3">
-                              <div className="mt-1">
-                                <div
-                                  style={{ color: "white", paddingBottom: 4 }}
-                                >
-                                  ~ Sell starts in ~{" "}
-                                </div>
-                                <Timer
-                                  endTime={actualPackages[itemId].startDate}
-                                />
+                      <div className={classes.detailsWrapper}>
+                        <div className={classes.detailTitle}>
+                          Minimum Purchase
+                        </div>
+                        <div className={classes.detailValue}>
+                          {" "}
+                          {packageDetail.MinimumTokenSoldout &&
+                            packageDetail.MinimumTokenSoldout}
+                        </div>
+                      </div>
+                      <div
+                        className="text-center mt-3"
+                        style={{ color: "green", fontSize: 12, minHeight: 30 }}
+                      >
+                        {parseInt(quantityBought) > 0 && (
+                          <span>You have purchased {quantityBought} NFTs.</span>
+                        )}
+                      </div>
+                      <div className="mt-3 px-2">
+                        {active && (
+                          <div className="text-center mt-3">
+                            {poolDetailLocal.chainId.includes(chainId) ? (
+                              <div>
+                                {disablePurchase() ? (
+                                  <div className="mt-3 px-2">
+                                    <div className="text-center mt-3">
+                                      <div className="mt-1">
+                                        <div
+                                          style={{
+                                            color: "white",
+                                            paddingBottom: 4,
+                                          }}
+                                        >
+                                          ~ Sell starts in ~{" "}
+                                        </div>
+                                        <Timer
+                                          endTime={
+                                            actualPackages[itemId].startDate
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="mt-2 px-3">
+                                    {!end && (
+                                      <Button
+                                        variant="contained"
+                                        className={classes.joinButton}
+                                        onClick={PurchasePopup}
+                                      >
+                                        Purchase
+                                      </Button>
+                                    )}
+                                  </div>
+                                )}
+                                {end && !isClaimed && !isPurchased && (
+                                  <Button
+                                    variant="contained"
+                                    className={classes.noPurchase}
+                                  >
+                                    Sell Ended
+                                  </Button>
+                                )}
+                                {end && !isClaimed && isPurchased && (
+                                  <Link to="/profile">
+                                    <Button
+                                      variant="contained"
+                                      className={classes.joinButton}
+                                      // onClick={claimPopup}
+                                    >
+                                      Claim Tokens
+                                    </Button>
+                                  </Link>
+                                )}
                               </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="mt-2 px-3">
-                            {!end && (
-                              <Button
-                                variant="contained"
-                                className={classes.joinButton}
-                                onClick={PurchasePopup}
-                              >
-                                Purchase
-                              </Button>
+                            ) : (
+                              <div>
+                                {" "}
+                                <Button
+                                  variant="contained"
+                                  className={classes.noPurchase}
+                                >
+                                  Wrong Network
+                                </Button>
+                              </div>
                             )}
-                          </div>
-                        )}
 
-                        {end && !isClaimed && !isPurchased && (
-                          <Button
-                            variant="contained"
-                            className={classes.noPurchase}
-                          >
-                            Sell Ended
-                          </Button>
-                        )}
-                        {end && !isClaimed && isPurchased && (
-                          <Link to="/profile">
-                            <Button
-                              variant="contained"
-                              className={classes.joinButton}
-                              // onClick={claimPopup}
-                            >
-                              Claim Tokens
-                            </Button>
-                          </Link>
-                        )}
-                        {/* {end && isClaimed && isPurchased && (
+                            {/* {end && isClaimed && isPurchased && (
                     <Button
                       variant="contained"
                       className={classes.claimedButton}
@@ -491,20 +529,22 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
                       Tokens Claimed
                     </Button>
                   )} */}
-                      </div>
-                    )}
+                          </div>
+                        )}
 
-                    {!active && (
-                      <div className="text-center mt-3">
-                        <Button
-                          variant="contained"
-                          className={classes.joinButton}
-                        >
-                          Connect Wallet First
-                        </Button>
+                        {!active && (
+                          <div className="text-center mt-3">
+                            <Button
+                              variant="contained"
+                              className={classes.joinButton}
+                            >
+                              Connect Wallet First
+                            </Button>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
 
