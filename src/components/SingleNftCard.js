@@ -289,7 +289,6 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
           from: userAddress,
           // value: amount.toString(),
           value: finalValue.toString(),
-          gasPrice: 25000000000,
         },
         async function (error, transactionHash) {
           if (transactionHash) {
