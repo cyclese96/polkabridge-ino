@@ -315,7 +315,7 @@ const ProfileNftCard = ({ packageId, chainIds, currency }) => {
                         </Button>
                       )}
                       {packages[packageId].claimType === "MANUAL" && (
-                        <a href="htpps://google.com" target="_blank">
+                        <a href="https://ino.fota.io/" target="_blank">
                           <Button
                             variant="contained"
                             className={classes.joinButton}
