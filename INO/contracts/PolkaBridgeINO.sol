@@ -306,6 +306,8 @@ contract PolkaBridgeINO is Ownable, ReentrancyGuard, IERC1155Receiver {
         payable
         nonReentrant
     {
+        require(quantity > 0, "zero amount");
+        
         uint256 packageIndex = packageId.sub(1);
         uint256 poolId = packages[packageIndex].PoolId;
         uint256 poolIndex = poolId.sub(1);

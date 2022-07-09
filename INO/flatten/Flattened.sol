@@ -24,7 +24,7 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 // File: @openzeppelin\contracts\token\ERC1155\IERC1155.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (token/ERC1155/IERC1155.sol)
 /**
  * @dev Required interface of an ERC1155 compliant contract, as defined in the
@@ -136,7 +136,7 @@ interface IERC1155 is IERC165 {
     ) external;
 }
 // File: @openzeppelin\contracts\token\ERC1155\IERC1155Receiver.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (token/ERC1155/IERC1155Receiver.sol)
 /**
  * @dev _Available since v3.1._
@@ -184,7 +184,7 @@ interface IERC1155Receiver is IERC165 {
     ) external returns (bytes4);
 }
 // File: @openzeppelin\contracts\token\ERC1155\extensions\IERC1155MetadataURI.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (token/ERC1155/extensions/IERC1155MetadataURI.sol)
 /**
  * @dev Interface of the optional ERC1155MetadataExtension interface, as defined
@@ -202,7 +202,7 @@ interface IERC1155MetadataURI is IERC1155 {
     function uri(uint256 id) external view returns (string memory);
 }
 // File: @openzeppelin\contracts\utils\Address.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (utils/Address.sol)
 /**
  * @dev Collection of functions related to the address type
@@ -401,7 +401,7 @@ library Address {
     }
 }
 // File: @openzeppelin\contracts\utils\Context.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (utils/Context.sol)
 /**
  * @dev Provides information about the current execution context, including the
@@ -422,7 +422,7 @@ abstract contract Context {
     }
 }
 // File: @openzeppelin\contracts\utils\introspection\ERC165.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (utils/introspection/ERC165.sol)
 /**
  * @dev Implementation of the {IERC165} interface.
@@ -447,7 +447,7 @@ abstract contract ERC165 is IERC165 {
     }
 }
 // File: @openzeppelin\contracts\token\ERC1155\ERC1155.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (token/ERC1155/ERC1155.sol)
 /**
  * @dev Implementation of the basic standard multi-token.
@@ -845,7 +845,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     }
 }
 // File: @openzeppelin\contracts\utils\Strings.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (utils/Strings.sol)
 /**
  * @dev String operations.
@@ -906,7 +906,7 @@ library Strings {
     }
 }
 // File: @openzeppelin\contracts\access\Ownable.sol
-// SPDX-License-Identifier: MIT
+
 // OpenZeppelin Contracts v4.4.0 (access/Ownable.sol)
 /**
  * @dev Contract module which provides a basic access control mechanism, where
@@ -971,4 +971,24 @@ abstract contract Ownable is Context {
     }
 }
 // File: contracts\PolkaBridgeNFT.sol
-// SPDX-License-Identifier: MITcontract PolkaBridgeNFT is ERC1155, Ownable {    constructor(string memory _uri) ERC1155(_uri) {}    function setURI(string memory newURI, uint256 id)         public onlyOwner {        emit URI(newURI, id);        _setURI(newURI);    }    function mintNFT(address recipient_, uint256 id_, uint256 amount_)        public onlyOwner {            _mint(recipient_, id_, amount_, '');    }    function multiMintNFT(address recipient_, uint256[] memory ids_, uint256[] memory amounts_)        public onlyOwner {        _mintBatch(recipient_, ids_, amounts_, '');    }}
+
+contract PolkaBridgeNFT is ERC1155, Ownable {
+    string public name = "PolkaBridge NFT";
+    string public symbol = "PBRNFT";
+    constructor(string memory _uri) ERC1155(_uri) {
+        _setURI(_uri);
+    }
+    function setURI(string memory newURI, uint256 id) 
+        public onlyOwner {
+        emit URI(newURI, id);
+        _setURI(newURI);
+    }
+    function mintNFT(address recipient_, uint256 id_, uint256 amount_)
+        public onlyOwner {    
+        _mint(recipient_, id_, amount_, '');
+    }
+    function multiMintNFT(address recipient_, uint256[] memory ids_, uint256[] memory amounts_)
+        public onlyOwner {
+        _mintBatch(recipient_, ids_, amounts_, '');
+    }
+}

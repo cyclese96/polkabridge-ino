@@ -3,7 +3,7 @@ require('dotenv').config({ path: './.env' });
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
 const web3 = new Web3();
-const MetaMaskAccountIndex = 25;
+const MetaMaskAccountIndex = 2;
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -51,6 +51,17 @@ module.exports = {
       timeoutBlocks: 250,
       networkCheckTimeout: 999999
     },
+    bscTestnet: {
+      provider: function () {
+        return new HDWalletProvider(process.env.MNEMONIC, "https://data-seed-prebsc-1-s1.binance.org:8545/", MetaMaskAccountIndex)
+      },
+      network_id: 97,
+      gasPrice: web3.utils.toWei('40', 'gwei'),
+      gas: 5000000,
+      timeoutBlocks: 500,
+      networkCheckTimeout: 999999,
+      skipDryRun: true
+    }, 
     kovan_infura: {
       provider: function () {
         return new HDWalletProvider(process.env.MNEMONIC, "https://kovan.infura.io/v3/1a735e3423e2475798a8e49509c02a1a", MetaMaskAccountIndex)
@@ -100,9 +111,11 @@ module.exports = {
     }
   },
   plugins: [
-    'truffle-plugin-verify'
+    'truffle-plugin-verify',
+    'truffle-flatten'
   ],
   api_keys: {
-    etherscan: process.env.API_KEY
+    etherscan: process.env.API_KEY,
+    bscscan: process.env.API_KEY_BSC
   }
 };
