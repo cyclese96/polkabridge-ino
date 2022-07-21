@@ -85,9 +85,9 @@ let packagesBsc = {
     poolName: "Galaxy Blitz NFTs",
     description:
       "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "0.25",
+    price: "0.39",
     currency: "BNB",
-    startDate: "July 20, 2022 14:00:00 UTC",
+    startDate: "July 26, 2022 14:00:00 UTC",
     quantity: "40",
     claimType: "MANUAL",
     claimTime: "August 05, 2022 14:00:00 UTC",
@@ -100,9 +100,9 @@ let packagesBsc = {
     poolName: "Galaxy Blitz NFTs",
     description:
       "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "0.25",
+    price: "1.4",
     currency: "BNB",
-    startDate: "July 20, 2022 14:00:00 UTC",
+    startDate: "July 26, 2022 14:00:00 UTC",
     quantity: "40",
     claimType: "MANUAL",
     claimTime: "August 05, 2022 14:00:00 UTC",
