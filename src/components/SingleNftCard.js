@@ -163,6 +163,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     padding: 0,
     paddingTop: 10,
+    paddingRight: 10,
     paddingLeft: 10,
     fontSize: 13,
     paddingBottom: 3,
@@ -355,7 +356,7 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
                   borderTopLeftRadius: 20,
                   borderBottomLeftRadius: 10,
                   borderBottomRightRadius: 10,
-                  border: "3px solid rgba(187, 85, 181, 0.1)",
+                  // border: "3px solid rgba(187, 85, 181, 0.1)",
                 }}
               >
                 <img

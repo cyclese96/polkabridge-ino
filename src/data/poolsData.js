@@ -118,6 +118,37 @@ let pool4 = {
   twitter: "https://twitter.com/fightoftheages",
   poolType: "1",
 };
-pools = [pool1, pool2, pool3, pool4];
+let pool5 = {
+  id: 2,
+  poolId: 5,
+  image: "https://s2.coinmarketcap.com/static/img/coins/200x200/17600.png",
+  title: "Galaxy Blitz NFTs",
+  type: "Packages",
+  totalPackages: "2",
+  description: `Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space. `,
+  startDate: "July 26, 2022 14:00:00 UTC",
+  endDate: "July 27, 2022 14:00:00 UTC",
+  utilities: [
+    "NFTs collected can be used to trade for physical assets and be used in the game.",
+    "NFT holders will be able to participate in the beta testing of the game.",
+    "NFTs can be staked and mine MIT token, up to 600% APY",
+    "Pledge NFT to share MIT seasonal rewards pool (Farm)",
+    "NFT merge (N+N=R, R+R=SR)",
+    "Lottery: stake determined level of NFT to stand a chance to win the prize",
+    "NFT AR functionality on mobile",
+  ],
+  price: "0.3-1.1",
+  currency: "BNB",
+  network: "Binance Smart Chain",
+  quantity: "250",
+  chainId: [56, 97],
+  website: "https://galaxyblitz.world",
+  whitepaper: "https://galaxy-blitz.gitbook.io/galaxy-blitz",
+  telegram: "https://t.me/galaxyblitz",
+  twitter: "https://twitter.com/GalaxyBlitzGame",
+  poolType: "1",
+};
+
+pools = [pool1, pool2, pool3, pool4, pool5];
 
 export default pools;

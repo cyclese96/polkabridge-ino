@@ -32,8 +32,6 @@ export const getPoolDetails = async (poolId, chainIds) => {
     .call((err, response) => {
       return response;
     });
-
-  console.log(res);
   return res;
 };
 
