@@ -137,7 +137,7 @@ let pool5 = {
     "Lottery: stake determined level of NFT to stand a chance to win the prize",
     "NFT AR functionality on mobile",
   ],
-  price: "0.39-1.4",
+  price: "0.4-1.4",
   currency: "BNB",
   network: "Binance Smart Chain",
   quantity: "250",
