@@ -165,6 +165,7 @@ const PoolCard = ({ poolData, poolId, chainIds, endedPool, authenticated }) => {
   useEffect(async () => {
     setLoading(true);
     let poolResult = await getPoolDetails(poolId, chainIds);
+    console.log(poolResult);
     let remainingQuantity = await getRemainingQuantityOfPool(poolId, chainIds);
     let initialQuantity = await getInitialBalanceOfPool(poolId, chainIds);
     if (active) {
