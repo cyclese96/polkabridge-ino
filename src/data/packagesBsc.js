@@ -88,9 +88,9 @@ let packagesBsc = {
     price: "0.4",
     currency: "BNB",
     startDate: "July 26, 2022 14:00:00 UTC",
-    quantity: "40",
+    quantity: "350",
     claimType: "MANUAL",
-    claimTime: "August 05, 2022 14:00:00 UTC",
+    claimTime: "July 28, 2022 9:00:00 UTC",
   },
   7: {
     id: 7,
@@ -103,9 +103,9 @@ let packagesBsc = {
     price: "1.4",
     currency: "BNB",
     startDate: "July 26, 2022 14:00:00 UTC",
-    quantity: "40",
+    quantity: "70",
     claimType: "MANUAL",
-    claimTime: "August 05, 2022 14:00:00 UTC",
+    claimTime: "July 28, 2022 9:00:00 UTC",
   },
 };
 export default packagesBsc;

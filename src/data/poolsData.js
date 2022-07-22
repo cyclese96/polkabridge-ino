@@ -127,7 +127,7 @@ let pool5 = {
   totalPackages: "2",
   description: `Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space. `,
   startDate: "July 26, 2022 14:00:00 UTC",
-  endDate: "July 31, 2022 14:00:00 UTC",
+  endDate: "July 27, 2022 14:00:00 UTC",
   utilities: [
     "NFTs collected can be used to trade for physical assets and be used in the game.",
     "NFT holders will be able to participate in the beta testing of the game.",
@@ -140,7 +140,7 @@ let pool5 = {
   price: "0.4-1.4",
   currency: "BNB",
   network: "Binance Smart Chain",
-  quantity: "250",
+  quantity: "420",
   chainId: [56, 97],
   website: "https://galaxyblitz.world",
   whitepaper: "https://galaxy-blitz.gitbook.io/galaxy-blitz",
