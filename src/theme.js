@@ -1,6 +1,10 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 export const theme = createMuiTheme({
   palette: {
+    action: {
+      disabled: "#A0A0A0",
+      disabledBackground: "rgba(89, 210, 188, 0.1)",
+    },
     common: {
       black: "#000",
       white: "#fff",

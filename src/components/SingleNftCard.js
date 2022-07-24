@@ -186,7 +186,7 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
   const [isPurchased, setIsPurchased] = useState(false);
   const [popup, setPopup] = useState(false);
   const [purchaseCase, setPurchaseCase] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [end, setEnd] = useState(false);
   const [quantityBought, setQuantityBought] = useState(0);
   const [loading, setLoading] = useState(false);

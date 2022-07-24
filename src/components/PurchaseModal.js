@@ -192,6 +192,7 @@ const PurchaseModal = ({
           <Button
             variant="contained"
             className={classes.confirmButton}
+            disabled={error}
             onClick={purchasePackage}
           >
             Confirm
