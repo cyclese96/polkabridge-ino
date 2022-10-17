@@ -124,17 +124,15 @@ let pool6 = {
   id: 4,
   poolId: 6,
   image: "https://tatsumeeko.com/tatsumeeko_logo_white.svg",
-  title: "Tatsumeeko NFTs",
+  title: "Tatsumeeko - Aethereal Parcels",
   type: "Packages",
   totalPackages: "1",
-  description: `Tatsumeeko is an in-development idle MMORPG that transports your Discord community into a vast fantasy world.`,
+  description: `Tatsumeeko is an in-development idle MMORPG that transports your Discord community into a vast fantasy world. Aethereal Parcels are special pieces of terrain that can be added to your Personal, Community or Guild dimensions. In addition to their cosmetic appeal, Parcels provide buffs to Players who interact with them.`,
   startDate: "October 17, 2022 15:00:00 UTC",
   endDate: "October 19, 2022 13:00:00 UTC",
   utilities: [
-    "2500 total supply, only 1450 available for whitelist and public.",
-    "NFT Layer Farming - Stake $SHOE tokens to mint more NFTs.",
-    "Access to Play 2 Earn Car Racing Game and Free Car NFT Airdrop.",
-    "Access to Shoeverse Metaverse & future collections.",
+    "Parcels provide buffs which can further be enhanced by Artifacts. In the future, parcel owners can upgrade and share these buffs with their communities and friends. These buffs give passive bonuses to different gameplay aspects like combat, crafting or resource bonuses.",
+    "Learn more at: https://tatsumeeko.com/parcels"
   ],
   price: "0.1",
   currency: "ETH",
@@ -150,6 +148,6 @@ let pool6 = {
   poolType: "1",
 };
 
-pools = [pool1, pool2, pool3, pool4, pool5, pool6];
+pools = [pool1, pool2, pool3, pool4, pool6];
 
 export default pools;
