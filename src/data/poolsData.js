@@ -156,7 +156,7 @@ let pool6 = {
   title: "Tatsumeeko - Aethereal Parcels",
   type: "Packages",
   totalPackages: "1",
-  description: `Tatsumeeko is an in-development idle MMORPG that transports your Discord community into a vast fantasy world. Aethereal Parcels are special pieces of terrain that can be added to your Personal, Community or Guild dimensions. In addition to their cosmetic appeal, Parcels provide buffs to Players who interact with them.`,
+  description: `Tatsumeeko is an MMORPG-lite that connects Discord and mobile communities to a modern fantasy RPG world. Aethereal Parcels are special pieces of terrain that can be added to your Personal, Community or Guild dimensions. In addition to their cosmetic appeal, Parcels provide buffs to Players who interact with them.`,
   startDate: "October 17, 2022 15:00:00 UTC",
   endDate: "October 19, 2022 13:00:00 UTC",
   utilities: [
