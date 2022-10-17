@@ -192,14 +192,22 @@ const Profile = () => {
   }, [active]);
 
   useEffect(async () => {
-    let status =
-      tempArr.filter((singleData) => singleData.address === account).length > 0;
-    if (status) {
-      setUserPurchaseValue(
-        tempArr.filter((singleData) => singleData.address === account)[0].amount
-      );
+    if (account) {
+      let status =
+        tempArr.filter(
+          (singleData) =>
+            singleData.address.toLowerCase() === account.toLowerCase()
+        ).length > 0;
+      if (status) {
+        setUserPurchaseValue(
+          tempArr.filter(
+            (singleData) =>
+              singleData.address.toLowerCase() === account.toLowerCase()
+          )[0].amount
+        );
+      }
     }
-  }, [active]);
+  }, [account]);
 
   return (
     <div className={classes.root}>
