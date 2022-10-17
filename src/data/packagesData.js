@@ -93,7 +93,7 @@ let packages = {
     startDate: "October 17, 2022 15:00:00 UTC",
     quantity: "50",
     claimType: "MANUAL",
-    claimTime: "October 21, 2022 15:00:00 UTC",
+    claimTime: "October 20, 2022 15:00:00 UTC",
   },
 };
 

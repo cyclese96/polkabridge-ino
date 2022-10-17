@@ -191,7 +191,7 @@ const PoolDetails = () => {
                     marginTop: 20,
                   }}
                 >
-                  Rules
+                  RULES
                 </h4>
                 <div className="mt-2 mb-2">
                   <li
@@ -202,7 +202,7 @@ const PoolDetails = () => {
                       lineHeight: 2.5,
                     }}
                   >
-                    For participate in {pools[id - 1].title} sale , you will pay {pools[id - 1].price} {pools[id - 1].currency} for 1 item
+                    For participate in {pools[id - 1].title} sale , you will pay {pools[id - 1].price} {pools[id - 1].currency} for 1 item. The sale will take place on {pools[id - 1].network} chain
                   </li>
                   <li
                     style={{
@@ -212,7 +212,7 @@ const PoolDetails = () => {
                       lineHeight: 2.5,
                     }}
                   >
-                    Once NFTs listed on offcial platform, you can sell/transfer. You can read more details about the item in the Utilities section
+                    Once NFTs listed on offcial platform, you can trade/transfer. You can read more details about the item in the utilities section
                   </li>
                   <li
                     style={{
@@ -232,7 +232,7 @@ const PoolDetails = () => {
                       lineHeight: 2.5,
                     }}
                   >
-                    The {pools[id - 1].title} will be on the Immutable X (IMX) chain. The {pools[id - 1].title} will be sent directly to your wallet on the IMX network upon mint and you will be able to view it then. Read more at <a href="https://tatsumeeko.com/community?post=general-aethereal-parcel-mint-guide" target={"_blank"}>https://tatsumeeko.com/community?post=general-aethereal-parcel-mint-guide</a>
+                    The {pools[id - 1].title} item will be on the Immutable X (IMX) chain. The {pools[id - 1].title} NFT will be sent directly to your wallet on the IMX network upon mint and you will be able to view it then. Read more at <a href="https://tatsumeeko.com/community?post=general-aethereal-parcel-mint-guide" target={"_blank"}>https://tatsumeeko.com/community?post=general-aethereal-parcel-mint-guide</a>
                   </li>
                 </div>
               </div>
@@ -246,7 +246,7 @@ const PoolDetails = () => {
                     marginTop: 20,
                   }}
                 >
-                  NFT Utilities
+                  UTILITIES
                 </h4>
                 <div className="mt-2 mb-2">
                   <p style={{ color: "white" }}>
