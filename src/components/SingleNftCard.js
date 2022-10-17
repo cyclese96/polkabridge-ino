@@ -413,8 +413,7 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
                         </div>
                         <div className={classes.detailValue}>
                           {remainToken && remainToken}/
-                          {packageDetail.TotalItemCount &&
-                            packageDetail.TotalItemCount}
+                          {itemId === "6" ? "50" : packageDetail.TotalItemCount}
                         </div>
                       </div>
                       <div className={classes.detailsWrapper}>
