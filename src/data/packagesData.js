@@ -82,7 +82,7 @@ let packages = {
   6: {
     id: 6,
     packageId: 6,
-    image: "https://tatsumeeko.com/parcels/land/grassland.png",
+    image: "/projects/tatsu/tatsu.png",
     title: "Tatsumeeko NFTs",
     type: "Packages",
     poolName: "Tatsumeeko NFTs",
