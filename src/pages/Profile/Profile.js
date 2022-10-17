@@ -6,6 +6,7 @@ import ProfileNftCard from "./components/ProfileNftCard";
 import { getUserPurchasedPackages } from "../../actions/smartActions";
 import Loader from "../../common/Loader";
 import { useWeb3React } from "@web3-react/core";
+import ProfileNftCardTemp from "./components/ProfileNftCardTemp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -130,8 +131,51 @@ const Profile = () => {
   const [purchasedPackagesEth, setPurchasedPackagesEth] = useState([]);
   const [purchasedPackagesBsc, setPurchasedPackagesBsc] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [userPurchaseValue, setUserPurchaseValue] = useState(0);
   const { active, account, chainId } = useWeb3React();
 
+  const tempArr = [
+    {
+      address: "0x7a2610d645201796644ff6c4d454efd6e8f63295",
+      amount: 10,
+    },
+    {
+      address: "0x57866ed63ca5f9744cef9aa270bd1f1dce935831",
+      amount: 1,
+    },
+    {
+      address: "0xd38918c98702171d6c0ba76061d1e337e4e2a9a7",
+      amount: 1,
+    },
+    {
+      address: "0x78d677b4ceec54e9a7ce99e9d0836125635291ce",
+      amount: 5,
+    },
+    {
+      address: "0xdc8788aaec1c15a420b05a50c9c7b2a6d6ab3b8b",
+      amount: 1,
+    },
+    {
+      address: "0x816659dc8bc419f23730adaaa67b2391fc976bf8",
+      amount: 4,
+    },
+    {
+      address: "0xf3381ee675e4b0ee5a74ecea36b3dde77bc23c47",
+      amount: 1,
+    },
+    {
+      address: "0x35822d37ce82be9785107df56a428a2883f8dd11",
+      amount: 2,
+    },
+    {
+      address: "0x716b0761b02db102f72950544411e1bc80bbeb09",
+      amount: 2,
+    },
+    {
+      address: "0x583f9d248c88f7ea5a03234a7ff91a1ebc19c9a3",
+      amount: 1,
+    },
+  ];
   useEffect(async () => {
     setLoading(true);
     if (active) {
@@ -145,6 +189,16 @@ const Profile = () => {
       console.log(resultBsc);
     }
     setLoading(false);
+  }, [active]);
+
+  useEffect(async () => {
+    let status =
+      tempArr.filter((singleData) => singleData.address === account).length > 0;
+    if (status) {
+      setUserPurchaseValue(
+        tempArr.filter((singleData) => singleData.address === account)[0].amount
+      );
+    }
   }, [active]);
 
   return (
@@ -209,6 +263,16 @@ const Profile = () => {
                             />
                           </div>
                         ))}
+                        {userPurchaseValue > 0 && (
+                          <div className="col-12 col-md-4">
+                            <ProfileNftCardTemp
+                              packageId={6}
+                              chainIds={[1, 4]}
+                              currency="ETH"
+                              qty={userPurchaseValue}
+                            />{" "}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
