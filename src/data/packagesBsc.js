@@ -76,36 +76,6 @@ let packagesBsc = {
     quantity: "70",
     claimType: "MANUAL",
     claimTime: "June 30, 2022 14:00:00 UTC",
-  },
-  6: {
-    id: 6,
-    image: "/projects/galaxy/green.gif",
-    title: "Galaxy Blitz Basic",
-    type: "Packages",
-    poolName: "Galaxy Blitz NFTs",
-    description:
-      "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "0.4",
-    currency: "BNB",
-    startDate: "July 26, 2022 14:00:00 UTC",
-    quantity: "350",
-    claimType: "MANUAL",
-    claimTime: "July 28, 2022 9:00:00 UTC",
-  },
-  7: {
-    id: 7,
-    image: "/projects/galaxy/yellow.gif",
-    title: "Galaxy Blitz Exclusive",
-    type: "Packages",
-    poolName: "Galaxy Blitz NFTs",
-    description:
-      "Galaxy Blitz is a Play-To-Earn combat strategy NFT game. The game is set in the future, as four unique highly evolved descendants of humanity fight for dominance in battles on both land and in space.",
-    price: "1.4",
-    currency: "BNB",
-    startDate: "July 26, 2022 14:00:00 UTC",
-    quantity: "70",
-    claimType: "MANUAL",
-    claimTime: "July 28, 2022 9:00:00 UTC",
-  },
+  }
 };
 export default packagesBsc;

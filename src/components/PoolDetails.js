@@ -158,6 +158,7 @@ const PoolDetails = () => {
         <div style={{ width: "100%" }}>
           <div className="text-center">
             <img className={classes.logo} src={pools[id - 1].image} />
+            {console.log(pools[id - 1])}
           </div>
           <div className={classes.poolTitle}>{pools[id - 1].title}</div>
           <div className="d-flex justify-content-center">
