@@ -202,8 +202,7 @@ const PoolDetails = () => {
                       lineHeight: 2.5,
                     }}
                   >
-                    You can participate in {pools[id - 1].title} NFT by paying
-                    the amount of NFTs
+                    For participate in {pools[id - 1].title} sale , you will pay {pools[id - 1].price} {pools[id - 1].currency} for 1 item
                   </li>
                   <li
                     style={{
@@ -213,7 +212,7 @@ const PoolDetails = () => {
                       lineHeight: 2.5,
                     }}
                   >
-                    Once NFTs listed on offcial platform, you can sell/transfer.
+                    Once NFTs listed on offcial platform, you can sell/transfer. You can read more details about the item in the Utilities section
                   </li>
                   <li
                     style={{
@@ -223,7 +222,17 @@ const PoolDetails = () => {
                       lineHeight: 2.5,
                     }}
                   >
-                    For more information visit our telegram group.
+                    For more information visit <a href="https://t.me/polkabridgegroup">our Telegram group</a>
+                  </li>
+                  <li
+                    style={{
+                      color: "#f9f9f9",
+                      marginLeft: 10,
+                      fontSize: 13,
+                      lineHeight: 2.5,
+                    }}
+                  >
+                    The {pools[id - 1].title} will be on the Immutable X (IMX) chain. The {pools[id - 1].title} will be sent directly to your wallet on the IMX network upon mint and you will be able to view it then. Read more at <a href="https://tatsumeeko.com/community?post=general-aethereal-parcel-mint-guide" target={"_blank"}>https://tatsumeeko.com/community?post=general-aethereal-parcel-mint-guide</a>
                   </li>
                 </div>
               </div>
