@@ -10,7 +10,7 @@ let bsctestContractAddress = "0xAD2e444f72F04694370458D268A3E8B470B5cF7D";
 var web3 = new Web3(window.ethereum);
 var inoContract = new web3.eth.Contract(
   inoAbi,
-  constants.net === 1 ? bsctestContractAddress : bscmainContractAddress
+  constants.net === 1 ? rinkebyContractAddress : ethContractAddress
 );
 
 export default inoContract;
