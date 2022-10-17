@@ -79,6 +79,22 @@ let packages = {
     claimType: "MANUAL",
     claimTime: "April 10, 2022 14:00:00 UTC",
   },
+  6: {
+    id: 6,
+    packageId: 6,
+    image: "https://tatsumeeko.com/parcels/land/grassland.png",
+    title: "Tatsumeeko NFTs",
+    type: "Packages",
+    poolName: "Tatsumeeko NFTs",
+    description:
+      "Tatsumeeko is an in-development idle MMORPG that transports your Discord community into a vast fantasy world.",
+    price: "0.1",
+    currency: "ETH",
+    startDate: "October 17, 2022 15:00:00 UTC",
+    quantity: "50",
+    claimType: "MANUAL",
+    claimTime: "October 21, 2022 15:00:00 UTC",
+  },
 };
 
 export default packages;
