@@ -221,11 +221,19 @@ const PoolCard = ({ poolData, poolId, chainIds, endedPool, authenticated }) => {
     }
   };
   const percentageSell = () => {
-    let numerator = initial - remaining;
+    if (poolId === 4) {
+      let numerator = initial - remaining;
 
-    let fraction = numerator / initial;
+      let fraction = (numerator + 28) / (initial + 28);
 
-    return (fraction * 100).toFixed(1);
+      return (fraction * 100).toFixed(1);
+    } else {
+      let numerator = initial - remaining;
+
+      let fraction = numerator / initial;
+
+      return (fraction * 100).toFixed(1);
+    }
   };
   return (
     <div className="col-12 col-md-6 mb-5">
@@ -294,15 +302,23 @@ const PoolCard = ({ poolData, poolId, chainIds, endedPool, authenticated }) => {
                   </div>
 
                   <div htmlFor="power" className={classes.powerWrapper}>
+                    {console.log("poolId")}
+                    {console.log(poolId)}
                     <ProgressStatsBar
                       color="green"
                       value={
                         isNaN(parseFloat(percentageSell()))
                           ? 0
+                          : poolId === 4
+                          ? initial - remaining + 28
                           : initial - remaining
                       }
                       maxValue={
-                        isNaN(parseFloat(percentageSell())) ? 100 : initial
+                        isNaN(parseFloat(percentageSell()))
+                          ? 100
+                          : poolId === 4
+                          ? initial + 28
+                          : initial
                       }
                     />
                   </div>
@@ -351,10 +367,14 @@ const PoolCard = ({ poolData, poolId, chainIds, endedPool, authenticated }) => {
                           value={
                             isNaN(parseFloat(percentageSell()))
                               ? 0
-                              : initial - remaining
+                              : initial - remaining + 28
                           }
                           maxValue={
-                            isNaN(parseFloat(percentageSell())) ? 100 : initial
+                            isNaN(parseFloat(percentageSell()))
+                              ? 100
+                              : poolId === 4
+                              ? initial + 28
+                              : initial
                           }
                         />
                       </div>
@@ -397,7 +417,7 @@ const PoolCard = ({ poolData, poolId, chainIds, endedPool, authenticated }) => {
             <div className={classes.detailsWrapper}>
               <div className={classes.detailTitle}>Total NFTs on sell</div>
               <div className={classes.detailValue}>
-                {!loading ? initial : "--"}
+                {!loading ? (poolId === 4 ? initial + 28 : initial) : "--"}
               </div>
             </div>
             <div className={classes.detailsWrapper}>

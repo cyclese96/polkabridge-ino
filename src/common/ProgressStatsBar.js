@@ -25,6 +25,8 @@ export default function ProgressStatsBar({ color, value, maxValue }) {
   let statsValue = (value * 100) / maxValue;
   return (
     <div>
+      {console.log("statsValue")}
+      {console.log(value, maxValue)}
       <BorderLinearProgress variant="determinate" value={statsValue} />
     </div>
   );
