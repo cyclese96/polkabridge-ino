@@ -149,6 +149,36 @@ let pool5 = {
   poolType: "1",
 };
 
-pools = [pool1, pool2, pool3, pool4, pool5];
+let pool6 = {
+  id: 4,
+  poolId: 6,
+  image: "https://tatsumeeko.com/tatsumeeko_logo_white.svg",
+  title: "Tatsumeeko NFTs",
+  type: "Packages",
+  totalPackages: "1",
+  description: `Tatsumeeko is an in-development idle MMORPG that transports your Discord community into a vast fantasy world.`,
+  startDate: "October 17, 2022 15:00:00 UTC",
+  endDate: "October 19, 2022 13:00:00 UTC",
+  utilities: [
+    "2500 total supply, only 1450 available for whitelist and public.",
+    "NFT Layer Farming - Stake $SHOE tokens to mint more NFTs.",
+    "Access to Play 2 Earn Car Racing Game and Free Car NFT Airdrop.",
+    "Access to Shoeverse Metaverse & future collections.",
+  ],
+  price: "0.1",
+  currency: "ETH",
+  chainId: [1, 4],
+
+  network: "Ethereum",
+  quantity: "50",
+  packageIds: [1],
+  website: "https://tatsumeeko.com/",
+  whitepaper: "https://tatsumeeko.com/whitepaper",
+  telegram: "https://discord.com/invite/tatsu",
+  twitter: "https://twitter.com/tatsumeeko",
+  poolType: "1",
+};
+
+pools = [pool1, pool2, pool3, pool4, pool5, pool6];
 
 export default pools;

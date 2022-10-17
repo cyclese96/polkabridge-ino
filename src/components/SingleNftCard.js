@@ -271,9 +271,12 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
     setPurchaseCase(3);
 
     let userAddress = account;
+    let actualRatePerEth =
+      actualPackages[itemId].currency === "ETH"
+        ? packageDetail.RatePerETH
+        : parseFloat(web3.utils.fromWei(packageDetail.RatePerETH, "ether"));
 
-    let priceInEth =
-      1 / parseFloat(web3.utils.fromWei(packageDetail.RatePerETH, "ether"));
+    let priceInEth = 1 / actualRatePerEth;
     console.log(priceInEth);
     let amount = parseInt(quantity) * priceInEth;
     console.log(amount);
@@ -417,18 +420,20 @@ const SingleNftCard = ({ packageId, endTime, itemId, poolDetailLocal }) => {
                       <div className={classes.detailsWrapper}>
                         <div className={classes.detailTitle}>Price</div>
                         <div className={classes.detailValue}>
-                          {(
-                            1 /
-                            parseFloat(
-                              web3.utils.fromWei(
-                                packageDetail.RatePerETH,
-                                "ether"
+                          {actualPackages[itemId].currency === "ETH" &&
+                            1 / packageDetail.RatePerETH}
+                          {actualPackages[itemId].currency != "ETH" &&
+                            (
+                              1 /
+                              parseFloat(
+                                web3.utils.fromWei(
+                                  packageDetail.RatePerETH,
+                                  "ether"
+                                )
                               )
-                            )
-                          ).toFixed(3)}{" "}
+                            ).toFixed(3)}
+
                           {actualPackages[itemId].currency}
-                          {/* {actualPackages[itemId].price}
-                      {""} {actualPackages[itemId].currency} */}
                         </div>
                       </div>
 
